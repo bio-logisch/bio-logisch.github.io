@@ -11,33 +11,37 @@
   그림책 작가 소개 페이지  (순수 HTML/CSS/JS · 외부 라이브러리 없음)
   · 장기 안정성을 위해 프레임워크/CDN 없이 이 파일 하나로 동작합니다.
   · 자주 바꿀 부분은 아래 세 곳입니다:
-      1) 색상·폰트  →  <style> 맨 위 :root 영역
-      2) 글(문구)   →  본문 HTML의 한글 텍스트
-      3) 책 목록     →  맨 아래 <script>의 books 배열 (책 추가/삭제)
-  · "이든"은 예시 필명입니다. 실제 작가님 이름으로 바꿔 주세요.
+      1) 색상·폰트  ->  <style> 맨 위 :root 영역
+      2) 글(문구)   ->  본문 HTML의 한글 텍스트
+      3) 책 목록     ->  맨 아래 <script>의 books 배열 (책 추가/삭제)
   · 폰트: 지금은 기본 폰트로 보이며, 눈누(noonnu.cc)에서 받은
     둥근 한글 폰트를 fonts/ 폴더에 넣고 아래 @font-face 주석을 풀면
     훨씬 아기자기해집니다.
+  · 색감: 베이지(배경) · 하늘색 · 에메랄드 세 가지로 통일했습니다.
 ====================================================================
 -->
 
 <style>
   /* ===== 1) 색상 · 폰트 (여기만 바꿔도 전체 분위기가 바뀝니다) ===== */
   :root{
-    --paper:  #FFFCF6;   /* 배경 종이색 */
-    --ink:    #2E2A39;   /* 글자색(따뜻한 먹색) */
-    --ink-soft:#6E687C;  /* 흐린 글자색 */
-    --line:   #EAE3D6;   /* 옅은 경계선 */
+    /* --- 베이지 계열 (배경·바탕) --- */
+    --paper:   #F7F1E6;   /* 배경 종이색(베이지) */
+    --paper-2: #FBF7EF;   /* 살짝 밝은 베이지(카드 배경) */
+    --sand:    #E8DCC6;   /* 진한 베이지(경계·포인트) */
+    --line:    #E3D8C4;   /* 옅은 경계선 */
 
-    /* 크레용 포스터물감 팔레트 (책 카드가 이 색들을 돌아가며 씁니다) */
-    --pop:   #FF7A6B;    /* 코랄 (메인 강조) */
-    --sun:   #FFC24D;    /* 노랑 */
-    --sky:   #4FC4D6;    /* 하늘 */
-    --grape: #8B7BE8;    /* 보라 */
-    --leaf:  #74C87A;    /* 초록 */
+    /* --- 글자색 --- */
+    --ink:     #33413F;   /* 글자색(에메랄드가 섞인 짙은 먹색) */
+    --ink-soft:#6E7B76;   /* 흐린 글자색 */
+
+    /* --- 포인트 두 색 (하늘색 · 에메랄드) --- */
+    --sky:     #7EC8E3;   /* 하늘색 */
+    --sky-deep:#4FA9CE;   /* 진한 하늘색 */
+    --emerald: #2FB69A;   /* 에메랄드 */
+    --emerald-deep:#1E8E78;/* 진한 에메랄드 */
 
     --radius: 22px;      /* 둥근 모서리 정도 */
-    --shadow: 0 14px 30px rgba(46,42,57,.10);
+    --shadow: 0 14px 30px rgba(51,65,63,.12);
 
     --font-body: "Pretendard Variable", Pretendard, -apple-system,
                  "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
@@ -70,7 +74,7 @@
 
   /* 키보드 접근성: 포커스 표시 */
   a:focus-visible, button:focus-visible{
-    outline:3px solid var(--grape); outline-offset:3px; border-radius:8px;
+    outline:3px solid var(--emerald); outline-offset:3px; border-radius:8px;
   }
 
   /* ===== 상단 바 ===== */
@@ -85,10 +89,10 @@
     font-family:var(--font-display); font-weight:800; font-size:1.25rem;
     letter-spacing:-.02em; display:flex; align-items:center; gap:8px;
   }
-  .logo .dot{ width:12px; height:12px; border-radius:50%; background:var(--pop); }
+  .logo .dot{ width:12px; height:12px; border-radius:50%; background:var(--emerald); }
   .nav-links{ margin-left:auto; display:flex; gap:22px; font-size:.95rem; font-weight:600; }
   .nav-links a{ color:var(--ink-soft); transition:color .2s; }
-  .nav-links a:hover{ color:var(--pop); }
+  .nav-links a:hover{ color:var(--emerald); }
   .sns{ display:flex; gap:12px; align-items:center; }
   .sns a{
     width:34px; height:34px; display:grid; place-items:center;
@@ -101,7 +105,7 @@
 
   /* ===== 흐르는 마퀴 리본 (시그니처 요소) ===== */
   .marquee{
-    background:var(--pop); color:#fff; overflow:hidden; white-space:nowrap;
+    background:var(--emerald); color:#fff; overflow:hidden; white-space:nowrap;
     border-block:3px solid var(--ink); padding:11px 0;
   }
   .marquee__track{
@@ -118,7 +122,7 @@
   .hero-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center; }
   .eyebrow{
     display:inline-block; font-weight:700; font-size:.85rem; letter-spacing:.02em;
-    color:var(--grape); background:color-mix(in srgb,var(--grape) 14%, #fff);
+    color:var(--emerald-deep); background:color-mix(in srgb,var(--emerald) 16%, #fff);
     padding:6px 14px; border-radius:999px; margin-bottom:18px;
   }
   .hero h1{
@@ -126,32 +130,53 @@
     font-size:clamp(2.1rem, 5vw, 3.4rem); line-height:1.25;
     letter-spacing:-.02em; margin-bottom:18px;
   }
-  .hero h1 .hl{ color:var(--pop); }
+  .hero h1 .hl{ color:var(--emerald); }
   .hero p.lead{ color:var(--ink-soft); font-size:1.08rem; max-width:34ch; margin-bottom:28px; }
   .btn-row{ display:flex; gap:12px; flex-wrap:wrap; }
   .btn{
     font-weight:700; padding:13px 22px; border-radius:999px; border:2px solid var(--ink);
-    background:var(--sun); color:var(--ink); cursor:pointer; transition:transform .15s, box-shadow .2s;
+    background:var(--sky); color:var(--ink); cursor:pointer; transition:transform .15s, box-shadow .2s;
     box-shadow:4px 4px 0 var(--ink);
   }
   .btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
   .btn.ghost{ background:transparent; box-shadow:none; }
-  .btn.ghost:hover{ background:#fff; box-shadow:none; transform:none; }
+  .btn.ghost:hover{ background:var(--paper-2); box-shadow:none; transform:none; }
 
   /* 히어로 그림 자리 + 말풍선 */
   .hero-art{ position:relative; }
   .blob{
     aspect-ratio:1/1; border-radius:46% 54% 52% 48% / 55% 48% 52% 45%;
-    background:linear-gradient(140deg, var(--sky), var(--grape));
+    background:linear-gradient(140deg, var(--sky), var(--emerald));
     display:grid; place-items:center; color:#fff; box-shadow:var(--shadow);
     animation:float 6s ease-in-out infinite;
+    position:relative;
   }
-  .blob .face{ font-size:clamp(3rem,9vw,5.5rem); }
   @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  /* --- 햄스터: 우측 하단 배치 + 클릭 모션 --- */
+  .critter{
+    position:absolute; right:6%; bottom:4%;
+    font-size:clamp(3rem,9vw,5rem);
+    background:none; border:0; cursor:pointer; padding:6px; line-height:1;
+    filter:drop-shadow(0 6px 10px rgba(51,65,63,.25));
+    transition:transform .2s;
+    animation:bob 3.2s ease-in-out infinite;   /* 평소엔 살짝 통통 튐 */
+  }
+  .critter:hover{ transform:scale(1.12) rotate(-4deg); }
+  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  /* 클릭했을 때 한 번 폴짝 뛰는 모션 */
+  .critter.jump{ animation:hop .6s ease; }
+  @keyframes hop{
+    0%{ transform:translateY(0) scale(1); }
+    30%{ transform:translateY(-34px) scale(1.15) rotate(-10deg); }
+    55%{ transform:translateY(0) scale(.94); }
+    72%{ transform:translateY(-10px) scale(1.06); }
+    100%{ transform:translateY(0) scale(1); }
+  }
   .bubble{
     position:absolute; top:-8px; right:-6px; background:#fff; color:var(--ink);
     border:2px solid var(--ink); border-radius:18px; padding:10px 14px;
-    font-weight:700; font-size:.92rem; box-shadow:var(--shadow);
+    font-weight:700; font-size:.92rem; box-shadow:var(--shadow); z-index:2;
   }
   .bubble::after{
     content:""; position:absolute; bottom:-11px; left:26px;
@@ -172,8 +197,8 @@
   .about-grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:40px; align-items:center; }
   .portrait{
     aspect-ratio:4/5; border-radius:var(--radius); background:
-      radial-gradient(circle at 30% 30%, var(--sun), transparent 60%),
-      linear-gradient(160deg, var(--leaf), var(--sky));
+      radial-gradient(circle at 30% 30%, color-mix(in srgb,var(--sky) 70%, #fff), transparent 60%),
+      linear-gradient(160deg, var(--emerald), var(--sky));
     box-shadow:var(--shadow); display:grid; place-items:center; color:#fff; font-size:4rem;
     border:3px solid var(--ink);
   }
@@ -206,9 +231,9 @@
   /* ===== 확대 팝업 (브라우저 기본 dialog) ===== */
   dialog#viewer{
     border:3px solid var(--ink); border-radius:var(--radius); padding:0;
-    width:min(560px, 92vw); background:var(--paper); box-shadow:var(--shadow);
+    width:min(560px, 92vw); background:var(--paper-2); box-shadow:var(--shadow);
   }
-  dialog#viewer::backdrop{ background:rgba(46,42,57,.5); backdrop-filter:blur(3px); }
+  dialog#viewer::backdrop{ background:rgba(51,65,63,.5); backdrop-filter:blur(3px); }
   .viewer-inner{ padding:22px; }
   .viewer-cover{
     aspect-ratio:3/4; max-height:52vh; margin:0 auto 18px; border-radius:14px;
@@ -223,18 +248,18 @@
     border:2px solid var(--ink); background:#fff; width:44px; height:44px; border-radius:50%;
     cursor:pointer; font-size:1.2rem; display:grid; place-items:center; transition:background .15s;
   }
-  .vbtn:hover{ background:var(--sun); }
+  .vbtn:hover{ background:var(--sky); }
   .vclose{
-    border:2px solid var(--ink); background:var(--pop); color:#fff; font-weight:700;
+    border:2px solid var(--ink); background:var(--emerald); color:#fff; font-weight:700;
     padding:8px 16px; border-radius:999px; cursor:pointer;
   }
 
   /* ===== 활동/연락 ===== */
   .timeline{ display:grid; gap:14px; }
   .tl-item{ display:grid; grid-template-columns:90px 1fr; gap:16px; padding:14px 0; border-bottom:1px dashed var(--line); }
-  .tl-item .yr{ font-family:var(--font-display); font-weight:800; color:var(--pop); }
+  .tl-item .yr{ font-family:var(--font-display); font-weight:800; color:var(--emerald); }
   .contact-card{
-    background:#fff; border:3px solid var(--ink); border-radius:var(--radius);
+    background:var(--paper-2); border:3px solid var(--ink); border-radius:var(--radius);
     box-shadow:var(--shadow); padding:34px; text-align:center;
   }
   .contact-card h2{ font-family:var(--font-display); font-size:1.8rem; margin-bottom:10px; }
@@ -271,8 +296,9 @@
     </nav>
     <div class="sns">
       <!-- 아이콘은 간단한 SVG로 직접 넣어 외부 의존을 없앴습니다 -->
-      <a href="https://www.instagram.com/saetbyeolpaeng?igsh=MWNkOWx5djJpNTNqOQ==" aria-label="인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-      <a href="saetbyeolpaeng@gmail.com" aria-label="이메일"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></a>
+      <a href="https://www.instagram.com/saetbyeolpaeng?igsh=MWNkOWx5djJpNTNqOQ==" target="_blank" rel="noopener" aria-label="인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <!-- 메일: 반드시 mailto: 를 붙여야 메일 작성창이 열립니다 -->
+      <a href="mailto:saetbyeolpaeng@gmail.com" aria-label="이메일 보내기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></a>
     </div>
   </div>
 </header>
@@ -301,7 +327,9 @@
     </div>
     <div class="hero-art">
       <div class="bubble">오늘은 어떤 이야기가 궁금해요?</div>
-      <div class="blob"><span class="face">🐌</span></div>
+      <div class="blob"></div>
+      <!-- 햄스터: 우측 하단. 클릭하면 폴짝 뛰는 모션 (아래 script에서 처리) -->
+      <button class="critter" id="critter" aria-label="햄스터를 눌러보세요">🐹</button>
     </div>
   </div>
 </section>
@@ -309,7 +337,7 @@
 <!-- ===================== 소개 ===================== -->
 <section class="block" id="about">
   <div class="wrap">
-    <p class="sec-label" style="color:var(--sky)">ABOUT</p>
+    <p class="sec-label" style="color:var(--sky-deep)">ABOUT</p>
     <h2 class="sec-title">작은 이야기를 그리는 사람</h2>
     <div class="about-grid" style="margin-top:24px">
       <div class="portrait">🎨</div>
@@ -328,9 +356,9 @@
 </section>
 
 <!-- ===================== 책 갤러리 ===================== -->
-<section class="block" id="books" style="background:color-mix(in srgb,var(--sun) 12%, var(--paper))">
+<section class="block" id="books" style="background:color-mix(in srgb,var(--sand) 45%, var(--paper))">
   <div class="wrap">
-    <p class="sec-label" style="color:var(--pop)">PICTURE BOOKS</p>
+    <p class="sec-label" style="color:var(--emerald-deep)">PICTURE BOOKS</p>
     <h2 class="sec-title">팽샛별의 그림책</h2>
     <p class="sec-desc">표지를 눌러 보세요. 크게 펼쳐지고 이야기 소개가 나와요.</p>
     <div class="book-grid" id="bookGrid"><!-- 자바스크립트가 채웁니다 --></div>
@@ -340,7 +368,7 @@
 <!-- ===================== 활동 ===================== -->
 <section class="block" id="news">
   <div class="wrap">
-    <p class="sec-label" style="color:var(--leaf)">NEWS</p>
+    <p class="sec-label" style="color:var(--sky-deep)">NEWS</p>
     <h2 class="sec-title">활동과 소식</h2>
     <div class="timeline" style="margin-top:24px">
       <div class="tl-item"><span class="yr">2025</span><span>『달빛 우체통』으로 ○○그림책상 수상</span></div>
@@ -358,8 +386,9 @@
       <h2>함께 이야기해요</h2>
       <p>강연·수업·출간 문의를 언제든 환영합니다.</p>
       <div class="contact-btns">
-        <a class="btn" href="saetbyeolpaeng@gmail.com">이메일 보내기</a>
-        <a class="btn ghost" href="https://www.instagram.com/saetbyeolpaeng?igsh=MWNkOWx5djJpNTNqOQ==">인스타그램</a>
+        <!-- mailto: 를 붙여야 클릭 시 메일 작성창이 열립니다 -->
+        <a class="btn" href="mailto:saetbyeolpaeng@gmail.com">이메일 보내기</a>
+        <a class="btn ghost" href="https://www.instagram.com/saetbyeolpaeng?igsh=MWNkOWx5djJpNTNqOQ==" target="_blank" rel="noopener">인스타그램</a>
       </div>
     </div>
   </div>
@@ -386,18 +415,19 @@
 /* ============================================================
    책 목록 — 여기만 고치면 갤러리가 바뀝니다.
    새 책 추가: 아래 {} 블록을 복사해서 넣으세요.
-   color: --pop / --sun / --sky / --grape / --leaf 중 선택 (2색이면 표지 그라데이션)
+   color: 아래 팔레트 변수 중 선택 (2색이면 표지 그라데이션)
+     쓸 수 있는 값: --sky / --sky-deep / --emerald / --emerald-deep / --sand
    실제 표지 이미지가 있으면 image 값에 파일 경로를 넣으세요.
      예)  image: "images/covers/moon.jpg"
    image가 있으면 색 대신 사진이 표지로 쓰입니다.
    ============================================================ */
 const books = [
-  { title:"달빛 우체통",       blurb:"밤마다 편지를 배달하는 작은 우체통 이야기.",        color:["--grape","--sky"],  image:"" },
-  { title:"구름을 그리는 아이", blurb:"하늘이 심심한 날, 크레용을 든 아이가 나섰어요.",     color:["--sky","--leaf"],   image:"" },
-  { title:"양말 잃은 문어",     blurb:"여덟 개의 발, 그런데 양말이 자꾸 사라져요.",        color:["--pop","--sun"],    image:"" },
-  { title:"느릿느릿 소풍",     blurb:"세상에서 가장 느린 달팽이의 가장 즐거운 하루.",     color:["--leaf","--sun"],   image:"" },
-  { title:"반딧불 도서관",     blurb:"불이 꺼지면 책들이 반딧불처럼 깨어나요.",           color:["--grape","--pop"],  image:"" },
-  { title:"초록 대문 고양이",   blurb:"골목 끝 초록 대문 집에 사는 수줍은 고양이.",        color:["--sun","--sky"],    image:"" },
+  { title:"달빛 우체통",       blurb:"밤마다 편지를 배달하는 작은 우체통 이야기.",        color:["--emerald","--sky"],         image:"" },
+  { title:"구름을 그리는 아이", blurb:"하늘이 심심한 날, 크레용을 든 아이가 나섰어요.",     color:["--sky","--sky-deep"],        image:"" },
+  { title:"양말 잃은 문어",     blurb:"여덟 개의 발, 그런데 양말이 자꾸 사라져요.",        color:["--sky-deep","--emerald"],    image:"" },
+  { title:"느릿느릿 소풍",     blurb:"세상에서 가장 느린 달팽이의 가장 즐거운 하루.",     color:["--emerald","--emerald-deep"],image:"" },
+  { title:"반딧불 도서관",     blurb:"불이 꺼지면 책들이 반딧불처럼 깨어나요.",           color:["--emerald-deep","--sky"],    image:"" },
+  { title:"초록 대문 고양이",   blurb:"골목 끝 초록 대문 집에 사는 수줍은 고양이.",        color:["--sky","--emerald"],         image:"" },
 ];
 
 /* --- 표지 배경 스타일 만들기 --- */
@@ -451,6 +481,17 @@ dlg.addEventListener('keydown', (e) => {
 });
 /* 바깥 어두운 부분 클릭 시 닫기 */
 dlg.addEventListener('click', (e) => { if(e.target === dlg) dlg.close(); });
+
+/* --- 햄스터 클릭 모션: 누르면 한 번 폴짝 뛰기 --- */
+const critter = document.getElementById('critter');
+critter.addEventListener('click', () => {
+  critter.classList.remove('jump');        // 연타해도 다시 재생되도록 초기화
+  void critter.offsetWidth;                // 리플로우 강제(애니메이션 재시작 트릭)
+  critter.classList.add('jump');
+});
+critter.addEventListener('animationend', (e) => {
+  if(e.animationName === 'hop') critter.classList.remove('jump');
+});
 </script>
 </body>
 </html>
