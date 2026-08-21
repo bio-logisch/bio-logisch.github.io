@@ -384,17 +384,6 @@
           <stop offset="45%" stop-color="var(--leaf-soft)"/>
           <stop offset="100%" stop-color="var(--leaf-mid)"/>
         </radialGradient>
-        <!-- 수채화 필터: 가장자리를 물감처럼 번지게(변위) + 부드럽게(블러) -->
-        <filter id="wc" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="2" seed="9" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="17" xChannelSelector="R" yChannelSelector="G" result="d"/>
-          <feGaussianBlur in="d" stdDeviation="1.9"/>
-        </filter>
-        <!-- 종이 결(은은한 얼룩) -->
-        <filter id="paper">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="t"/>
-          <feColorMatrix in="t" type="saturate" values="0"/>
-        </filter>
       </defs>
 
       <!-- 신비로운 빛무리 -->
