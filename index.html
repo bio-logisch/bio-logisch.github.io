@@ -118,7 +118,8 @@
   .tree-wrap{ position:absolute; left:50%; bottom:0; transform:translateX(-50%);
     z-index:1; pointer-events:none; }
   .tree{ height:min(58vh,540px); width:auto; max-width:94vw; display:block;
-    filter:drop-shadow(0 22px 34px rgba(52,71,59,.18)); }
+    filter:drop-shadow(0 22px 30px rgba(52,71,59,.14)) saturate(.9) brightness(1.03) blur(.4px);
+    opacity:.96; }
   @media (max-width:640px){ .tree{ height:min(42vh,360px); } }
   .cluster{ transform-box:fill-box; transform-origin:50% 94%;
     animation:sway var(--dur,6s) ease-in-out infinite; animation-delay:var(--dly,0s); }
@@ -154,10 +155,12 @@
     transition:opacity .9s ease, transform .9s ease, filter .9s ease; }
   .hero-word.in{ opacity:1; transform:none; filter:none; }
 
-  .scroll-hint{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3;
-    font-size:.7rem; letter-spacing:.3em; color:var(--ink-soft); text-transform:uppercase;
+  .scroll-hint{ position:absolute; bottom:22px; left:50%; transform:translateX(-50%); z-index:3;
+    font-size:.7rem; letter-spacing:.3em; color:#FBF6EA; text-transform:uppercase;
+    text-shadow:0 1px 6px rgba(52,50,40,.55);
     display:flex; flex-direction:column; align-items:center; gap:10px; }
-  .scroll-hint .line{ width:1px; height:40px; background:linear-gradient(var(--ink-soft), transparent);
+  .scroll-hint .line{ width:2px; height:40px; border-radius:2px;
+    background:linear-gradient(#FBF6EA, transparent); box-shadow:0 0 6px rgba(52,50,40,.4);
     animation:drop 2.2s ease-in-out infinite; transform-origin:top; }
   @keyframes drop{ 0%,100%{ transform:scaleY(.4); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
 
@@ -263,6 +266,65 @@
   .sticky-cta.show{ opacity:1; transform:none; pointer-events:auto; }
   .sticky-cta:hover{ background:var(--sky); }
 
+  /* ===== 발치의 작은 정원 (들풀·꽃·애벌레·개미) ===== */
+  .meadow{ position:absolute; left:0; right:0; bottom:0; width:100%; z-index:1; pointer-events:none;
+    filter:saturate(.94) blur(.3px); }
+  .meadow svg{ width:100%; height:auto; display:block; }
+
+  /* 바람에 흔들리는 것들: 각자 밑동을 축으로 살랑 */
+  .sway{ transform-box:fill-box; transform-origin:50% 100%;
+    animation:msway var(--d,5s) ease-in-out infinite; animation-delay:var(--dl,0s); }
+  @keyframes msway{ 0%,100%{ transform:rotate(calc(var(--a,4deg) * -1)); }
+                    50%    { transform:rotate(var(--a,4deg)); } }
+
+  /* 꽃송이 살짝 벌렁이기 */
+  .bloom{ transform-box:fill-box; transform-origin:50% 100%;
+    animation:bloomPulse 4.5s ease-in-out infinite; }
+  /* scale 속성을 쓰면 SVG의 transform="translate()"(위치)를 덮어쓰지 않고 함께 적용됩니다 */
+  @keyframes bloomPulse{ 0%,100%{ scale:1 } 50%{ scale:1.06 } }
+
+  /* 애벌레 꿈틀꿈틀 기어가기 */
+  .cat{ animation:inch 7s ease-in-out infinite; }
+  @keyframes inch{ 0%{ transform:translateX(0) } 50%{ transform:translateX(70px) } 100%{ transform:translateX(0) } }
+  .cat-body{ transform-box:fill-box; transform-origin:50% 100%; animation:hump 1.1s ease-in-out infinite; }
+  @keyframes hump{ 0%,100%{ transform:scaleX(1) scaleY(1) } 50%{ transform:scaleX(.86) scaleY(1.12) } }
+
+  /* 개미 종종걸음(양끝에서 방향 전환) */
+  .ant{ transform-box:fill-box; transform-origin:50% 50%; animation:antwalk 8s linear infinite; }
+  @keyframes antwalk{
+    0%{ transform:translateX(0) } 46%{ transform:translateX(120px) }
+    50%{ transform:translateX(120px) scaleX(-1) } 96%{ transform:translateX(0) scaleX(-1) }
+    100%{ transform:translateX(0) } }
+  .ant-legs line{ animation:legwiggle .34s ease-in-out infinite alternate; transform-origin:top; }
+  @keyframes legwiggle{ from{ transform:rotate(-8deg) } to{ transform:rotate(8deg) } }
+
+  /* ===== 나비 (히어로 아래를 팔랑팔랑 가로지름) ===== */
+  .bfly{ position:absolute; z-index:2; left:0; top:0; width:44px; height:auto; pointer-events:none;
+    transform:translate(20vw,58vh); /* 애니메이션이 꺼져도 자연스러운 자리에 */
+    animation:flit 20s ease-in-out infinite; }
+  .bfly.b2{ width:32px; transform:translate(72vw,52vh);
+    animation:flit2 24s ease-in-out infinite; animation-delay:-6s; }
+  @keyframes flit{
+    0%   { transform:translate(7vw,64vh)  rotate(-8deg) }
+    22%  { transform:translate(26vw,50vh) rotate(7deg) }
+    45%  { transform:translate(48vw,60vh) rotate(-5deg) }
+    68%  { transform:translate(30vw,46vh) rotate(9deg) }
+    88%  { transform:translate(14vw,58vh) rotate(-6deg) }
+    100% { transform:translate(7vw,64vh)  rotate(-8deg) }
+  }
+  @keyframes flit2{
+    0%   { transform:translate(82vw,58vh) rotate(6deg) }
+    25%  { transform:translate(64vw,44vh) rotate(-7deg) }
+    50%  { transform:translate(78vw,54vh) rotate(5deg) }
+    75%  { transform:translate(58vw,40vh) rotate(-8deg) }
+    100% { transform:translate(82vw,58vh) rotate(6deg) }
+  }
+  .wing{ transform-box:fill-box; animation:flap .3s ease-in-out infinite alternate; }
+  .wing.wl{ transform-origin:100% 50%; }
+  .wing.wr{ transform-origin:0% 50%; }
+  @keyframes flap{ from{ transform:scaleX(1) } to{ transform:scaleX(.48) } }
+  @media (max-width:640px){ .bfly{ width:34px; } .bfly.b2{ display:none; } }
+
   @media (prefers-reduced-motion:reduce){
     *{ animation:none !important; }
     .js .reveal, .js .hero-word{ opacity:1 !important; transform:none !important; filter:none !important; }
@@ -322,6 +384,17 @@
           <stop offset="45%" stop-color="var(--leaf-soft)"/>
           <stop offset="100%" stop-color="var(--leaf-mid)"/>
         </radialGradient>
+        <!-- 수채화 필터: 가장자리를 물감처럼 번지게(변위) + 부드럽게(블러) -->
+        <filter id="wc" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="2" seed="9" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="17" xChannelSelector="R" yChannelSelector="G" result="d"/>
+          <feGaussianBlur in="d" stdDeviation="1.9"/>
+        </filter>
+        <!-- 종이 결(은은한 얼룩) -->
+        <filter id="paper">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="t"/>
+          <feColorMatrix in="t" type="saturate" values="0"/>
+        </filter>
       </defs>
 
       <!-- 신비로운 빛무리 -->
@@ -330,6 +403,8 @@
       <!-- 뿌리 언덕 -->
       <path d="M120 720 C 300 662 700 662 880 720 Z" fill="rgba(76,174,130,.16)"/>
 
+      <!-- 나무 전체를 수채화 필터로 감쌉니다 -->
+      <g filter="url(#wc)">
       <!-- 줄기 -->
       <path d="M470 720
                C 476 604 484 520 486 432
@@ -381,8 +456,188 @@
         <ellipse cx="500" cy="150" rx="96" ry="84" fill="url(#leafA)"/>
         <ellipse cx="500" cy="126" rx="60" ry="50" fill="url(#leafB)"/>
       </g>
+      </g><!-- /수채화 그룹 -->
+
+      <!-- 종이 결 얼룩(잎 위에 아주 옅게) -->
+      <ellipse cx="500" cy="270" rx="290" ry="220" fill="#5c7a55" opacity=".06"
+               filter="url(#paper)" style="mix-blend-mode:multiply"/>
     </svg>
   </div>
+
+  <!-- ===== 발치의 작은 정원 (들풀·꽃·애벌레·개미) ===== -->
+  <div class="meadow" aria-hidden="true">
+    <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <!-- 풀밭 언덕 -->
+      <path d="M0 240 L0 202 Q 300 184 600 197 Q 900 210 1200 190 L1200 240 Z" fill="rgba(120,175,112,.30)"/>
+      <path d="M0 240 L0 216 Q 320 202 600 211 Q 900 221 1200 205 L1200 240 Z" fill="rgba(88,150,96,.40)"/>
+
+      <!-- 들풀 무리 (양옆으로 무성하게, 가운데는 성기게) -->
+      <g stroke-linecap="round" fill="none">
+        <!-- 왼쪽 -->
+        <g transform="translate(90 0)"><g class="sway" style="--d:5.2s;--a:6deg">
+          <path d="M0 206 Q-11 166 -19 150" stroke="var(--leaf-deep)" stroke-width="5"/>
+          <path d="M0 206 Q-4 160 -6 136" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 206 Q1 158 2 130" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 206 Q6 160 10 140" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 206 Q12 166 20 152" stroke="var(--leaf-deep)" stroke-width="5"/>
+        </g></g>
+        <g transform="translate(190 0)"><g class="sway" style="--d:6.1s;--a:5deg;--dl:.6s">
+          <path d="M0 208 Q-9 172 -15 158" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 208 Q-2 164 -3 142" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 208 Q5 166 9 148" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 208 Q11 172 17 160" stroke="var(--leaf-deep)" stroke-width="5"/>
+        </g></g>
+        <g transform="translate(420 0)"><g class="sway" style="--d:5.6s;--a:6deg;--dl:1.1s">
+          <path d="M0 208 Q-10 170 -17 156" stroke="var(--leaf-deep)" stroke-width="5"/>
+          <path d="M0 208 Q-3 162 -4 140" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 208 Q4 162 7 144" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 208 Q11 170 18 158" stroke="var(--leaf-mid)" stroke-width="5"/>
+        </g></g>
+        <!-- 가운데(짧게) -->
+        <g transform="translate(560 0)"><g class="sway" style="--d:6.4s;--a:4deg;--dl:.3s">
+          <path d="M0 210 Q-7 186 -11 176" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 210 Q1 182 2 170" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 210 Q8 186 12 176" stroke="var(--leaf-mid)" stroke-width="5"/>
+        </g></g>
+        <g transform="translate(660 0)"><g class="sway" style="--d:5.8s;--a:4deg;--dl:1.4s">
+          <path d="M0 210 Q-7 186 -11 176" stroke="var(--leaf-deep)" stroke-width="5"/>
+          <path d="M0 210 Q1 182 2 170" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 210 Q8 186 12 176" stroke="var(--emerald)" stroke-width="5"/>
+        </g></g>
+        <!-- 오른쪽 -->
+        <g transform="translate(880 0)"><g class="sway" style="--d:5.4s;--a:6deg;--dl:.9s">
+          <path d="M0 206 Q-11 166 -19 150" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 206 Q-3 158 -5 132" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 206 Q5 160 9 140" stroke="var(--leaf-deep)" stroke-width="5"/>
+          <path d="M0 206 Q12 166 20 152" stroke="var(--leaf-mid)" stroke-width="5"/>
+        </g></g>
+        <g transform="translate(1010 0)"><g class="sway" style="--d:6.2s;--a:5deg;--dl:.2s">
+          <path d="M0 208 Q-9 172 -15 158" stroke="var(--leaf-deep)" stroke-width="5"/>
+          <path d="M0 208 Q-2 164 -3 142" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 208 Q6 166 10 148" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 208 Q12 172 18 160" stroke="var(--leaf-mid)" stroke-width="5"/>
+        </g></g>
+        <g transform="translate(1120 0)"><g class="sway" style="--d:5.5s;--a:6deg;--dl:1.2s">
+          <path d="M0 206 Q-9 168 -15 154" stroke="var(--leaf-mid)" stroke-width="5"/>
+          <path d="M0 206 Q1 160 2 134" stroke="var(--emerald)" stroke-width="5"/>
+          <path d="M0 206 Q9 168 15 154" stroke="var(--leaf-deep)" stroke-width="5"/>
+        </g></g>
+      </g>
+
+      <!-- 키 큰 들풀(씨알 달린) -->
+      <g transform="translate(150 0)"><g class="sway" style="--d:7s;--a:7deg;--dl:.4s">
+        <path d="M0 206 Q-6 150 -10 120" stroke="var(--leaf-soft)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-10" cy="116" rx="4" ry="8" fill="var(--sun)"/>
+        <path d="M6 206 Q10 156 14 128" stroke="var(--leaf-soft)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="14" cy="124" rx="3.6" ry="7" fill="var(--leaf-lite)"/>
+      </g></g>
+      <g transform="translate(965 0)"><g class="sway" style="--d:7.6s;--a:7deg;--dl:1.6s">
+        <path d="M0 206 Q6 152 11 122" stroke="var(--leaf-soft)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="11" cy="118" rx="4" ry="8" fill="var(--sun)"/>
+        <path d="M-6 206 Q-10 158 -14 130" stroke="var(--leaf-soft)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-14" cy="126" rx="3.6" ry="7" fill="var(--leaf-lite)"/>
+      </g></g>
+
+      <!-- 꽃 (양옆으로) -->
+      <!-- 산호빛 -->
+      <g transform="translate(250 0)"><g class="sway" style="--d:5s;--a:4deg;--dl:.5s">
+        <path d="M0 208 Q-4 168 0 126" stroke="var(--leaf-mid)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M0 168 q-16 -4 -20 -16 q16 -2 20 10z" fill="var(--leaf-mid)"/>
+        <g transform="translate(0 118)"><g class="bloom">
+          <g fill="#E79AA0">
+            <ellipse cx="0" cy="-11" rx="6" ry="11"/><ellipse cx="10" cy="-3" rx="6" ry="11" transform="rotate(72 10 -3)"/>
+            <ellipse cx="6" cy="9" rx="6" ry="11" transform="rotate(144 6 9)"/><ellipse cx="-6" cy="9" rx="6" ry="11" transform="rotate(216 -6 9)"/>
+            <ellipse cx="-10" cy="-3" rx="6" ry="11" transform="rotate(288 -10 -3)"/>
+          </g>
+          <circle cx="0" cy="-1" r="6" fill="var(--sun)"/>
+        </g></g>
+      </g></g>
+      <!-- 노랑 -->
+      <g transform="translate(470 0)"><g class="sway" style="--d:5.7s;--a:4deg;--dl:1.3s">
+        <path d="M0 208 Q4 168 0 128" stroke="var(--leaf-mid)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M0 170 q16 -4 20 -16 q-16 -2 -20 10z" fill="var(--leaf-mid)"/>
+        <g transform="translate(0 120)"><g class="bloom">
+          <g fill="#F3C766">
+            <ellipse cx="0" cy="-10" rx="5.4" ry="10"/><ellipse cx="9" cy="-3" rx="5.4" ry="10" transform="rotate(72 9 -3)"/>
+            <ellipse cx="6" cy="8" rx="5.4" ry="10" transform="rotate(144 6 8)"/><ellipse cx="-6" cy="8" rx="5.4" ry="10" transform="rotate(216 -6 8)"/>
+            <ellipse cx="-9" cy="-3" rx="5.4" ry="10" transform="rotate(288 -9 -3)"/>
+          </g>
+          <circle cx="0" cy="-1" r="5.4" fill="#E08A3C"/>
+        </g></g>
+      </g></g>
+      <!-- 라일락 -->
+      <g transform="translate(770 0)"><g class="sway" style="--d:5.3s;--a:4deg;--dl:.8s">
+        <path d="M0 208 Q-4 168 0 128" stroke="var(--leaf-mid)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M0 170 q-15 -4 -19 -15 q15 -2 19 9z" fill="var(--leaf-mid)"/>
+        <g transform="translate(0 120)"><g class="bloom">
+          <g fill="#B9A6DE">
+            <ellipse cx="0" cy="-10" rx="5.4" ry="10"/><ellipse cx="9" cy="-3" rx="5.4" ry="10" transform="rotate(72 9 -3)"/>
+            <ellipse cx="6" cy="8" rx="5.4" ry="10" transform="rotate(144 6 8)"/><ellipse cx="-6" cy="8" rx="5.4" ry="10" transform="rotate(216 -6 8)"/>
+            <ellipse cx="-9" cy="-3" rx="5.4" ry="10" transform="rotate(288 -9 -3)"/>
+          </g>
+          <circle cx="0" cy="-1" r="5.4" fill="var(--sun)"/>
+        </g></g>
+      </g></g>
+      <!-- 흰꽃 -->
+      <g transform="translate(1050 0)"><g class="sway" style="--d:6s;--a:4deg;--dl:.1s">
+        <path d="M0 208 Q4 170 0 130" stroke="var(--leaf-mid)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M0 172 q15 -4 19 -15 q-15 -2 -19 9z" fill="var(--leaf-mid)"/>
+        <g transform="translate(0 122)"><g class="bloom">
+          <g fill="#FCF8EE" stroke="rgba(76,120,90,.25)" stroke-width="1">
+            <ellipse cx="0" cy="-9" rx="5" ry="9"/><ellipse cx="8" cy="-2" rx="5" ry="9" transform="rotate(72 8 -2)"/>
+            <ellipse cx="5" cy="7" rx="5" ry="9" transform="rotate(144 5 7)"/><ellipse cx="-5" cy="7" rx="5" ry="9" transform="rotate(216 -5 7)"/>
+            <ellipse cx="-8" cy="-2" rx="5" ry="9" transform="rotate(288 -8 -2)"/>
+          </g>
+          <circle cx="0" cy="-1" r="5" fill="var(--sun)"/>
+        </g></g>
+      </g></g>
+
+      <!-- 애벌레 (작은 잎 위를 꿈틀꿈틀) -->
+      <g transform="translate(310 0)">
+        <path d="M-34 208 q34 -20 74 0 q-38 12 -74 0z" fill="var(--leaf-soft)" opacity=".85"/>
+        <g class="cat"><g class="cat-body">
+          <circle cx="0" cy="199" r="8.5" fill="#8CBE56"/>
+          <circle cx="11" cy="197" r="8.5" fill="#7CB149"/>
+          <circle cx="22" cy="199" r="8.5" fill="#8CBE56"/>
+          <circle cx="33" cy="197" r="8.5" fill="#7CB149"/>
+          <circle cx="44" cy="198" r="9.5" fill="#6FA542"/>
+          <circle cx="47.5" cy="194.5" r="1.8" fill="#2f3a24"/>
+          <path d="M50 190 q4 -6 9 -5" stroke="#6FA542" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        </g></g>
+      </g>
+
+      <!-- 개미 (오른쪽 땅 위를 종종종) -->
+      <g transform="translate(700 0)"><g class="ant">
+        <g class="ant-legs" stroke="#3a2f2a" stroke-width="1.5" stroke-linecap="round">
+          <line x1="3" y1="201" x2="-3" y2="209"/>
+          <line x1="9" y1="201" x2="9" y2="210"/>
+          <line x1="13" y1="201" x2="19" y2="209"/>
+        </g>
+        <path d="M1 198 q-4 -4 -7 -7" stroke="#3a2f2a" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="1" cy="199" rx="4" ry="3.4" fill="#3a2f2a"/>
+        <ellipse cx="8" cy="199.5" rx="3.4" ry="3" fill="#4a3b33"/>
+        <ellipse cx="16" cy="199" rx="5.2" ry="4.2" fill="#3a2f2a"/>
+      </g></g>
+    </svg>
+  </div>
+
+  <!-- 나비 두 마리 -->
+  <svg class="bfly" viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="wing wl" fill="#E79AA0"><ellipse cx="20" cy="17" rx="16" ry="12"/><ellipse cx="23" cy="35" rx="12" ry="10"/></g>
+    <g class="wing wr" fill="#F0B36B"><ellipse cx="40" cy="17" rx="16" ry="12"/><ellipse cx="37" cy="35" rx="12" ry="10"/></g>
+    <circle cx="18" cy="17" r="3" fill="#fff" opacity=".65"/><circle cx="42" cy="17" r="3" fill="#fff" opacity=".65"/>
+    <rect x="28.8" y="11" width="2.4" height="30" rx="1.2" fill="#4a3b33"/>
+    <path d="M30 13 q-4 -6 -9 -7" stroke="#4a3b33" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M31 13 q4 -6 9 -7" stroke="#4a3b33" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  </svg>
+  <svg class="bfly b2" viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="wing wl" fill="#9FC7E8"><ellipse cx="20" cy="17" rx="16" ry="12"/><ellipse cx="23" cy="35" rx="12" ry="10"/></g>
+    <g class="wing wr" fill="#B9A6DE"><ellipse cx="40" cy="17" rx="16" ry="12"/><ellipse cx="37" cy="35" rx="12" ry="10"/></g>
+    <circle cx="18" cy="17" r="3" fill="#fff" opacity=".65"/><circle cx="42" cy="17" r="3" fill="#fff" opacity=".65"/>
+    <rect x="28.8" y="11" width="2.4" height="30" rx="1.2" fill="#4a3b33"/>
+    <path d="M30 13 q-4 -6 -9 -7" stroke="#4a3b33" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M31 13 q4 -6 9 -7" stroke="#4a3b33" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  </svg>
 
   <div class="scroll-hint"><span>SCROLL</span><span class="line"></span></div>
 </section>
@@ -527,7 +782,11 @@
 </dialog>
 <style>
   dialog#viewer{ border:1px solid var(--line); border-radius:var(--radius); padding:0;
-    width:min(520px,92vw); background:var(--paper); color:var(--ink); box-shadow:0 40px 80px rgba(52,71,59,.3); }
+    width:min(520px,92vw); background:var(--paper); color:var(--ink); box-shadow:0 40px 80px rgba(52,71,59,.3);
+    /* 전역 *{margin:0} 리셋이 네이티브 dialog의 중앙 정렬(margin:auto)을 덮어써서, 다시 명시합니다 */
+    position:fixed; inset:0; margin:auto; max-height:90vh; overflow:auto; }
+  dialog#viewer[open]{ animation:dlgIn .28s cubic-bezier(.2,.7,.2,1); }
+  @keyframes dlgIn{ from{ opacity:0; transform:translateY(10px) scale(.97) } to{ opacity:1; transform:none } }
   dialog#viewer::backdrop{ background:rgba(36,58,44,.5); backdrop-filter:blur(4px); }
   #viewer .vbtn{ border:1px solid var(--line); background:transparent; color:var(--ink); width:42px; height:42px;
     border-radius:50%; cursor:pointer; font-size:1.2rem; transition:background .2s, border-color .2s; }
@@ -613,7 +872,8 @@ dlg.addEventListener('click',e=>{ if(e.target===dlg)dlg.close(); });
   const line=document.getElementById('heroLine');
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const frag=document.createDocumentFragment();
-  line.childNodes.forEach(node=>{
+  // childNodes는 라이브 목록이라 순회 중 노드를 옮기면 뒤 노드를 건너뜁니다 → 배열로 고정
+  Array.from(line.childNodes).forEach(node=>{
     if(node.nodeType===3){
       node.textContent.split(/(\s+)/).forEach(tok=>{
         if(tok.trim()===''){ frag.appendChild(document.createTextNode(tok)); }
