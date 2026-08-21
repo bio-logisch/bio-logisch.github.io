@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>작가 소개 · 팽샛별</title>
+<meta name="description" content="그림책 작가 팽샛별을 소개합니다." />
+<style>
+  :root{
+    --paper:#FBF6EA; --paper-2:#F1EFDD;
+    --ink:#34473B; --ink-soft:#6C7D6F; --line:rgba(52,71,59,.14);
+    --sky:#79C4E5; --emerald:#4CAE82; --sun:#F3C766;
+    --leaf-deep:#3E7A5B; --leaf-mid:#5FB083; --leaf-soft:#8FCB94; --leaf-lite:#C4E4A6; --leaf-glow:#F4E7A0;
+    --bark:#A9784E; --bark-dk:#6E4A2C;
+    --radius:18px;
+    --font:"Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.85;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ width:min(760px,90vw); margin-inline:auto; }
+  a:focus-visible{ outline:2px solid var(--emerald); outline-offset:4px; border-radius:6px; }
+
+  header{ position:fixed; inset:0 0 auto 0; z-index:40; display:flex; align-items:center; gap:16px;
+    padding:18px min(5vw,40px);
+    background:color-mix(in srgb,var(--paper) 82%, transparent); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); }
+  .brand{ font-weight:700; letter-spacing:.02em; font-size:1.05rem; display:flex; align-items:center; gap:9px; }
+  .brand .seed{ width:19px; height:19px; }
+  .back{ margin-left:auto; font-size:.86rem; color:var(--ink-soft); transition:color .25s; }
+  .back:hover{ color:var(--emerald); }
+
+  /* ===== 히어로 ===== */
+  .intro-hero{ position:relative; overflow:hidden; text-align:center;
+    padding:clamp(120px,18vh,180px) 6vw 40px;
+    background:
+      radial-gradient(60% 44% at 80% 6%, rgba(250,222,150,.55), transparent 62%),
+      radial-gradient(70% 55% at 10% 100%, rgba(76,174,130,.14), transparent 60%),
+      linear-gradient(180deg,#DCEDF6 0%, #EAF1DE 60%, var(--paper) 100%); }
+  .eyebrow{ font-size:.72rem; letter-spacing:.4em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; margin-bottom:22px; }
+
+  /* 작가 소개 이미지 한 장 */
+  .author-figure{ width:min(340px,74vw); margin:0 auto; }
+  .author-figure svg{ width:100%; height:auto; display:block;
+    filter:drop-shadow(0 20px 34px rgba(52,71,59,.16)); }
+  .float{ transform-box:fill-box; transform-origin:center; animation:bob 6s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0) rotate(0) } 50%{ transform:translateY(-10px) rotate(-1deg) } }
+  .leaf-sway{ transform-box:fill-box; transform-origin:20% 90%; animation:lsway 4.5s ease-in-out infinite; }
+  @keyframes lsway{ 0%,100%{ transform:rotate(-6deg) } 50%{ transform:rotate(6deg) } }
+
+  .name{ font-weight:700; font-size:clamp(2rem,6vw,3rem); letter-spacing:-.01em; margin-top:26px; }
+  .role{ color:var(--ink-soft); letter-spacing:.06em; margin-top:8px; }
+
+  /* ===== 본문(하단 임의 글) ===== */
+  .body{ padding:clamp(56px,8vw,90px) 0 clamp(80px,12vw,120px); }
+  .lede{ font-size:clamp(1.25rem,2.6vw,1.55rem); font-weight:500; line-height:1.6; word-break:keep-all;
+    color:var(--ink); }
+  .lede .hl{ color:var(--emerald); }
+  .prose p{ margin-top:22px; color:var(--ink-soft); word-break:keep-all; font-size:1.04rem; }
+  .prose p:first-child{ margin-top:34px; }
+
+  .divider{ display:flex; align-items:center; gap:14px; color:var(--emerald); margin:44px 0; }
+  .divider svg{ width:22px; height:22px; }
+  .divider::before, .divider::after{ content:""; height:1px; flex:1; background:var(--line); }
+
+  .sign{ margin-top:40px; font-weight:600; letter-spacing:.02em; }
+  .sign small{ display:block; font-weight:400; color:var(--ink-soft); letter-spacing:.16em; font-size:.72rem; margin-top:4px; }
+
+  .home-link{ display:inline-flex; align-items:center; gap:8px; margin-top:48px;
+    border:1px solid var(--line); padding:13px 24px; border-radius:999px; letter-spacing:.03em;
+    transition:border-color .3s, color .3s; }
+  .home-link:hover{ border-color:var(--sky); color:var(--sky); }
+
+  footer{ background:#EFE7D3; text-align:center; padding:44px 20px; color:var(--ink-soft); font-size:.85rem; }
+
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <svg class="seed" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22C7 20 4 15 5 9c4 0 8 3 8 9 0-7 4-9 8-9 1 6-2 11-9 13z" fill="var(--emerald)"/><path d="M12 22V11" stroke="var(--bark-dk)" stroke-width="1.4" stroke-linecap="round"/></svg>
+    팽샛별
+  </a>
+  <a class="back" href="index.html">← 홈으로</a>
+</header>
+
+<section class="intro-hero">
+  <p class="eyebrow">Author</p>
+
+  <!-- 작가 소개 이미지 (순수 SVG 일러스트 한 장) -->
+  <div class="author-figure">
+    <svg viewBox="0 0 420 460" xmlns="http://www.w3.org/2000/svg" aria-label="팽샛별 작가 일러스트">
+      <!-- 뒤편 부드러운 원 -->
+      <circle cx="210" cy="220" r="182" fill="#EAF3DC"/>
+      <circle cx="210" cy="220" r="182" fill="none" stroke="rgba(76,174,130,.25)" stroke-width="1.5"/>
+      <!-- 떠다니는 작은 잎들 -->
+      <g class="leaf-sway"><path d="M78 120 C78 100 92 88 112 88 C112 108 98 120 78 120 Z" fill="var(--leaf-soft)"/></g>
+      <g class="leaf-sway" style="animation-delay:1.2s"><path d="M330 130 C330 112 344 100 362 100 C362 118 348 130 330 130 Z" fill="var(--leaf-lite)"/></g>
+      <circle cx="96" cy="300" r="7" fill="var(--sun)" opacity=".8"/>
+      <circle cx="338" cy="286" r="6" fill="var(--sky)" opacity=".7"/>
+
+      <g class="float">
+        <!-- 노랑 스웨터 -->
+        <path d="M120 460 C120 356 158 316 210 316 C262 316 300 356 300 460 Z" fill="#E7C24A"/>
+        <path d="M210 316 C184 316 165 327 152 346 L210 384 L268 346 C255 327 236 316 210 316 Z" fill="#F2F0E6"/>
+        <!-- 목 -->
+        <rect x="193" y="282" width="34" height="54" rx="16" fill="#F1D3B8"/>
+        <!-- 얼굴 -->
+        <ellipse cx="210" cy="214" rx="84" ry="92" fill="#F6DFC8"/>
+        <!-- 볼 -->
+        <circle cx="163" cy="242" r="18" fill="#E29B86" opacity=".5"/>
+        <circle cx="257" cy="242" r="18" fill="#E29B86" opacity=".5"/>
+        <!-- 눈 -->
+        <circle cx="182" cy="212" r="6" fill="#33403A"/>
+        <circle cx="238" cy="212" r="6" fill="#33403A"/>
+        <!-- 코·미소 -->
+        <path d="M210 226 q5 6 -2 10" stroke="#C98C74" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M192 246 q18 15 36 0" stroke="#B3625A" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        <!-- 단발머리 -->
+        <path d="M124 224 C118 128 164 82 210 82 C256 82 302 128 296 224
+                 C296 194 274 186 272 214 C270 160 262 138 234 130
+                 C242 168 224 180 210 180 C196 180 176 168 184 130
+                 C158 138 150 160 148 214 C146 186 124 194 124 224 Z" fill="#3D3A3B"/>
+        <!-- 손에 든 붓 -->
+        <g transform="rotate(20 300 400)">
+          <rect x="296" y="330" width="8" height="86" rx="4" fill="#B98A5A"/>
+          <path d="M300 322 c-9 0 -13 10 -4 18 9 -8 13 -18 4 -18z" fill="var(--emerald)"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <h1 class="name">팽샛별</h1>
+  <p class="role">그림책 작가 · 그림 그리는 사람</p>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <p class="lede">저는 <span class="hl">작고 다정한 것들</span>을 오래 들여다보는 사람입니다. 손바닥에 얹힌 나뭇잎 한 장, 창을 넘어온 오후의 빛, 아이가 던지는 엉뚱한 질문 하나에서 이야기가 시작됩니다.</p>
+
+    <div class="prose">
+      <p>대학에서 문예창작을 공부했지만, 결국 그림책이 좋아 그림을 배우고 그리는 사람이 되었습니다. 글과 그림이 서로의 손을 잡고 걸어가는 그 순간이 저는 가장 좋습니다.</p>
+      <p>경남 창원에서 지내며 그림책 『여보세요?』와 『어떡하지?』를 쓰고 그렸고, 이중현 시인의 동시집 『힘도 무선전송된다』에 그림을 얹었습니다. 최근에는 실을 한 올씩 심어 짜는 터프팅으로, 우리가 딛고 선 자연과 기후를 이야기하는 작업도 이어가고 있어요.</p>
+      <p>제 그림이 누군가의 하루에 살며시 스며들어, 잠깐 멈추어 바람 소리를 듣게 하는 작은 그늘이 되기를 바랍니다. 바람이 지날 때마다 나무가 새 이야기를 꺼내듯, 저도 계속해서 다음 이야기를 짓겠습니다.</p>
+    </div>
+
+    <div class="divider" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 20C4 11 11 4 20 4c0 9-7 16-16 16z" fill="currentColor"/><path d="M4 20 18 6" stroke="#FBF6EA" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+
+    <p class="sign">— 팽샛별<small>PAENG SAETBYEOL · PICTURE BOOK AUTHOR</small></p>
+
+    <a class="home-link" href="index.html">← 그림책 보러 가기</a>
+  </div>
+</section>
+
+<footer>© 팽샛별 · 모든 글과 그림의 저작권은 팽샛별 작가에게 있습니다.</footer>
+
+</body>
+</html>
