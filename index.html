@@ -290,13 +290,13 @@
   @keyframes hump{ 0%,100%{ transform:scaleX(1) scaleY(1) } 50%{ transform:scaleX(.86) scaleY(1.12) } }
 
   /* 개미 종종걸음(양끝에서 방향 전환) */
-  .ant{ transform-box:fill-box; transform-origin:50% 50%; animation:antwalk 8s linear infinite; }
+  /* .ant{ transform-box:fill-box; transform-origin:50% 50%; animation:antwalk 8s linear infinite; }
   @keyframes antwalk{
     0%{ transform:translateX(0) } 46%{ transform:translateX(120px) }
     50%{ transform:translateX(120px) scaleX(-1) } 96%{ transform:translateX(0) scaleX(-1) }
     100%{ transform:translateX(0) } }
   .ant-legs line{ animation:legwiggle .34s ease-in-out infinite alternate; transform-origin:top; }
-  @keyframes legwiggle{ from{ transform:rotate(-8deg) } to{ transform:rotate(8deg) } }
+  @keyframes legwiggle{ from{ transform:rotate(-8deg) } to{ transform:rotate(8deg) } }*/
 
   /* ===== 나비 (히어로 아래를 팔랑팔랑 가로지름) ===== */
   .bfly{ position:absolute; z-index:2; left:0; top:0; width:44px; height:auto; pointer-events:none;
