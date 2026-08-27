@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SHOP · 팽샛별</title>
+<meta name="description" content="팽샛별 작가의 그림책·동시집을 만나보세요." />
+<style>
+  :root{
+    --paper:#FCFBF7; --paper-2:#F4F1E7; --ink:#2B2B2B; --ink-soft:#6C6A63; --line:rgba(43,43,43,.12);
+    --coral:#F2543D; --yellow:#F6BE2C; --green:#54B24A; --magenta:#E94E9C; --teal:#2FB3A6; --purple:#8A5CD1;
+    --radius:16px; --font:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ width:min(1120px,92vw); margin-inline:auto; }
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:6px; }
+
+  header{ position:sticky; top:0; z-index:30; display:flex; align-items:center; gap:16px;
+    padding:16px min(5vw,36px); background:color-mix(in srgb,var(--paper) 86%,transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .brand{ font-weight:800; letter-spacing:.02em; font-size:1.05rem; display:flex; align-items:center; gap:8px; }
+  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); box-shadow:16px 0 0 var(--yellow),-16px 0 0 var(--teal); margin-right:16px; }
+  nav.n{ margin-left:auto; display:flex; gap:20px; align-items:center; font-size:.86rem; color:var(--ink-soft); }
+  nav.n a.active{ color:var(--ink); font-weight:700; }
+  nav.n a:hover{ color:var(--coral); }
+  .pill{ border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px; font-weight:700; letter-spacing:.06em; font-size:.78rem; }
+  .pill:hover{ background:var(--ink); color:#fff; }
+
+  .hd{ padding:56px 0 10px; text-align:center; }
+  .hd .eyb{ letter-spacing:.4em; font-size:.72rem; color:var(--ink-soft); font-weight:700; }
+  .hd h1{ font-size:clamp(2rem,5vw,3rem); letter-spacing:.04em; margin-top:12px;
+    background:linear-gradient(90deg,var(--coral),var(--magenta),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hd p{ color:var(--ink-soft); margin-top:12px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:34px; padding:44px 0 90px; }
+  .card{ cursor:pointer; background:none; border:0; padding:0; text-align:left; font-family:inherit; color:inherit; }
+  .cover{ aspect-ratio:3/4; border-radius:14px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 14px 26px rgba(43,43,43,.12); transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s; position:relative; }
+  .cover img,.cover svg{ width:100%; height:100%; object-fit:cover; display:block; }
+  .card:hover .cover{ transform:translateY(-8px) rotate(-.5deg); box-shadow:0 26px 44px rgba(233,78,156,.24); }
+  .tag{ position:absolute; top:10px; left:10px; background:#fff; border:1.5px solid var(--ink); border-radius:999px; padding:2px 10px; font-size:.68rem; font-weight:700; letter-spacing:.04em; }
+  .meta{ margin-top:14px; }
+  .meta .series{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--magenta); font-weight:700; }
+  .meta b{ display:block; font-size:1.08rem; font-weight:700; margin-top:3px; }
+  .meta .price{ margin-top:8px; font-weight:800; }
+  .meta .price small{ font-weight:500; color:var(--ink-soft); }
+
+  footer{ border-top:1px solid var(--line); text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:.85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>팽샛별</a>
+  <nav class="n">
+    <a href="index.html">홈</a>
+    <a href="index.html#books">그림책</a>
+    <a class="pill active" href="shop.html">SHOP</a>
+    <a class="pill" href="edu.html">EDU</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hd">
+    <p class="eyb">PAENG SAETBYEOL · SHOP</p>
+    <h1>그림책 상점</h1>
+    <p>손끝에서 태어난 이야기들을 집으로 데려가세요. 표지를 누르면 자세히 볼 수 있어요.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<footer>© 팽샛별 · 예시용 상점 페이지입니다. 실제 결제는 제공되지 않습니다.</footer>
+
+<script>
+/* 판매 도서 (예시) — book.html?id=N 상세로 연결됩니다 */
+const books=[
+  {id:1,title:"여보세요?",series:"우리 동네 사람들 이야기",price:15000,image:"images/covers/hello.jpg",tag:"베스트",
+   blurb:"실 전화기 너머로 이어지는 우리 동네 사람들의 다정한 안부. 서로를 살피는 마음을 노랑노랑한 색으로 그린 팽샛별의 첫 그림책입니다."},
+  {id:2,title:"어떡하지?",series:"뚝딱뚝딱 우리책 7",price:14000,image:"images/covers/whatnow.jpg",tag:"",
+   blurb:"복도에서 뛸까 말까, 인사할까 말까 — 매일 새로운 고민 앞에 선 고은이. 스스로 결정하고 책임지는 아이의 하루를 담았습니다."},
+  {id:3,title:"힘도 무선전송된다",series:"열린어린이 동시집 02",price:12000,image:"images/covers/power.jpg",tag:"",
+   blurb:"이중현 시인의 동시에 팽샛별이 그림을 얹었습니다. 운동장과 교실, 아이들의 씩씩한 하루가 통통 튀는 그림과 함께 펼쳐집니다."},
+  {id:4,title:"실 전화기",series:"팽샛별 그림책",price:15000,color:"var(--coral)",pat:"dots",tag:"신간",
+   blurb:"창과 창 사이를 잇는 노란 실 한 가닥. 멀리 있어도 마음은 이어진다는, 작고 따뜻한 이야기입니다. (예시 도서)"},
+  {id:5,title:"바느질하는 밤",series:"팽샛별 그림책",price:16000,color:"var(--teal)",pat:"stripe",tag:"",
+   blurb:"엄마의 반짇고리에서 시작된 한밤의 모험. 단추와 실, 골무가 도란도란 이야기를 잇습니다. (예시 도서)"},
+  {id:6,title:"단추 마을",series:"팽샛별 그림책",price:15000,color:"var(--magenta)",pat:"grid",tag:"",
+   blurb:"동그란 단추들이 사는 마을에 구멍 세 개짜리 낯선 단추가 찾아옵니다. 다름과 어울림에 대한 그림책. (예시 도서)"},
+];
+
+function coverSVG(b){
+  const pat = b.pat==='stripe'
+    ? `<pattern id="p${b.id}" patternUnits="userSpaceOnUse" width="26" height="26" patternTransform="rotate(45)"><rect width="26" height="26" fill="${b.color}"/><rect width="13" height="26" fill="#ffffff33"/></pattern>`
+    : b.pat==='grid'
+    ? `<pattern id="p${b.id}" patternUnits="userSpaceOnUse" width="24" height="24"><rect width="24" height="24" fill="${b.color}"/><path d="M0 0H24M0 0V24" stroke="#ffffff44" stroke-width="2"/></pattern>`
+    : `<pattern id="p${b.id}" patternUnits="userSpaceOnUse" width="26" height="26"><rect width="26" height="26" fill="${b.color}"/><circle cx="7" cy="7" r="3.4" fill="#ffffff55"/><circle cx="19" cy="19" r="3.4" fill="#ffffff55"/></pattern>`;
+  return `<svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"><defs>${pat}</defs>
+    <rect width="300" height="400" fill="url(#p${b.id})"/>
+    <rect x="22" y="150" width="256" height="120" rx="10" fill="#ffffffee"/>
+    <text x="150" y="205" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="30" font-weight="800" fill="#2B2B2B">${b.title}</text>
+    <text x="150" y="240" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" letter-spacing="2" fill="#8A5CD1">PAENG SAETBYEOL</text>
+    <g fill="#2B2B2B"><circle cx="150" cy="320" r="15" fill="none" stroke="#2B2B2B" stroke-width="2.5"/><circle cx="144" cy="316" r="2"/><circle cx="156" cy="316" r="2"/><circle cx="144" cy="324" r="2"/><circle cx="156" cy="324" r="2"/></g>
+  </svg>`;
+}
+const won=n=>n.toLocaleString('ko-KR')+'원';
+
+const grid=document.getElementById('grid');
+books.forEach(b=>{
+  const el=document.createElement('button'); el.className='card';
+  el.setAttribute('aria-label',b.title+' 상세보기');
+  const cover = b.image ? `<img src="${b.image}" alt="${b.title} 표지" loading="lazy">` : coverSVG(b);
+  el.innerHTML=`<div class="cover">${b.tag?`<span class="tag">${b.tag}</span>`:''}${cover}</div>
+    <div class="meta"><span class="series">${b.series}</span><b>${b.title}</b>
+    <div class="price">${won(b.price)}</div></div>`;
+  el.addEventListener('click',()=>location.href='book.html?id='+b.id);
+  grid.appendChild(el);
+});
+</script>
+</body>
+</html>
