@@ -3,114 +3,132 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>EDU · 팽샛별 교육 활동</title>
+<title>활동 · 팽샛별 교육</title>
 <meta name="description" content="팽샛별 작가의 그림책·공예 교육 활동 소개." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --paper:#FCFBF7; --paper-2:#F4F1E7; --ink:#2B2B2B; --ink-soft:#6C6A63; --line:rgba(43,43,43,.12);
+    --paper:#FCFBF7; --paper-2:#F3F0E6; --ink:#201E1A; --ink-soft:#6B6963; --line:rgba(32,30,26,.12);
     --coral:#F2543D; --yellow:#F6BE2C; --green:#54B24A; --magenta:#E94E9C; --teal:#2FB3A6; --purple:#8A5CD1;
-    --radius:18px; --font:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    --radius:16px;
+    --display:"Space Grotesk","Pretendard Variable",Pretendard,-apple-system,sans-serif;
+    --body:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
-  body{ background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.8; -webkit-font-smoothing:antialiased; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.75;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   a{ color:inherit; text-decoration:none; } img{ max-width:100%; display:block; }
-  .wrap{ width:min(1080px,92vw); margin-inline:auto; }
-  a:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:6px; }
+  .wrap{ width:min(1120px,92vw); margin-inline:auto; }
+  a:focus-visible,button:focus-visible{ outline:3px solid var(--purple); outline-offset:3px; border-radius:6px; }
 
-  header{ position:sticky; top:0; z-index:30; display:flex; align-items:center; gap:16px;
-    padding:16px min(5vw,36px); background:color-mix(in srgb,var(--paper) 86%,transparent);
-    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
-  .brand{ font-weight:800; display:flex; align-items:center; gap:8px; }
-  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); box-shadow:16px 0 0 var(--yellow),-16px 0 0 var(--teal); margin-right:16px; }
-  nav.n{ margin-left:auto; display:flex; gap:20px; align-items:center; font-size:.86rem; color:var(--ink-soft); }
-  nav.n a.active{ color:var(--ink); font-weight:700; } nav.n a:hover{ color:var(--coral); }
-  .pill{ border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px; font-weight:700; letter-spacing:.06em; font-size:.78rem; }
-  .pill:hover{ background:var(--ink); color:#fff; }
+  header{ position:fixed; inset:0 0 auto 0; z-index:50; display:flex; align-items:center; gap:20px;
+    padding:18px min(4vw,34px); transition:background .35s,backdrop-filter .35s,border-color .35s; border-bottom:1px solid transparent; }
+  header.solid{ background:color-mix(in srgb,var(--paper) 84%,transparent); backdrop-filter:blur(9px); border-bottom-color:var(--line); }
+  .brand{ display:flex; align-items:center; gap:22px; font-weight:800; font-size:1.05rem; }
+  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); box-shadow:16px 0 0 var(--yellow),-16px 0 0 var(--teal); }
+  .nav{ margin-left:auto; display:flex; align-items:center; gap:22px; font-size:.9rem; color:var(--ink-soft); }
+  .nav a{ transition:color .2s; } .nav a:hover{ color:var(--ink); }
+  .nav a.active{ color:var(--ink); font-weight:800; }
+  .nav .pill{ border:1.6px solid var(--ink); color:var(--ink); border-radius:999px; padding:6px 15px; font-weight:800; font-size:.78rem; letter-spacing:.08em; transition:background .2s,color .2s; }
+  .nav .pill:hover{ background:var(--ink); color:#fff; }
+  .navbtn{ display:none; margin-left:auto; background:none; border:0; cursor:pointer; font-family:inherit; font-weight:800; font-size:.9rem; color:var(--ink); padding:8px; }
+  @media (max-width:860px){
+    .nav{ position:fixed; inset:64px 0 auto 0; flex-direction:column; align-items:flex-start; gap:4px; padding:18px min(6vw,34px) 26px;
+      background:var(--paper); border-bottom:1px solid var(--line); transform:translateY(-14px); opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; font-size:1.05rem; }
+    .nav.open{ opacity:1; transform:none; pointer-events:auto; }
+    .nav a{ padding:9px 0; } .nav .pill{ margin-top:6px; } .navbtn{ display:block; }
+  }
 
-  .hero{ text-align:center; padding:70px 0 20px; }
-  .hero .eyb{ letter-spacing:.4em; font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-  .hero h1{ font-size:clamp(2.1rem,5.4vw,3.2rem); margin-top:12px; letter-spacing:.03em;
-    background:linear-gradient(90deg,var(--teal),var(--green),var(--yellow)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero p{ color:var(--ink-soft); max-width:56ch; margin:16px auto 0; }
+  .head{ padding:132px 0 0; }
+  .kicker{ font-size:.95rem; font-weight:800; margin-bottom:16px; color:var(--teal); }
+  .title{ font-family:var(--body); font-weight:800; letter-spacing:-.01em; line-height:1.06; font-size:clamp(2.2rem,6.4vw,4.2rem); max-width:16ch; word-break:keep-all; }
+  .lead{ margin-top:22px; color:var(--ink-soft); font-size:clamp(1rem,1.8vw,1.2rem); max-width:52ch; word-break:keep-all; }
+  .tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:28px; }
+  .tags span{ border:2px solid var(--ink); border-radius:999px; padding:7px 16px; font-weight:800; font-size:.8rem; }
+  .tags span:nth-child(1){ background:var(--coral); color:#fff; border-color:var(--coral); }
+  .tags span:nth-child(2){ background:var(--teal); color:#fff; border-color:var(--teal); }
+  .tags span:nth-child(3){ background:var(--magenta); color:#fff; border-color:var(--magenta); }
 
-  .banner{ margin:34px 0 10px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line);
-    box-shadow:0 18px 36px rgba(43,43,43,.12); }
-  .banner svg{ width:100%; display:block; }
-
-  .row{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; padding:56px 0; border-bottom:1px solid var(--line); }
+  .rows{ padding:24px 0 0; }
+  .row{ display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center; padding:60px 0; border-top:2px solid var(--ink); }
   .row:nth-child(even) .art{ order:2; }
-  .art{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:0 14px 28px rgba(43,43,43,.12); }
+  .art{ border-radius:var(--radius); overflow:hidden; border:2px solid var(--ink); }
   .art svg{ width:100%; display:block; }
-  .txt .k{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; }
-  .txt h2{ font-size:clamp(1.4rem,3vw,2rem); margin:10px 0 12px; }
+  .row:nth-child(1) .art{ box-shadow:12px 12px 0 var(--coral); }
+  .row:nth-child(2) .art{ box-shadow:-12px 12px 0 var(--teal); }
+  .row:nth-child(3) .art{ box-shadow:12px 12px 0 var(--magenta); }
+  .txt .k{ font-size:.82rem; letter-spacing:.02em; font-weight:800; }
+  .txt h2{ font-size:clamp(1.5rem,3.2vw,2.2rem); font-weight:800; margin:8px 0 14px; line-height:1.14; }
   .txt p{ color:var(--ink-soft); }
-  .txt ul{ margin:14px 0 0; padding-left:18px; color:var(--ink-soft); }
+  .txt ul{ margin:16px 0 0; padding-left:18px; color:var(--ink-soft); }
   .txt ul li{ margin:6px 0; }
-  .chip{ display:inline-block; margin-top:16px; font-size:.8rem; font-weight:700; border:1.5px solid var(--ink); border-radius:999px; padding:6px 14px; }
+  .chip{ display:inline-block; margin-top:20px; font-size:.82rem; font-weight:800; border:2px solid var(--ink); border-radius:999px; padding:7px 16px; }
+  @media (max-width:820px){ .row{ grid-template-columns:1fr; gap:24px; padding:44px 0; } .row:nth-child(even) .art{ order:0; }
+    .row .art{ box-shadow:8px 8px 0 var(--coral) !important; } }
 
-  .cta{ text-align:center; padding:70px 0 90px; }
-  .cta h3{ font-size:clamp(1.4rem,3vw,2rem); }
-  .cta p{ color:var(--ink-soft); margin-top:10px; }
-  .cta a{ display:inline-block; margin-top:22px; background:var(--teal); color:#fff; font-weight:800; letter-spacing:.03em; padding:15px 30px; border-radius:999px; }
-  .cta a:hover{ background:var(--green); }
-  footer{ border-top:1px solid var(--line); text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:.85rem; }
-  @media (max-width:820px){ .row{ grid-template-columns:1fr; gap:22px; padding:40px 0; } .row:nth-child(even) .art{ order:0; } }
+  .cta-sec{ text-align:center; padding:clamp(90px,13vw,150px) 0; }
+  .cta-sec h3{ font-weight:800; font-size:clamp(1.6rem,4vw,2.6rem); letter-spacing:-.01em; }
+  .cta-sec p{ color:var(--ink-soft); margin-top:12px; }
+  .cta{ display:inline-block; margin-top:26px; font-weight:800; font-size:1rem; padding:16px 32px; border-radius:999px;
+    background:var(--ink); color:var(--paper); border:1.8px solid var(--ink); transition:transform .18s,background .2s,border-color .2s; }
+  .cta:hover{ background:var(--teal); border-color:var(--teal); transform:translateY(-2px); }
+
+  footer{ border-top:1px solid var(--line); padding:44px min(4vw,34px); display:flex; align-items:center; justify-content:space-between;
+    gap:16px; flex-wrap:wrap; color:var(--ink-soft); font-size:.86rem; }
+  footer .fbrand{ display:flex; align-items:center; gap:22px; font-weight:800; color:var(--ink); }
+  footer .fbrand .dot{ width:10px; height:10px; border-radius:50%; background:var(--magenta); box-shadow:14px 0 0 var(--green),-14px 0 0 var(--yellow); }
+
+  .js .rise{ opacity:0; transform:translateY(22px); }
+  .rise.in{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; } .js .rise{ opacity:1 !important; transform:none !important; } }
 </style>
 </head>
-<body>
 
-<header>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<header id="topbar">
   <a class="brand" href="index.html"><span class="dot"></span>팽샛별</a>
-  <nav class="n">
-    <a href="index.html">홈</a>
-    <a class="pill" href="shop.html">SHOP</a>
-    <a class="pill active" href="edu.html">EDU</a>
+  <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="nav">메뉴</button>
+  <nav class="nav" id="nav">
+    <a href="intro.html">소개</a>
+    <a href="shop.html">그림책</a>
+    <a href="index.html#video">작업 영상</a>
+    <a href="edu.html" class="active" aria-current="page">활동</a>
+    <a href="index.html#contact">문의</a>
+    <a href="shop.html" class="pill">SHOP</a>
+    <a href="edu.html" class="pill">EDU</a>
   </nav>
 </header>
 
-<main>
-  <div class="wrap hero">
-    <p class="eyb">PAENG SAETBYEOL · EDUCATION</p>
-    <h1>그림책으로 만나는 배움</h1>
-    <p>읽고, 그리고, 손으로 만들며 이야기를 짓습니다. 아이와 어른이 함께하는 팽샛별 작가의 그림책·공예 교육 활동을 소개합니다. (예시 화면)</p>
-  </div>
-
-  <div class="wrap">
-    <!-- 배너 이미지(예시) -->
-    <div class="banner">
-      <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2FB3A6"/><stop offset="1" stop-color="#54B24A"/></linearGradient></defs>
-        <rect width="1200" height="300" fill="url(#bg)"/>
-        <g fill="#ffffff" opacity=".9">
-          <circle cx="140" cy="90" r="8"/><circle cx="1050" cy="70" r="6"/><circle cx="980" cy="220" r="9"/><circle cx="220" cy="230" r="6"/>
-        </g>
-        <g transform="translate(600 160)" text-anchor="middle" font-family="Pretendard,sans-serif" fill="#ffffff">
-          <text y="-6" font-size="46" font-weight="800">함께 짓는 이야기</text>
-          <text y="34" font-size="18" letter-spacing="3" opacity=".92">WORKSHOP · CLASS · TALK</text>
-        </g>
-        <!-- 간단한 도구 아이콘들 -->
-        <g stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9">
-          <circle cx="300" cy="150" r="10"/><circle cx="330" cy="150" r="10"/><path d="M300 150 L280 120 M330 150 L350 120"/>
-        </g>
-        <g transform="translate(900 150)" fill="#ffffff" opacity=".92"><circle r="16" fill="none" stroke="#fff" stroke-width="4"/><circle cx="-6" cy="-6" r="2.4"/><circle cx="6" cy="-6" r="2.4"/><circle cx="-6" cy="6" r="2.4"/><circle cx="6" cy="6" r="2.4"/></g>
-      </svg>
+<main class="wrap">
+  <div class="head rise">
+    <p class="kicker">education</p>
+    <h1 class="title">그림책으로 만나는 배움</h1>
+    <p class="lead">읽고, 그리고, 손으로 만들며 이야기를 짓습니다. 아이와 어른이 함께하는 그림책·공예 교육 활동을 소개합니다. (예시 화면)</p>
+    <div class="tags">
+      <span>워크숍</span><span>클래스</span><span>강연</span>
     </div>
   </div>
 
-  <div class="wrap">
+  <div class="rows">
     <!-- 활동 1 -->
-    <section class="row">
+    <section class="row rise">
       <div class="art">
         <svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="440" fill="#F6BE2C"/>
           <rect x="150" y="120" width="340" height="220" rx="12" fill="#fff"/>
           <path d="M320 120 V340" stroke="#F2543D" stroke-width="6"/>
-          <g stroke="#2B2B2B" stroke-width="6" fill="none" stroke-linecap="round"><path d="M190 175 H290 M190 210 H290 M190 245 H270"/><path d="M350 175 H450 M350 210 H450 M350 245 H430"/></g>
+          <g stroke="#201E1A" stroke-width="6" fill="none" stroke-linecap="round"><path d="M190 175 H290 M190 210 H290 M190 245 H270"/><path d="M350 175 H450 M350 210 H450 M350 245 H430"/></g>
           <circle cx="500" cy="360" r="26" fill="#E94E9C"/>
         </svg>
       </div>
       <div class="txt">
-        <p class="k" style="color:var(--coral)">WORKSHOP</p>
+        <p class="k" style="color:var(--coral)">workshop</p>
         <h2>그림책 만들기 워크숍</h2>
         <p>한 장의 종이가 이야기가 되는 과정을 함께 경험합니다. 아이디어 스케치부터 색을 입히고 작은 책으로 엮기까지, 각자의 그림책 한 권을 완성합니다.</p>
         <ul>
@@ -123,20 +141,20 @@
     </section>
 
     <!-- 활동 2 -->
-    <section class="row">
+    <section class="row rise">
       <div class="art">
         <svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="440" fill="#2FB3A6"/>
           <rect x="120" y="120" width="400" height="200" rx="14" fill="#fff"/>
-          <g stroke="#2B2B2B" stroke-width="5"><path d="M120 170 H520 M120 220 H520 M120 270 H520" opacity=".25"/></g>
+          <g stroke="#201E1A" stroke-width="5"><path d="M120 170 H520 M120 220 H520 M120 270 H520" opacity=".25"/></g>
           <g><circle cx="200" cy="195" r="16" fill="#F2543D"/><circle cx="200" cy="245" r="16" fill="#F6BE2C"/><circle cx="200" cy="295" r="16" fill="#8A5CD1"/></g>
           <path d="M240 195 q120 -10 240 30" stroke="#E94E9C" stroke-width="5" fill="none"/>
-          <g transform="translate(470 360)"><circle r="20" fill="#F6BE2C" stroke="#2B2B2B" stroke-width="3"/><circle cx="-7" cy="-7" r="2.6"/><circle cx="7" cy="-7" r="2.6"/><circle cx="-7" cy="7" r="2.6"/><circle cx="7" cy="7" r="2.6"/></g>
+          <g transform="translate(470 360)"><circle r="20" fill="#F6BE2C" stroke="#201E1A" stroke-width="3"/><circle cx="-7" cy="-7" r="2.6"/><circle cx="7" cy="-7" r="2.6"/><circle cx="-7" cy="7" r="2.6"/><circle cx="7" cy="7" r="2.6"/></g>
         </svg>
       </div>
       <div class="txt">
-        <p class="k" style="color:var(--teal)">CRAFT CLASS</p>
+        <p class="k" style="color:var(--teal)">craft class</p>
         <h2>실과 천으로, 터프팅·바느질 놀이</h2>
-        <p>작가가 이어 온 터프팅·textile 작업을 눈높이에 맞춰 소개합니다. 단추와 실, 천 조각으로 나만의 작은 작품을 만들며 손의 감각을 깨웁니다.</p>
+        <p>작가가 이어 온 터프팅·텍스타일 작업을 눈높이에 맞춰 소개합니다. 단추와 실, 천 조각으로 나만의 작은 작품을 만들며 손의 감각을 깨웁니다.</p>
         <ul>
           <li>대상 : 초등 고학년 ~ 성인</li>
           <li>주제 : 기후·자연을 담은 손작업</li>
@@ -147,18 +165,18 @@
     </section>
 
     <!-- 활동 3 -->
-    <section class="row">
+    <section class="row rise">
       <div class="art">
         <svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="440" fill="#E94E9C"/>
           <rect x="140" y="110" width="360" height="180" rx="12" fill="#fff"/>
-          <circle cx="320" cy="200" r="46" fill="#F6BE2C"/><path d="M300 200 q20 24 40 0" stroke="#2B2B2B" stroke-width="4" fill="none"/>
-          <g fill="#2B2B2B"><circle cx="306" cy="188" r="3"/><circle cx="334" cy="188" r="3"/></g>
+          <circle cx="320" cy="200" r="46" fill="#F6BE2C"/><path d="M300 200 q20 24 40 0" stroke="#201E1A" stroke-width="4" fill="none"/>
+          <g fill="#201E1A"><circle cx="306" cy="188" r="3"/><circle cx="334" cy="188" r="3"/></g>
           <g stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M180 350 H460"/></g>
           <g fill="#fff"><circle cx="210" cy="380" r="10"/><circle cx="320" cy="380" r="10"/><circle cx="430" cy="380" r="10"/></g>
         </svg>
       </div>
       <div class="txt">
-        <p class="k" style="color:var(--magenta)">TALK</p>
+        <p class="k" style="color:var(--magenta)">talk</p>
         <h2>도서관·학교 작가 강연</h2>
         <p>그림책이 만들어지기까지의 이야기와, 작은 관찰이 어떻게 한 권의 책이 되는지를 아이들과 나눕니다. 낭독과 질문, 즉석 드로잉이 함께합니다.</p>
         <ul>
@@ -171,13 +189,25 @@
     </section>
   </div>
 
-  <div class="wrap cta">
+  <div class="cta-sec rise">
     <h3>함께하고 싶은 활동이 있나요?</h3>
-    <p>학교·도서관·기관 프로그램 문의를 환영합니다. (아래는 예시 링크입니다)</p>
-    <a href="index.html#contact">문의하기</a>
+    <p>학교·도서관·기관 프로그램 문의를 환영합니다.</p>
+    <a class="cta" href="index.html#contact">문의하기</a>
   </div>
 </main>
 
-<footer>© 팽샛별 · 교육 활동 소개는 예시 화면입니다.</footer>
+<footer>
+  <span class="fbrand"><span class="dot"></span>팽샛별 · saetbyeol paeng</span>
+  <span>© 팽샛별 · 교육 활동 소개는 예시 화면입니다.</span>
+</footer>
+
+<script>
+const bar=document.getElementById('topbar');
+addEventListener('scroll',()=>bar.classList.toggle('solid',scrollY>40),{passive:true});
+const navbtn=document.getElementById('navbtn'),nav=document.getElementById('nav');
+navbtn.addEventListener('click',()=>{const o=nav.classList.toggle('open');navbtn.setAttribute('aria-expanded',o);});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>

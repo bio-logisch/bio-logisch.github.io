@@ -3,96 +3,132 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SHOP · 팽샛별</title>
+<title>그림책 상점 · 팽샛별</title>
 <meta name="description" content="팽샛별 작가의 그림책·동시집을 만나보세요." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --paper:#FCFBF7; --paper-2:#F4F1E7; --ink:#2B2B2B; --ink-soft:#6C6A63; --line:rgba(43,43,43,.12);
+    --paper:#FCFBF7; --paper-2:#F3F0E6; --ink:#201E1A; --ink-soft:#6B6963; --line:rgba(32,30,26,.12);
     --coral:#F2543D; --yellow:#F6BE2C; --green:#54B24A; --magenta:#E94E9C; --teal:#2FB3A6; --purple:#8A5CD1;
-    --radius:16px; --font:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    --radius:16px;
+    --display:"Space Grotesk","Pretendard Variable",Pretendard,-apple-system,sans-serif;
+    --body:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
-  body{ background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.7; -webkit-font-smoothing:antialiased; }
-  a{ color:inherit; text-decoration:none; }
-  img{ max-width:100%; display:block; }
-  .wrap{ width:min(1120px,92vw); margin-inline:auto; }
-  a:focus-visible,button:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:6px; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.7;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a{ color:inherit; text-decoration:none; } img{ max-width:100%; display:block; }
+  .wrap{ width:min(1200px,92vw); margin-inline:auto; }
+  a:focus-visible,button:focus-visible{ outline:3px solid var(--purple); outline-offset:3px; border-radius:6px; }
 
-  header{ position:sticky; top:0; z-index:30; display:flex; align-items:center; gap:16px;
-    padding:16px min(5vw,36px); background:color-mix(in srgb,var(--paper) 86%,transparent);
-    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
-  .brand{ font-weight:800; letter-spacing:.02em; font-size:1.05rem; display:flex; align-items:center; gap:8px; }
-  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); box-shadow:16px 0 0 var(--yellow),-16px 0 0 var(--teal); margin-right:16px; }
-  nav.n{ margin-left:auto; display:flex; gap:20px; align-items:center; font-size:.86rem; color:var(--ink-soft); }
-  nav.n a.active{ color:var(--ink); font-weight:700; }
-  nav.n a:hover{ color:var(--coral); }
-  .pill{ border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px; font-weight:700; letter-spacing:.06em; font-size:.78rem; }
-  .pill:hover{ background:var(--ink); color:#fff; }
+  /* header */
+  header{ position:fixed; inset:0 0 auto 0; z-index:50; display:flex; align-items:center; gap:20px;
+    padding:18px min(4vw,34px); transition:background .35s,backdrop-filter .35s,border-color .35s; border-bottom:1px solid transparent; }
+  header.solid{ background:color-mix(in srgb,var(--paper) 84%,transparent); backdrop-filter:blur(9px); border-bottom-color:var(--line); }
+  .brand{ display:flex; align-items:center; gap:22px; font-weight:800; font-size:1.05rem; }
+  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); box-shadow:16px 0 0 var(--yellow),-16px 0 0 var(--teal); }
+  .nav{ margin-left:auto; display:flex; align-items:center; gap:22px; font-size:.9rem; color:var(--ink-soft); }
+  .nav a{ transition:color .2s; } .nav a:hover{ color:var(--ink); }
+  .nav a.active{ color:var(--ink); font-weight:800; }
+  .nav .pill{ border:1.6px solid var(--ink); color:var(--ink); border-radius:999px; padding:6px 15px; font-weight:800; font-size:.78rem; letter-spacing:.08em; transition:background .2s,color .2s; }
+  .nav .pill:hover{ background:var(--ink); color:#fff; }
+  .navbtn{ display:none; margin-left:auto; background:none; border:0; cursor:pointer; font-family:inherit; font-weight:800; font-size:.9rem; color:var(--ink); padding:8px; }
+  @media (max-width:860px){
+    .nav{ position:fixed; inset:64px 0 auto 0; flex-direction:column; align-items:flex-start; gap:4px; padding:18px min(6vw,34px) 26px;
+      background:var(--paper); border-bottom:1px solid var(--line); transform:translateY(-14px); opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; font-size:1.05rem; }
+    .nav.open{ opacity:1; transform:none; pointer-events:auto; }
+    .nav a{ padding:9px 0; } .nav .pill{ margin-top:6px; } .navbtn{ display:block; }
+  }
 
-  .hd{ padding:56px 0 10px; text-align:center; }
-  .hd .eyb{ letter-spacing:.4em; font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-  .hd h1{ font-size:clamp(2rem,5vw,3rem); letter-spacing:.04em; margin-top:12px;
-    background:linear-gradient(90deg,var(--coral),var(--magenta),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hd p{ color:var(--ink-soft); margin-top:12px; }
+  /* head */
+  .head{ padding:132px 0 0; }
+  .kicker{ font-size:.95rem; font-weight:800; margin-bottom:16px; color:var(--coral); }
+  .title{ font-family:var(--display); font-weight:700; letter-spacing:-.03em; line-height:.98; font-size:clamp(2.4rem,8vw,5rem); }
+  .lead{ margin-top:22px; color:var(--ink-soft); font-size:clamp(1rem,1.8vw,1.2rem); max-width:52ch; word-break:keep-all; }
 
-  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:34px; padding:44px 0 90px; }
+  /* grid */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:38px; padding:52px 0 0; }
   .card{ cursor:pointer; background:none; border:0; padding:0; text-align:left; font-family:inherit; color:inherit; }
-  .cover{ aspect-ratio:3/4; border-radius:14px; overflow:hidden; border:1px solid var(--line);
-    box-shadow:0 14px 26px rgba(43,43,43,.12); transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s; position:relative; }
+  .cover{ aspect-ratio:3/4; border-radius:14px; overflow:hidden; border:2px solid var(--ink); position:relative; background:#fff;
+    transition:transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s; }
   .cover img,.cover svg{ width:100%; height:100%; object-fit:cover; display:block; }
-  .card:hover .cover{ transform:translateY(-8px) rotate(-.5deg); box-shadow:0 26px 44px rgba(233,78,156,.24); }
-  .tag{ position:absolute; top:10px; left:10px; background:#fff; border:1.5px solid var(--ink); border-radius:999px; padding:2px 10px; font-size:.68rem; font-weight:700; letter-spacing:.04em; }
-  .meta{ margin-top:14px; }
-  .meta .series{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--magenta); font-weight:700; }
-  .meta b{ display:block; font-size:1.08rem; font-weight:700; margin-top:3px; }
-  .meta .price{ margin-top:8px; font-weight:800; }
-  .meta .price small{ font-weight:500; color:var(--ink-soft); }
+  .card:hover .cover{ transform:translate(-5px,-5px); }
+  .card:nth-child(6n+1):hover .cover{ box-shadow:11px 11px 0 var(--coral); }
+  .card:nth-child(6n+2):hover .cover{ box-shadow:11px 11px 0 var(--yellow); }
+  .card:nth-child(6n+3):hover .cover{ box-shadow:11px 11px 0 var(--green); }
+  .card:nth-child(6n+4):hover .cover{ box-shadow:11px 11px 0 var(--magenta); }
+  .card:nth-child(6n+5):hover .cover{ box-shadow:11px 11px 0 var(--teal); }
+  .card:nth-child(6n):hover   .cover{ box-shadow:11px 11px 0 var(--purple); }
+  .tag{ position:absolute; top:12px; left:12px; background:var(--paper); border:2px solid var(--ink); border-radius:999px; padding:3px 12px; font-size:.7rem; font-weight:800; letter-spacing:.02em; }
+  .meta{ margin-top:18px; }
+  .meta .series{ font-size:.72rem; letter-spacing:.02em; color:var(--magenta); font-weight:800; }
+  .meta b{ display:block; font-size:1.14rem; font-weight:800; margin-top:5px; letter-spacing:-.01em; }
+  .meta .price{ margin-top:12px; font-weight:800; font-size:1.02rem; }
 
-  footer{ border-top:1px solid var(--line); text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:.85rem; }
+  /* footer */
+  footer{ border-top:1px solid var(--line); padding:44px min(4vw,34px); display:flex; align-items:center; justify-content:space-between;
+    gap:16px; flex-wrap:wrap; color:var(--ink-soft); font-size:.86rem; margin-top:clamp(80px,12vw,140px); }
+  footer .fbrand{ display:flex; align-items:center; gap:22px; font-weight:800; color:var(--ink); }
+  footer .fbrand .dot{ width:10px; height:10px; border-radius:50%; background:var(--magenta); box-shadow:14px 0 0 var(--green),-14px 0 0 var(--yellow); }
+
+  .js .rise{ opacity:0; transform:translateY(22px); }
+  .rise.in{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; } .js .rise{ opacity:1 !important; transform:none !important; } }
 </style>
 </head>
-<body>
 
-<header>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<header id="topbar">
   <a class="brand" href="index.html"><span class="dot"></span>팽샛별</a>
-  <nav class="n">
-    <a href="index.html">홈</a>
-    <a href="index.html#books">그림책</a>
-    <a class="pill active" href="shop.html">SHOP</a>
-    <a class="pill" href="edu.html">EDU</a>
+  <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="nav">메뉴</button>
+  <nav class="nav" id="nav">
+    <a href="intro.html">소개</a>
+    <a href="shop.html" class="active" aria-current="page">그림책</a>
+    <a href="index.html#video">작업 영상</a>
+    <a href="edu.html">활동</a>
+    <a href="index.html#contact">문의</a>
+    <a href="shop.html" class="pill">SHOP</a>
+    <a href="edu.html" class="pill">EDU</a>
   </nav>
 </header>
 
-<main>
-  <div class="wrap hd">
-    <p class="eyb">PAENG SAETBYEOL · SHOP</p>
-    <h1>그림책 상점</h1>
-    <p>손끝에서 태어난 이야기들을 집으로 데려가세요. 표지를 누르면 자세히 볼 수 있어요.</p>
+<main class="wrap">
+  <div class="head rise">
+    <p class="kicker">shop</p>
+    <h1 class="title">그림책 상점</h1>
+    <p class="lead">손끝에서 태어난 이야기들을 집으로 데려가세요. 표지를 누르면 자세히 볼 수 있어요.</p>
   </div>
 
-  <div class="wrap">
-    <div class="grid" id="grid"></div>
-  </div>
+  <div class="grid" id="grid"></div>
 </main>
 
-<footer>© 팽샛별 · 예시용 상점 페이지입니다. 실제 결제는 제공되지 않습니다.</footer>
+<footer>
+  <span class="fbrand"><span class="dot"></span>팽샛별 · saetbyeol paeng</span>
+  <span>© 팽샛별 · 예시용 상점 페이지입니다. 실제 결제는 제공되지 않습니다.</span>
+</footer>
 
 <script>
 /* 판매 도서 (예시) — book.html?id=N 상세로 연결됩니다 */
 const books=[
   {id:1,title:"여보세요?",series:"우리 동네 사람들 이야기",price:15000,image:"images/covers/hello.jpg",tag:"베스트",
-   blurb:"실 전화기 너머로 이어지는 우리 동네 사람들의 다정한 안부. 서로를 살피는 마음을 노랑노랑한 색으로 그린 팽샛별의 첫 그림책입니다."},
+   blurb:"실 전화기 너머로 이어지는 우리 동네 사람들의 다정한 안부."},
   {id:2,title:"어떡하지?",series:"뚝딱뚝딱 우리책 7",price:14000,image:"images/covers/whatnow.jpg",tag:"",
-   blurb:"복도에서 뛸까 말까, 인사할까 말까 — 매일 새로운 고민 앞에 선 고은이. 스스로 결정하고 책임지는 아이의 하루를 담았습니다."},
+   blurb:"매일 새로운 고민 앞에 선 고은이의 하루."},
   {id:3,title:"힘도 무선전송된다",series:"열린어린이 동시집 02",price:12000,image:"images/covers/power.jpg",tag:"",
-   blurb:"이중현 시인의 동시에 팽샛별이 그림을 얹었습니다. 운동장과 교실, 아이들의 씩씩한 하루가 통통 튀는 그림과 함께 펼쳐집니다."},
+   blurb:"이중현 시인의 동시에 팽샛별이 그림을 얹었습니다."},
   {id:4,title:"실 전화기",series:"팽샛별 그림책",price:15000,color:"var(--coral)",pat:"dots",tag:"신간",
-   blurb:"창과 창 사이를 잇는 노란 실 한 가닥. 멀리 있어도 마음은 이어진다는, 작고 따뜻한 이야기입니다. (예시 도서)"},
+   blurb:"창과 창 사이를 잇는 노란 실 한 가닥. (예시 도서)"},
   {id:5,title:"바느질하는 밤",series:"팽샛별 그림책",price:16000,color:"var(--teal)",pat:"stripe",tag:"",
-   blurb:"엄마의 반짇고리에서 시작된 한밤의 모험. 단추와 실, 골무가 도란도란 이야기를 잇습니다. (예시 도서)"},
+   blurb:"엄마의 반짇고리에서 시작된 한밤의 모험. (예시 도서)"},
   {id:6,title:"단추 마을",series:"팽샛별 그림책",price:15000,color:"var(--magenta)",pat:"grid",tag:"",
-   blurb:"동그란 단추들이 사는 마을에 구멍 세 개짜리 낯선 단추가 찾아옵니다. 다름과 어울림에 대한 그림책. (예시 도서)"},
+   blurb:"다름과 어울림에 대한 그림책. (예시 도서)"},
 ];
 
 function coverSVG(b){
@@ -104,9 +140,9 @@ function coverSVG(b){
   return `<svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"><defs>${pat}</defs>
     <rect width="300" height="400" fill="url(#p${b.id})"/>
     <rect x="22" y="150" width="256" height="120" rx="10" fill="#ffffffee"/>
-    <text x="150" y="205" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="30" font-weight="800" fill="#2B2B2B">${b.title}</text>
-    <text x="150" y="240" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" letter-spacing="2" fill="#8A5CD1">PAENG SAETBYEOL</text>
-    <g fill="#2B2B2B"><circle cx="150" cy="320" r="15" fill="none" stroke="#2B2B2B" stroke-width="2.5"/><circle cx="144" cy="316" r="2"/><circle cx="156" cy="316" r="2"/><circle cx="144" cy="324" r="2"/><circle cx="156" cy="324" r="2"/></g>
+    <text x="150" y="205" text-anchor="middle" font-family="'Pretendard',sans-serif" font-size="30" font-weight="800" fill="#201E1A">${b.title}</text>
+    <text x="150" y="240" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="13" letter-spacing="2" fill="#8A5CD1">saetbyeol paeng</text>
+    <g fill="#201E1A"><circle cx="150" cy="320" r="15" fill="none" stroke="#201E1A" stroke-width="2.5"/><circle cx="144" cy="316" r="2"/><circle cx="156" cy="316" r="2"/><circle cx="144" cy="324" r="2"/><circle cx="156" cy="324" r="2"/></g>
   </svg>`;
 }
 const won=n=>n.toLocaleString('ko-KR')+'원';
@@ -122,6 +158,14 @@ books.forEach(b=>{
   el.addEventListener('click',()=>location.href='book.html?id='+b.id);
   grid.appendChild(el);
 });
+
+/* header + nav + reveal */
+const bar=document.getElementById('topbar');
+addEventListener('scroll',()=>bar.classList.toggle('solid',scrollY>40),{passive:true});
+const navbtn=document.getElementById('navbtn'),nav=document.getElementById('nav');
+navbtn.addEventListener('click',()=>{const o=nav.classList.toggle('open');navbtn.setAttribute('aria-expanded',o);});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+document.querySelectorAll('.rise').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
