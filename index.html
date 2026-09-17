@@ -168,6 +168,57 @@
   footer .fbrand .dot{ width:10px; height:10px; border-radius:50%; background:var(--emerald);
     box-shadow:14px 0 0 var(--emerald), -14px 0 0 var(--emerald); }
 
+  /* ===== 그림책 갤러리 ===== */
+  .books-head{ max-width:56ch; }
+  .book-grid{ margin-top:52px; display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:clamp(18px,3vw,30px); }
+  @media (max-width:520px){ .book-grid{ grid-template-columns:repeat(2,1fr); gap:16px; } }
+
+  .book-card{ appearance:none; border:0; background:none; padding:0; margin:0; cursor:pointer;
+    font-family:inherit; text-align:left; color:inherit; display:flex; flex-direction:column; gap:12px; }
+  .book-cover{ aspect-ratio:3/4; border-radius:12px; border:2px solid var(--ink);
+    box-shadow:7px 7px 0 var(--emerald); transition:transform .2s ease, box-shadow .2s ease; }
+  .book-card:hover .book-cover,
+  .book-card:focus-visible .book-cover{ transform:translateY(-4px); box-shadow:10px 10px 0 var(--emerald); }
+  .book-title{ font-weight:800; font-size:.98rem; word-break:keep-all; }
+
+  /* 표지 이미지 / 임시 표지 공통 */
+  .book-cover, .modal-cover{ position:relative; overflow:hidden; background:var(--paper-2); }
+  .book-cover img, .modal-cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .book-cover .ph, .modal-cover .ph{ position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:10px; text-align:center; padding:16px;
+    background:linear-gradient(150deg, var(--paper-2), #d8cdb0); }
+  .book-cover .ph b, .modal-cover .ph b{ font-family:var(--display); font-size:1.02rem;
+    color:var(--emerald-deep); letter-spacing:-.01em; word-break:keep-all; line-height:1.3; }
+  .book-cover .ph span, .modal-cover .ph span{ font-size:.66rem; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--ink-soft); }
+
+  /* ===== 그림책 소개 팝업 ===== */
+  body.modal-open{ overflow:hidden; }
+  .modal{ position:fixed; inset:0; z-index:100; display:none; }
+  .modal.open{ display:block; }
+  .modal-backdrop{ position:absolute; inset:0; background:rgba(20,18,12,.55); backdrop-filter:blur(3px); }
+  .modal-card{ position:absolute; inset:0; margin:auto; width:min(760px,92vw); height:max-content;
+    max-height:88svh; overflow:auto; background:var(--paper); border:2px solid var(--ink);
+    border-radius:var(--radius); box-shadow:16px 16px 0 var(--emerald);
+    display:grid; grid-template-columns:.9fr 1.1fr; }
+  .modal-cover{ border-right:2px solid var(--ink); }
+  .modal-body{ padding:clamp(24px,4vw,40px); }
+  .modal-kicker{ font-size:.8rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--emerald); }
+  .modal-body h3{ font-family:var(--display); font-size:clamp(1.5rem,3.4vw,2.1rem);
+    letter-spacing:-.02em; margin:12px 0 18px; word-break:keep-all; line-height:1.15; }
+  .modal-desc{ color:var(--ink-soft); font-size:1rem; word-break:keep-all; white-space:pre-line; }
+  .modal-close{ position:absolute; top:12px; right:14px; z-index:2; width:40px; height:40px;
+    border-radius:50%; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+    font-size:1.05rem; font-weight:800; line-height:1; color:var(--ink); display:grid; place-items:center;
+    transition:background .2s,color .2s,border-color .2s; }
+  .modal-close:hover{ background:var(--emerald); color:#fff; border-color:var(--emerald); }
+  @media (max-width:640px){
+    .modal-card{ grid-template-columns:1fr; box-shadow:9px 9px 0 var(--emerald); }
+    .modal-cover{ border-right:0; border-bottom:2px solid var(--ink); aspect-ratio:3/4; }
+  }
+
   /* 스크롤 등장(섹션) — 절제된 페이드업 */
   .js .rise{ opacity:0; transform:translateY(22px); }
   .rise.in{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
@@ -189,12 +240,11 @@
   <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="nav">메뉴</button>
   <nav class="nav" id="nav">
     <a href="intro.html">소개</a>
-    <a href="shop.html">그림책</a>
+    <a href="#books">그림책</a>
     <a href="#video">작업 영상</a>
     <a href="edu.html">활동</a>
     <a href="#contact">문의</a>
     <a href="shop.html" class="pill">SHOP</a>
-    <a href="edu.html" class="pill">EDU</a>
   </nav>
 </header>
 
@@ -213,11 +263,24 @@
   <p class="tagline">손끝에서 태어나는, 다정한 이야기를 짓습니다.</p>
 
   <div class="cta-row">
-    <a class="cta fill" href="shop.html">그림책 보러 가기</a>
+    <a class="cta fill" href="#books">그림책 보러 가기</a>
     <a class="cta ghost" href="intro.html">작가 소개</a>
   </div>
 
   <div class="cue" aria-hidden="true"><span class="bar"></span>scroll</div>
+</section>
+
+<!-- ===== 그림책 갤러리 (인페이지) ===== -->
+<section class="section" id="books">
+  <div class="wrap">
+    <div class="books-head rise">
+      <p class="sec-kicker">picture books</p>
+      <h2 class="sec-title">그림책</h2>
+      <p class="sec-lead">표지를 누르면 그림책 이야기를 만나볼 수 있어요.</p>
+    </div>
+    <!-- 표지 카드들은 아래 스크립트의 BOOKS 목록으로 자동 생성됩니다 -->
+    <div class="book-grid rise" id="bookGrid"></div>
+  </div>
 </section>
 
 <!-- ===== 작업 영상 (인페이지 유지) ===== -->
@@ -269,6 +332,20 @@
 </section>
 </main>
 
+<!-- ===== 그림책 소개 팝업 ===== -->
+<div class="modal" id="bookModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" data-close aria-label="닫기">✕</button>
+    <div class="modal-cover" id="modalCover"></div>
+    <div class="modal-body">
+      <p class="modal-kicker">그림책 소개</p>
+      <h3 id="modalTitle"></h3>
+      <p class="modal-desc" id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
 <footer>
   <span class="fbrand"><span class="dot"></span>팽샛별 · saetbyeol paeng</span>
   <span>© 팽샛별 · 모든 글과 그림의 저작권은 작가에게 있습니다.</span>
@@ -297,6 +374,80 @@ if(!reduce){
 } else {
   lines.forEach(t=>t.classList.add('in'));
 }
+
+/* ===== 그림책 목록 =====
+   ┌ 여기만 고치면 그림책이 추가/수정됩니다 ┐
+   · title : 그림책 제목
+   · cover : 표지 이미지 경로 (예: "images/book1.jpg")
+             └ 비워두면("") 임시 표지가 자동으로 표시됩니다.
+   · desc  : 그림책 소개 글 (가격·판매 정보는 넣지 않습니다)
+             └ 줄을 바꾸려면 문장 사이에 \n 을 넣으세요.
+   ※ 아래 6권은 예시입니다. 실제 그림책 내용으로 바꿔 주세요.
+*/
+const BOOKS = [
+  { title:"달을 삼킨 고래", cover:"", desc:"깊은 밤바다를 헤엄치던 고래가 물 위에 비친 달을 삼켜 버린 날의 이야기.\n작은 용기와 다정함이 밤을 어떻게 밝히는지 그린 그림책입니다." },
+  { title:"구름 우체국", cover:"", desc:"하늘 위 구름 우체국에서는 아이들이 부친 마음을 바람에 실어 배달합니다.\n누군가에게 건네고 싶은 말들을 떠올리게 하는 따뜻한 이야기예요." },
+  { title:"작은 씨앗의 노래", cover:"", desc:"흙 속에서 계절을 견디던 작은 씨앗이 처음으로 세상을 만나기까지.\n기다림과 자람에 대한 잔잔한 동시 그림책입니다." },
+  { title:"밤의 도서관", cover:"", desc:"불이 꺼지면 책 속 인물들이 살며시 깨어나는 도서관.\n책을 사랑하는 아이의 상상이 펼쳐지는 그림책입니다." },
+  { title:"종이배 여행", cover:"", desc:"빗물 웅덩이에서 시작된 종이배 한 척의 작은 항해.\n골목에서 바다까지, 아이의 하루를 따라가는 이야기예요." },
+  { title:"첫눈 오는 날", cover:"", desc:"올해의 첫눈을 기다리는 아이와 마당 고양이의 하루.\n계절이 바뀌는 순간의 설렘을 담았습니다." },
+];
+
+/* 표지(이미지 또는 임시표지)를 지정한 상자에 채우기 */
+function fillCover(box, book){
+  box.innerHTML = "";
+  const ph = document.createElement('div'); ph.className = 'ph';
+  const b = document.createElement('b'); b.textContent = book.title;
+  const s = document.createElement('span'); s.textContent = 'picture book';
+  ph.append(b, s); box.appendChild(ph);
+  if(book.cover){
+    const img = document.createElement('img');
+    img.src = book.cover; img.alt = book.title + ' 표지'; img.loading = 'lazy';
+    img.onerror = () => img.remove();       /* 이미지가 없으면 임시 표지로 대체 */
+    box.appendChild(img);
+  }
+}
+
+/* 갤러리 그리기 */
+const grid = document.getElementById('bookGrid');
+BOOKS.forEach((book, i) => {
+  const card = document.createElement('button');
+  card.type = 'button'; card.className = 'book-card';
+  card.setAttribute('aria-label', book.title + ' 소개 보기');
+  const cover = document.createElement('div'); cover.className = 'book-cover';
+  fillCover(cover, book);
+  const title = document.createElement('span'); title.className = 'book-title'; title.textContent = book.title;
+  card.append(cover, title);
+  card.addEventListener('click', () => openBook(i, card));
+  grid.appendChild(card);
+});
+
+/* 팝업 열기 / 닫기 */
+const modal = document.getElementById('bookModal');
+const mCover = document.getElementById('modalCover');
+const mTitle = document.getElementById('modalTitle');
+const mDesc  = document.getElementById('modalDesc');
+let lastFocus = null;
+
+function openBook(i, trigger){
+  const book = BOOKS[i];
+  lastFocus = trigger || null;
+  fillCover(mCover, book);
+  mTitle.textContent = book.title;
+  mDesc.textContent  = book.desc || "";
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  modal.querySelector('.modal-close').focus();
+}
+function closeBook(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  if(lastFocus) lastFocus.focus();
+}
+modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeBook));
+addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeBook(); });
 
 /* 섹션 스크롤 등장 */
 const io=new IntersectionObserver((es)=>{
