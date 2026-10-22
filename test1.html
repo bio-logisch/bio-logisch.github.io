@@ -247,6 +247,17 @@ body{padding-top:var(--cm-header-h);padding-left:var(--cm-sidebar-w)}
 .nav-list li:nth-child(4n+4) .dot{background:var(--cm-sky)}
 .nav-list a:hover{background:var(--cm-bg-gray);color:var(--cm-text)}
 .nav-list a.active{background:var(--cm-lavender-light);color:var(--cm-lavender-dark);font-weight:700}
+/* 좌측 메뉴 : 테스트1 (남색 버튼 + 크림색 글자) — index.html과 동일 */
+.nav-list a.nav-gugi{background:#1f1a4a;color:#f6eddb;font-weight:600;line-height:1.4;margin-bottom:4px;border:1px solid #3d3574}
+.nav-list a.nav-gugi .dot{background:#f3c24f;box-shadow:0 0 6px rgba(243,194,79,.8)}
+.nav-list a.nav-gugi:hover{background:#2c2160;color:#fff}
+/* 좌측 메뉴 : 테스트2 (연노랑 버튼 + 진갈색 글자) — index.html과 동일 */
+.nav-list a.nav-gaya{background:#FFF1B3;color:#4A3626;font-weight:600;line-height:1.4;margin-bottom:4px;border:1px solid #F7C64B}
+.nav-list a.nav-gaya .dot{background:#F7C64B;box-shadow:0 0 0 1.5px #4A3626}
+.nav-list a.nav-gaya:hover{background:#FFE88F;color:#4A3626}
+/* 지금 보고 있는 페이지 표시 */
+.nav-list a.nav-gugi.active{box-shadow:0 0 0 2px #f3c24f}
+.nav-list a.nav-gaya.active{box-shadow:0 0 0 2px #4A3626}
 
 /* ===== 푸터 (어두운 배경에 맞춰 선 색만 조정) ===== */
 .footer{max-width:780px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--cm-text-light)}
@@ -310,8 +321,8 @@ body{padding-top:var(--cm-header-h);padding-left:var(--cm-sidebar-w)}
   <div class="nav-group">
     <button class="nav-title" type="button"><span class="arrow"></span>테스트 목록</button>
     <ul class="nav-list">
-      <li><a href="test1.html" class="active"><span class="dot"></span>테스트1</a></li>
-      <li><a href="test2.html"><span class="dot"></span>테스트2</a></li>
+      <li><a href="test1.html" class="nav-gugi active" aria-current="page"><span class="dot"></span>거북아 거북아</a></li>
+      <li><a href="test2.html" class="nav-gaya"><span class="dot"></span>가야 밤하늘 무드등 만들기</a></li>
       <li><a href="test3.html"><span class="dot"></span>테스트3</a></li>
       <li><a href="test4.html"><span class="dot"></span>테스트4</a></li>
       <li><a href="test5.html"><span class="dot"></span>테스트5</a></li>
