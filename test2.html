@@ -1,401 +1,1357 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>테스트2 | 테스트 페이지</title>
+<script>
+/* ===== 키키아트랩 공통 설정 — 여기만 바꾸면 됩니다 ===== */
+const KIKI = {
+  INSTAGRAM_URL: '',   // 예: https://www.instagram.com/kikiartlab
+  KIT_URL: '',        // 이 놀이의 키트 구입 링크(스마트스토어 등). 비우면 버튼이 '곧 연결돼요'로 표시
+  BRAND: '키키아트랩',
+};
+</script>
 
-  <!-- ===================================================== -->
-  <!-- [공통] 스타일 시작 : index.html과 동일하게 유지하세요     -->
-  <!-- ===================================================== -->
-  <style>
-    :root {
-      --lavender: #9b87f5;
-      --lavender-dark: #7a63e8;
-      --lavender-light: #f1edff;
-      --pink: #f48fb8;
-      --pink-light: #fff0f6;
-      --emerald: #2fbf95;
-      --emerald-light: #e6f9f3;
-      --sky: #5bb8ee;
-      --sky-light: #eaf6fd;
-      --text: #1e1e24;
-      --text-sub: #6b6b78;
-      --text-light: #9a9aa6;
-      --line: #ececf2;
-      --bg: #ffffff;
-      --bg-gray: #f8f8fb;
-      --header-h: 64px;
-      --sidebar-w: 260px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>가야 밤하늘 무드등 만들기</title>
+<meta name="description" content="구지가를 부르며 거북을 깨우고 황금알에서 수로왕을 만나는 김해 가락국 건국 놀이. 키키아트랩 어린이 교육 웹게임.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="가야 밤하늘 무드등 만들기 | 키키아트랩">
+<meta property="og:description" content="구지가를 부르며 거북을 깨우고 황금알에서 수로왕을 만나는 김해 가락국 건국 놀이. 키키아트랩 어린이 교육 웹게임.">
+<meta property="og:locale" content="ko_KR">
+<meta name="theme-color" content="#1b1540">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAP10lEQVR4nO1bC3Cc1XX+zv0fu6tdvWxJgI0pflFkU6eJTEkDxHYIFLst48SRCGlDhsHgzJCSTDw8QoDVAiVObUgpbSkuZErtGLMiYWBIwCZB4pEaiB0HijGPGjsEZFmSLVva5/+4p3P+XckrS7YF6GE6PTt39v/vf+797z33vO459wdOAIjHWQ1cM6v7tvPUH7/NT/7nHt7+4Jt8ntQ3JtkYi3fTSJAYIAr+RoZzPPzhnsdbOTxvLqqX1dHetW/wuqoa/K3vAulebPPT+HPBWdEAD0THHMeYEGCsgJkVEfiBnWgwQ3gYjDrXwUsEzCcDlZYJcvJ4bXk9fXqsxmAec4CNjQa1tPh8d/yLCIf+Cfm8BpMqIRxDBWvpwlBL6dpbdgeVd916BcrKrkcu64OplHU1DKWg/S7kI3/dDPQBxJp5aXk1Zu1vB5eV46J8FtAuWCvIclf8xzt8j+fjxeVnUgszE40iF5jHfDpnTmGiRNMRCdfD8wE1IK6HwVBAzqkDEBAABtUjEjoTrjsYn4u4eX0GohRNEB2SagX8vHc/bjRMIJsKqKtIgVwHMC3MsMK4NmLj2gd28pVE9ON4K5uJReSNBgHUiLBYO3BcDd934Lr6iOIHz1TJgBgKeWcYfMeH52owupE+kBbU1tZWc/kc2uJkcI0dhoiEUCAgvFz7LliIYodFZHASRhnMEWFRMCxVUkpB1pXg+6X6pA7MQ/GJNJRSIH0QMxpSUtXWtlDfv5XLDAvL2A9YXnr0iVAQHYI2TLx7YC+eDZv4FxEBAH4C40mADwtM02S5IIMNaNdfL7xhAOx1UFOTv3UrW/Pnk/tAE/9l+SRc2NuNvDIQCkWBXBrCKTDDgJfHiuX11CpdfB2jC2qU+wOvXhkF9KxAXxQ45zAQGIZU8VtyW9H5VPB+AnrE5FXUIKQZXi6NtcqAYgJHojAYmJ1kNu7fyhZOWAJwsS+zejYMcwo8j4fvP7Aav5Or2S+/7AtLXzmXfpk6gEu1xh0aWLC8nlb4PtZGK2GkD+KAdvF8E6DbG+BjlMEcxb4UMwj3eIsQjihkst6Q/hkGcnnA1C8Xa3S/Sbt6HiUBSAngqnpa8ZMP+Efpg+j6u3Nov4hTQnTICUwALU4N362b4PvDOVkalqngurtxqvrvoKa5mZFI4P43+JRoDDVOGtAMJg3tE6inA6ma01H10Osc/QbRexgDMEelF7H17Pfy3TfPhW2fE5hAFLX4YdCwLQXH20RNzQ7H42ZzMwRPzMU6UrjAZ7DYCBEcURWRKOA7gKsCkRkTb1CNSi+i8QkelBWHZQofDOepyeoD5K8P7ubOHcAhwGYhBUEXjIe4HkHROtClY2St8HEJIEqeFEFruZaJLUPOEY4YvPrMPkI2wXF+g0NqC8fjCk1Nh+WZAk44Foy67I8CAQgi6zqbhs5mgZB1DjxP6UwaOpcbBl00hPEDSiQ05s4dtBsMlOcx4HjPx58ARID2gLIY1KXfgLr4EiCV0phcC/W1K6HOWwh4wu4yTfYRLTOQybbRyvhjsvriBOEEAfXRmhG04wBfXIyHdms0v5aH/uO5Chcsxprf7Me97WXA6TOg83mGZRHyTjdsWoETENRHaiU8aZrApFqsa3kW961/Br1Vp8APxbB23SY8+MQW6PJJUOxz4Pv7fi/sKbsD2U8kRjWgMTEEUAT2POBQD75yyfm4fNnnUd7bCcPN4utNX8BlF8+HSh+UUIDSjuOjLDID6faVgfzH42MS2hp3DlCWDfzy5/jmWeVYfe5kGG+9Djz7FG5ZOA03zGRg9y5QKCTuoYKIglLX8eq4xAx0wAknCJgfqZUYahGBvkPgDQ8GVTJZ7NvLvH6tbHkK94F/QARfeyiLTIJOf58St32bk8kThgvUR24pkzNMUDgclIKnZxPZA/elIHsADdNcwffGzxAfQOKBOAFAfazWBbeNgzAX+Ar4/k7YJoMDv64UJGDCsO0QHP77wAdoaprQgGw/qFHog2EY0tNWQH0vMHvDucJEBrI5jZC9jNfEPyfB1uaFbRPOBWpUehFX2MfJ9N3440iltyEcMgIH6EgQwiglEb9VwX1X16ibxDh/OAWrPgSuL7G6YUvBV1fBlshQ1xWVnx6CJ55hLu8iHDqf18SXDniEIjTSP8GX//7Sfz+CvcIAJCihx4YAIduAbYUQto0jigXLUoDKi2zTt+OtyDstqKywYFuDcaWPkG0hZEMr+tF7d90Vka5JIRSJwQiFYUsIrL+EIrDkH0DZ0YaV5KQhRa4lurS589HZAwp2BHsI85hPE4nCCmk8gVR6KVx3aIeyG0Q+D2PSK4V3ghAOr4Cb3QAvR0Nf4QGOQ0ohNy0SC0Lpip1rMr32dCcdRIMH3sEK7PmBit1bqAiCrIPEpokKXBSPx9WmDzZOjZRH3trU/sgdAG5NIqmacOx9B+ETDk/vbfkrrfngkqlNL/6CfxEy96W2KEOdmcLBk5bWLu87XibJHMlLglVNJo8pLqU7PE42GpjREIMXGfpiM0toz7rYhpzsC0RsJDnyqdO6otrPD8FXNSHq7o7lzjhjSb6/rpVbzUW0yNvUkfxS9eTynylTYVP7xlv+gpbcsalj4/3VNdX/xp36UwBebEGLjNv/WASggt0+7haWW+MmLUp4+PRnbkB1+BocynpgLn0HwzYJ1eEONOTORzNnRTEunPbSPYhFlqIvK+8YnEvM2qpaua8zxxeDEpJZQFtR3p/Zl6zPZHKum3OfrJxcefszHcnHWalnWdxtTadIB7VtO47J5SbGAhRNg21NgZIIsHGEC20Arl8Bp8omokzxyWyEzCnIKMAsYTTNgG1I3jFN/do9CDG0aaJFvLk9+evyiqjV2bf/4b7edA0zEm7WuY9AitnfJ+hdCw+H3saPAJodOF4houeUHmxgifmKmstCl7I7EXLuUHyGhqeFIp2F1kFaDM90JJ9/6g8b2i6a0nTzMx3JzbHKsmQmlXmDQWdHKyJfONDZ0z75lLKtRfxjmkU1FvM/nEs8IqfIg/5LgGugRecHqfTD+NJa0ulM3QW8NkMUGgPlZeVlK588+JPqiGF/xcm7j1i2XW+Zpg2ilOd5X51Pl2SA5uOm0hUmGHjnD8sBnFxIpQ2DIFaWsEcu9+zZE3AsEd1SXVkVtrLGD8+rXdp3Qc2yr7p59/LyqqhK9WWWLZ562Qtx0UcjcIpMTBSYRWfF8v4IyqyD6x99QVi/KX+nn77HK5wqoSc27X3kp1NPnnLV03uTXdDuOsNSl/UdSudUpGpn0RHyEzh+DllhooBs4WU5CzEf5WEZx9ADD8wGsq7ogleD+5Y3hJ1ZzGAmZy/f19359Ckn195UVTtp56Sa6iWe4920ePLLqTa0CZFGtM8wMYEQpNJ20cXDPpSNk5jMvLsPFflCKq2xpT+XKMQ6CGDxrw48+nlTWfMO5HqeXzLla68VGo98P2BiYoBg9OZ416pKEF2ETL6w2oOz6RphS8H1ttBJiZREkajo9m7u2PhZy7ZrHM/3vazX6yr9isGqanP7xiWhaJicvH7nwrovvz2S80QmJgYMmprI8Dt3fguTYtXoSctO0RjWmmg8JpfbZvQEcr2Vt1r7O959tCwWmaoyDsyoUfQNGK7joaKiHN379kuW+dLjeYETQ4BCTijH76+ZBse/DhmHhxykkNlYhkJvdj/y9pNS1dDQHkwkjHelg1wmldVO3tXIDjqC42WyWZOI3JEOR2E8QXaOng9NqELe+xVM4zTOe0GC8QhEH7GwEGU9nbXygLjYwKB8grC2RFZE2Q2UwGgSKfG2RjokE+MGsnBy+E9GySGEI7ORyQQRItYMUtbh1TdNhb5cGg7/YzEvOGbJURPjApJLdIDYTFDNQiCzC9i3WaP6bEVVZwO924GebWIahQAaVREDXX1rqP57e5gLym+sEqQK4wJy8sGErrkY37l3O/7hZzmgdp5Kl52Ly29/Aev/qwIor4MnZwijIQPdfa/AzK1ibjSAkjT6J5UAzBpkx5DOEn666QU83vY7IDwNHZ0ZtDz9HJ5+6X8Aq1IUtoiEbKbSND2RQ0vBVxjLsZkYBxALx/lexMI5rLxiGerKfSD1Jk47eSZuvKoJ59ZHgfxLUMo0kMr5qI4u4ndWNdHsG5P9IjBWYzMxThAsZMcT+M6yBUBadMAuttxNFL/ibKBnO3DwAJQK0mkEx5PzZLfz2/c8DuxwT7wDEh8aJKhmAU43/Hcfhu7cBoQqCOnd7O/aAN3zDiCTLwTfFDKORmXkDCDzzWBH1zZ2GWWFcQOZnAnDikIZIR+el4UVJsMogzLs4pHjIggR0q6GpW7iN+6cjIXNPhD/JFuBIojBNwOzvh8wLoT2e2GSpEUGKzrxDPMuoyJSB4uuL/rzYzJWhfGGYKpk06zrfw2t16Ai8PiGKjnx7HpzGpbxLX5z9XSgeUx8AYWJAGbN+/45hpR1Nw5m30fINIL4XylI5NDX4heUwfBvK3DB6FtEhTGBwHoHwYtBP/kcQH4yGbc3RH96XRpa34Iyu9/dPQIfRhAqDxuX8a5VfyZE6P1DIWzOQcSz2F/xJ/cSdtVa0wQTgF1YhqyhBUvRQDFJwS6cl0ef4QRz+O3Mddif3oLKsBl8L1KKL0WIEA0bmvk26TnvpwM2sGyLyCDDsAzqL/I+yzZkazRi75FGddqFjS3z+3dORlnsVHSlgSNP+EdtIJXP0syb3h7Af+0H1ZgRPQ0fDIMvIOeRvFyepn8/iA227kvOMqORaDqdFgoPoLmOi6q6KuQPpTsX1C3bO9ofWP2fBPoIuEejaPH0q8ih7MebB/Xd0jKXamt30MKuuYzGHVwashb8lpYmBTSisXHHUVeMJDVWOARBzWge8rylpYV21O4gtEEn5Eje/8PocADJIs1pjMfSZfB+/1BimJPQwJzG+KSQFSvfvuG63w/XvqHxhkpPVVVD++6rLTd/cGT7BQviZkdlJvLWE6v7jjaQzzbeFcmE2tVr6++ST+4KyrQEZv1NvKJSVVfF3utpf+65hDc6ViBedEG1+tdYSn23f7Alzwt9+MbtnsbaOV++7epBOIX2lPOip2tS613fv7KEMAPtu6pwlmFX3jikf4mGNxZOgPTq9E1etmJ1sU4d+TyUM1a6nruhe7J5VWn9xyAAExIJ/Sdfip9KrD4D0KKGhqut554rnhwpBUI52JeToMH3gHV1xaysyGJjUu147NZXfTe31fBDjw0ibH9zpSzSunaYQYt+8OdduDJKjAUAPnfm0jsnS90QDmYqByML4tOON/GREaBRFJP0a8yDwf9OjBdz006dVWC9YuAx0Vxwbol/67v5xzRzttC45XA/cxoDfCK0G3bhg6IhoFUHGeapO/WblwUE7uesIqF0RayegafA2Ggod17ps8Ok0t1QhgPiIDU+aAxHgf8FUUhP02gAAQoAAAAASUVORK5CYII=">
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap">
+<style>
+/* 레이아웃: 저녁 하늘 구지봉 무대(SVG) 아래 크림색 카드 한 장. 단계마다 무대 장면과 카드 내용만 바뀐다.
+   그림 스타일: 파스텔 + 둥근 진갈색 외곽선 + 볼터치 (키키아트랩 키트 스티커 느낌). docs/디자인가이드_귀여운스타일.md */
+:root{
+  --ink:#4A3626;
+  --ink-soft:#8A776B;
+  --page:#FFF4DC;
+  --cream:#FFF7E8;
+  --cream-deep:#F6E7CF;
+  --butter:#FFE88F;
+  --butter-deep:#F7C64B;
+  --peach:#FFD9B8;
+  --pink:#F7A9B9;
+  --mint:#C6E6A8;
+  --mint-deep:#8FC26B;
+  --lavender:#E9E3FA;
+  --lav-deep:#B7ABE6;
+  --coral:#F08A7E;
+  --sky-top:#7A78C9;
+  --sky-bot:#B7ABE6;
+  --logo-bg:#ffffff;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-ui:"Jua","Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-display:var(--f-ui);
+  --f-code:var(--f-ui);
+  color-scheme:light;
+}
+html,body{background:var(--page)}
+body{
+  color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65;
+  background:
+    radial-gradient(circle at 12% 8%,#FFEFC2 0 60px,transparent 61px),
+    radial-gradient(circle at 88% 92%,#FCE4EA 0 70px,transparent 71px),
+    var(--page);
+  -webkit-tap-highlight-color:transparent;word-break:keep-all;overflow-wrap:anywhere;
+}
+*{box-sizing:border-box}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.app{max-width:780px;margin:0 auto;padding-inline:16px;padding-block:14px 40px;display:flex;flex-direction:column;gap:14px}
 
-    body {
-      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      font-size: 15px;
-      line-height: 1.6;
-    }
+/* ---------- 머리 ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand-row{display:flex;align-items:center;gap:12px;min-width:0}
+.logo-badge{flex-shrink:0;display:inline-flex;background:var(--logo-bg);border:3px solid var(--ink);border-radius:14px;padding:4px 8px;box-shadow:0 3px 0 var(--ink)}
+.logo-badge img{display:block;height:34px;width:auto}
+.brand{display:flex;flex-direction:column;min-width:0}
+.brand h1{font-family:var(--f-ui);font-weight:400;font-size:clamp(1.45rem,5.6vw,1.95rem);line-height:1.15;color:var(--ink);margin:0;letter-spacing:.01em}
+.brand span{color:var(--ink-soft);font-size:clamp(.74rem,3.2vw,.9rem);white-space:nowrap}
+.sound{flex-shrink:0;font-family:var(--f-ui);font-size:.95rem;color:var(--ink);background:#fff;border:3px solid var(--ink);border-radius:999px;padding:.3rem .9rem;cursor:pointer;min-height:42px;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.sound:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.sound[aria-pressed="false"]{background:var(--cream-deep);color:var(--ink-soft)}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:0;padding:0 0 4px;list-style:none}
+.steps button{width:100%;font-family:var(--f-ui);font-size:.98rem;color:var(--ink);background:#fff;border:3px solid var(--ink);border-radius:14px;padding:.3rem .15rem;display:flex;flex-direction:column;align-items:center;gap:0;line-height:1.2;cursor:pointer;min-height:50px;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .15s}
+.steps button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.steps button b{font-family:var(--f-ui);font-weight:400;font-size:.7rem;opacity:.7}
+.steps button[aria-current="step"]{background:var(--butter)}
 
-    /* ===== 상단 헤더 ===== */
-    .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      z-index: 100;
-    }
+/* ---------- 무대 ---------- */
+.stage{border-radius:22px;overflow:hidden;background:linear-gradient(var(--sky-top),var(--sky-bot));border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink)}
+.scene{display:block;width:100%;height:auto;max-height:min(50vh,400px);min-height:180px}
+.stage.compact .scene{max-height:min(40vh,320px)}
+.tw{fill:#FFF3C4;animation:tw 3.2s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+.spark{fill:#FFF3C4;stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round;transform-box:fill-box;transform-origin:center;animation:spark 2.6s ease-in-out infinite}
+@keyframes spark{0%,100%{transform:scale(.75);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.cloud{animation:drift 18s ease-in-out infinite alternate}
+.cloud.slow{animation-duration:26s}
+@keyframes drift{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+#beam,#people,#rope-g,#box,.zzz{transition:opacity .7s ease,transform 1.6s cubic-bezier(.2,.8,.2,1)}
+#beam{opacity:0}
+.scene[data-scene="i2"] #beam,.scene[data-scene="i4"] #beam,.scene[data-scene="box"] #beam{opacity:1}
+#people{opacity:0}
+.scene[data-scene="i3"] #people,.scene[data-scene="rhythm"] #people{opacity:1}
+.fig{transition:transform .12s ease-out}
+#people.hop .fig{transform:translateY(-5px)}
+#rope-g{opacity:0;transform:translateY(-210px)}
+.scene[data-scene="i4"] #rope-g,.scene[data-scene="i5"] #rope-g,.scene[data-scene="box"].dropped #rope-g{opacity:1;transform:none}
+#box{opacity:0}
+.scene.opened #box{opacity:1}
+#bundle{transform-box:fill-box;transform-origin:50% 0;transition:opacity .45s,transform .45s;cursor:pointer}
+.scene.opened #bundle{opacity:0;transform:scale(.4)}
+.lid{transform-box:fill-box;transform-origin:0 100%;transition:transform .8s cubic-bezier(.2,.9,.3,1.3) .2s}
+.scene.opened .lid{transform:translate(-8px,-12px) rotate(-24deg)}
+.box-glow{transform-box:fill-box;transform-origin:center}
+.scene.opened .box-glow{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.6;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
+#t-sleep,#t-sing{transition:opacity .18s ease-out}
+#king-slot{opacity:0;transition:opacity .5s ease-out}.stage.kit #king-slot{opacity:1}#turtle-in{transform-box:fill-box;transform-origin:50% 100%}
+.eye-open,.mouth-awake{opacity:0}
+.scene.awake .eye-open,.scene.awake .mouth-awake{opacity:1}
+.scene.awake .eye-shut,.scene.awake .mouth-sleep,.scene.awake .zzz{opacity:0}
+.scene.awake #turtle-in{animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+#turtle-in.thump{animation:none;transform:scale(1.04)}
+.zzz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      height: 32px;
-      min-width: 120px;
-      margin-right: 48px;
-    }
-    .logo img { height: 100%; width: auto; object-fit: contain; }
+/* ---------- 크림 카드 ---------- */
+.card{background:var(--cream);color:var(--ink);border:3px solid var(--ink);border-radius:22px;padding-block:18px 20px;padding-inline:clamp(16px,4vw,26px);box-shadow:0 4px 0 var(--ink);animation:cardin .35s ease-out}
+@keyframes cardin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card h2{font-family:var(--f-ui);font-weight:400;font-size:1.55rem;line-height:1.3;margin:0 0 6px;text-wrap:balance}
+.card p{margin:0 0 10px}
+.lead{font-size:1.06rem;line-height:1.75}
+.hint{font-size:.88rem;color:var(--ink-soft)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.btn{font-family:var(--f-ui);font-size:1.08rem;line-height:1.2;border-radius:999px;padding:.65rem 1.25rem;min-height:48px;border:3px solid var(--ink);cursor:pointer;color:var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:0 4px 0 var(--ink)}
+.btn-gold{background:var(--butter)}
+.btn-line{background:#fff}
+.btn-night{background:var(--lavender)}
+.btn-sm{font-size:.95rem;min-height:42px;padding:.4rem .95rem;box-shadow:0 3px 0 var(--ink)}
+.btn-sm:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible,a:focus-visible{outline:4px solid var(--coral);outline-offset:3px}
+.eyebrow{font-family:var(--f-ui);font-size:.92rem;color:var(--ink-soft);letter-spacing:.04em}
 
-    .gnb { display: flex; gap: 32px; font-size: 15px; font-weight: 600; }
-    .gnb a { color: var(--text-sub); padding: 20px 0; border-bottom: 2px solid transparent; }
-    .gnb a:hover, .gnb a.active { color: var(--text); border-bottom-color: var(--lavender); }
+/* 표지 */
+.cover h2{font-size:clamp(1.7rem,6vw,2.1rem);color:var(--ink)}
+.cover .lead{max-width:34em}
 
-    .header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-    .btn-login {
-      padding: 7px 16px;
-      border-radius: 8px;
-      background: var(--lavender);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .btn-login:hover { background: var(--lavender-dark); }
+/* 인트로 */
+.intro-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.intro-head .readtg{margin-left:auto}
+.readtg{font-family:var(--f-ui);font-size:.92rem;color:var(--ink);background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:.35rem .9rem;min-height:40px;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.readtg[aria-pressed="false"]{opacity:.5;box-shadow:none;transform:translateY(2px)}
+.skip{font-family:var(--f-ui);font-size:.92rem;color:var(--ink);background:var(--cream-deep);border:2.5px solid var(--ink);border-radius:999px;padding:.35rem .9rem;min-height:40px;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.skip:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.song{font-family:var(--f-ui);font-size:1.35rem;line-height:1.7;background:#fff;border:3px dashed var(--lav-deep);border-radius:16px;padding:12px 18px;margin:4px 0 12px}
+.song span{display:block;transition:color .15s,transform .15s}
+.song span.on{color:#E0607A;transform:translateX(4px)}
+.song-btn{font-family:var(--f-ui);font-size:.95rem;color:var(--ink);background:var(--butter);border:3px solid var(--ink);border-radius:999px;padding:.35rem .95rem;min-height:42px;margin-top:10px;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.song-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
 
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      margin-right: 12px;
-      color: var(--text);
-    }
+/* 말 카드 */
+.say-box{background:var(--cream-deep);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.say-title{font-family:var(--f-ui);font-size:.98rem;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-ui);font-size:.98rem;color:var(--ink);background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:.35rem .9rem;cursor:pointer;min-height:42px;text-align:left;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .15s}
+.chip:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.chip[aria-pressed="true"]{background:var(--lavender)}
+.chip:disabled{opacity:.5;cursor:default}
 
-    /* ===== 좌측 메뉴 ===== */
-    .sidebar {
-      position: fixed;
-      top: var(--header-h);
-      left: 0;
-      bottom: 0;
-      width: var(--sidebar-w);
-      border-right: 1px solid var(--line);
-      background: var(--bg);
-      overflow-y: auto;
-      padding: 24px 16px;
-    }
+/* 구지가 리듬 */
+.gauge{display:flex;align-items:center;gap:10px}
+.gauge-label{font-family:var(--f-ui);font-size:.95rem;white-space:nowrap}
+.gauge-track{flex:1;height:18px;border-radius:999px;background:#fff;border:2.5px solid var(--ink);overflow:hidden;padding:2px}
+.gauge-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--mint-deep),var(--butter-deep));transition:width .3s ease}
+.gauge-num{font-family:var(--f-ui);font-size:.95rem;min-width:3.2em;text-align:right;font-variant-numeric:tabular-nums}
+.lyrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 4px}
+.ly{font-family:var(--f-ui);font-size:clamp(.95rem,3.8vw,1.3rem);white-space:nowrap;text-align:center;padding:.5rem .1rem;border-radius:14px;background:#fff;border:2.5px solid var(--cream-deep);transition:transform .1s,background .15s,border-color .15s}
+.ly.now{border-color:var(--ink);background:var(--butter);transform:scale(1.07)}
+.ly.p{background:var(--butter);border-color:var(--butter-deep)}
+.ly.g{background:var(--mint);border-color:var(--mint-deep)}
+.ly.m{opacity:.4}
+.ly.now .sy{opacity:.45}
+.ly .sy.on{opacity:1;color:#E0607A}
+.round{font-family:var(--f-ui);font-size:.95rem;color:var(--ink-soft)}
+.drum-area{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin-top:12px}
+.drum-side{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.drum-side .btn{width:100%;max-width:150px;padding-inline:.6rem}
+.center{text-align:center}
+.drum-wrap{position:relative;width:118px;height:118px;display:grid;place-items:center}
+.drum{width:112px;height:112px;border-radius:50%;border:3px solid var(--ink);padding:6px;background:#fff;box-shadow:0 4px 0 var(--ink);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;display:grid;place-items:center;transition:transform .08s,box-shadow .08s}
+.drum svg,.drum img{width:100%;height:100%;display:block;pointer-events:none;object-fit:contain;image-rendering:pixelated}
+.drum.hit{transform:translateY(3px) scale(.95) rotate(-5deg);box-shadow:0 1px 0 var(--ink)}
+.inst-pick{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:14px}
+.inst-pick span{font-family:var(--f-ui);font-size:.92rem;color:var(--ink-soft)}
+.inst-pick button{font-family:var(--f-ui);font-size:.95rem;color:var(--ink);background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:.3rem .9rem;min-height:42px;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .15s}
+.inst-pick button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.inst-pick button[aria-pressed="true"]{background:var(--mint)}
+.ring{position:absolute;inset:0;border-radius:50%;border:4px solid var(--coral);opacity:0;pointer-events:none}
+.fb{font-family:var(--f-ui);font-size:1.15rem;min-height:1.6em;text-align:center}
+.fb.p{color:#D9842B}.fb.g{color:#3F9D6A}.fb.m{color:var(--ink-soft)}.fb.c{color:var(--lav-deep);font-size:1.6rem}
+.fb.pop{animation:pop .3s ease-out}
+@keyframes pop{from{transform:scale(1.3)}to{transform:scale(1)}}
+.stats{font-family:var(--f-ui);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.result{border-top:3px dashed var(--cream-deep);margin-top:14px;padding-top:12px}
 
-    .nav-group + .nav-group { margin-top: 8px; }
+/* 황금알 */
+.eggs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}
+.egg{background:#fff;border:3px solid var(--cream-deep);border-radius:18px;padding:6px 4px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink);touch-action:manipulation;transition:transform .08s,border-color .15s,background .15s;justify-content:center;min-height:176px}
+.egg:hover{border-color:var(--butter-deep)}
+.egg:active{transform:scale(.97)}
+.eggpic{position:relative;width:100%;max-width:120px;aspect-ratio:1/1;display:block}.eggpic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;image-rendering:pixelated}.eggpic .cracks{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.eggpic .egg-open{display:none}.egg-label:empty{display:none}
+.egg.hatched .egg-whole,.egg.hatched .cracks{display:none}
+.egg.hatched .egg-open{display:block}
+.egg.hatched{cursor:default;background:var(--cream-deep);border-color:var(--cream-deep)}
+.egg.first{border-color:var(--butter-deep);background:var(--butter)}
+.crack{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.egg.k1 .c1,.egg.k2 .c1,.egg.k2 .c2,.egg.k3 .c1,.egg.k3 .c2,.egg.k3 .c3{opacity:1}
+.egg-glow{animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.egg-label{font-size:.88rem;line-height:1.35;text-align:center;min-height:2.7em}
+.egg-label b{font-family:var(--f-ui);font-weight:400;font-size:1.05rem;display:block}
+.count{font-family:var(--f-ui);font-variant-numeric:tabular-nums}
 
-    .nav-title {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
-      background: none;
-      border: none;
-      font: inherit;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      text-align: left;
-      border-radius: 6px;
-    }
-    .nav-title:hover { background: var(--bg-gray); }
+/* 마무리 */
+.finale-line{font-family:var(--f-ui);font-size:1.25rem;line-height:1.6;margin:0;padding:12px 16px;background:#fff;border:3px dashed var(--butter-deep);border-radius:14px;text-wrap:pretty}
+a.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center}
+.kit[aria-disabled="true"]{opacity:.55;pointer-events:none}
+.kit-note{font-size:.85rem;color:var(--ink-soft);margin:0}
+.foot{color:var(--ink-soft);font-size:.82rem;line-height:1.6;text-align:center;margin:6px 0 0;display:flex;flex-direction:column;gap:6px}
+.foot p{margin:0}
+.foot .copy{opacity:.9}
+.foot .note::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--butter-deep);border:1.5px solid var(--ink);margin-right:6px;vertical-align:1px}
+.foot .note + .note{margin-top:4px}
+@media (max-width:420px){
+  .drum-area{grid-template-columns:1fr;justify-items:center;gap:8px}
+  .drum-side{align-items:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+}
+</style>
+<style>
+/* 기본 초기화 */
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<!-- ===================================================== -->
+<!-- [공통] 스타일 시작 : 상단 헤더·좌측 메뉴·푸터 (index.html과 동일 디자인) -->
+<!-- 이 페이지 자체 스타일과 충돌하지 않도록 변수는 --cm-* 이름을 씁니다    -->
+<!-- ===================================================== -->
+<style>
+:root{
+  --cm-lavender:#9b87f5; --cm-lavender-dark:#7a63e8; --cm-lavender-light:#f1edff;
+  --cm-pink:#f48fb8; --cm-emerald:#2fbf95; --cm-sky:#5bb8ee;
+  --cm-text:#1e1e24; --cm-text-sub:#6b6b78; --cm-text-light:#9a9aa6;
+  --cm-line:#ececf2; --cm-bg:#ffffff; --cm-bg-gray:#f8f8fb;
+  --cm-header-h:64px; --cm-sidebar-w:260px;
+  --cm-font:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+}
+/* 고정 헤더·메뉴만큼 본문 자리 비우기 */
+body{padding-top:var(--cm-header-h);padding-left:var(--cm-sidebar-w)}
 
-    .nav-title .arrow {
-      width: 8px; height: 8px;
-      border-right: 2px solid var(--text-light);
-      border-bottom: 2px solid var(--text-light);
-      transform: rotate(45deg);
-      margin: 0 6px 3px 2px;
-      transition: transform 0.2s;
-    }
-    .nav-group.closed .arrow { transform: rotate(-45deg); margin-bottom: 0; }
-    .nav-group.closed .nav-list { display: none; }
+.header,.sidebar,.footer{font-family:var(--cm-font);line-height:1.6}
+.header *,.sidebar *,.footer *{margin:0;padding:0;box-sizing:border-box}
+.header a,.sidebar a,.footer a{color:inherit;text-decoration:none}
+.header ul,.sidebar ul,.footer ul{list-style:none}
 
-    .nav-list { padding: 4px 0 4px 18px; }
+/* ===== 상단 헤더 ===== */
+.header{position:fixed;top:0;left:0;right:0;height:var(--cm-header-h);background:var(--cm-bg);border-bottom:1px solid var(--cm-line);display:flex;align-items:center;padding:0 24px;z-index:100;color:var(--cm-text)}
+.header .logo{display:flex;align-items:center;height:32px;min-width:120px;margin-right:48px}
+.header .logo img{height:100%;width:auto;object-fit:contain}
+.gnb{display:flex;gap:32px;font-size:15px;font-weight:600}
+.gnb a{color:var(--cm-text-sub);padding:20px 0;border-bottom:2px solid transparent}
+.gnb a:hover,.gnb a.active{color:var(--cm-text);border-bottom-color:var(--cm-lavender)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn-login{padding:7px 16px;border-radius:8px;background:var(--cm-lavender);color:#fff !important;font-size:14px;font-weight:600}
+.btn-login:hover{background:var(--cm-lavender-dark)}
+.menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;margin-right:12px;color:var(--cm-text)}
 
-    .nav-list a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      color: var(--text-sub);
-      transition: background 0.15s, color 0.15s;
-    }
-    .nav-list a .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+/* ===== 좌측 메뉴 (불투명 흰 배경) ===== */
+.sidebar{position:fixed;top:var(--cm-header-h);left:0;bottom:0;width:var(--cm-sidebar-w);border-right:1px solid var(--cm-line);background:var(--cm-bg);overflow-y:auto;padding:24px 16px;z-index:90;color:var(--cm-text)}
+.nav-group + .nav-group{margin-top:8px}
+.nav-title{width:100%;display:flex;align-items:center;gap:6px;padding:8px 10px;background:none;border:none;font:inherit;font-size:15px;font-weight:700;color:var(--cm-text);cursor:pointer;text-align:left;border-radius:6px}
+.nav-title:hover{background:var(--cm-bg-gray)}
+.nav-title .arrow{width:8px;height:8px;border-right:2px solid var(--cm-text-light);border-bottom:2px solid var(--cm-text-light);transform:rotate(45deg);margin:0 6px 3px 2px;transition:transform .2s}
+.nav-group.closed .arrow{transform:rotate(-45deg);margin-bottom:0}
+.nav-group.closed .nav-list{display:none}
+.nav-list{padding:4px 0 4px 18px}
+.nav-list a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--cm-text-sub);transition:background .15s,color .15s}
+.nav-list a .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.nav-list li:nth-child(4n+1) .dot{background:var(--cm-lavender)}
+.nav-list li:nth-child(4n+2) .dot{background:var(--cm-pink)}
+.nav-list li:nth-child(4n+3) .dot{background:var(--cm-emerald)}
+.nav-list li:nth-child(4n+4) .dot{background:var(--cm-sky)}
+.nav-list a:hover{background:var(--cm-bg-gray);color:var(--cm-text)}
+.nav-list a.active{background:var(--cm-lavender-light);color:var(--cm-lavender-dark);font-weight:700}
 
-    .nav-list li:nth-child(4n+1) .dot { background: var(--lavender); }
-    .nav-list li:nth-child(4n+2) .dot { background: var(--pink); }
-    .nav-list li:nth-child(4n+3) .dot { background: var(--emerald); }
-    .nav-list li:nth-child(4n+4) .dot { background: var(--sky); }
+/* ===== 푸터 (이 페이지는 밝은 크림색 배경이라 선·글자색을 밝은 배경용으로) ===== */
+.footer{max-width:780px;margin:0 auto;padding:20px 16px 32px;border-top:1px solid var(--cm-line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--cm-text-light)}
+.footer ul{display:flex;gap:16px}
+.footer a:hover{color:var(--cm-text)}
 
-    .nav-list a:hover { background: var(--bg-gray); color: var(--text); }
-    .nav-list a.active { background: var(--lavender-light); color: var(--lavender-dark); font-weight: 700; }
+/* ===== 모바일 ===== */
+.dim{display:none}
+@media (max-width:900px){
+  body{padding-left:0}
+  .gnb{display:none}
+  .menu-toggle{display:block}
+  .header .logo{margin-right:auto;min-width:0}
+  .sidebar{transform:translateX(-100%);transition:transform .25s}
+  body.menu-open .sidebar{transform:translateX(0)}
+  body.menu-open .dim{display:block;position:fixed;inset:var(--cm-header-h) 0 0 0;background:rgba(0,0,0,.4);z-index:80}
+}
+</style>
+<!-- [공통] 스타일 끝 -->
 
-    /* ===== 본문 ===== */
-    .main {
-      margin-left: var(--sidebar-w);
-      padding: calc(var(--header-h) + 40px) 56px 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content { max-width: 880px; width: 100%; flex: 1; }
-
-    .breadcrumb {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-light);
-      margin-bottom: 16px;
-    }
-    .breadcrumb li + li::before { content: "›"; margin-right: 6px; }
-    .breadcrumb li:last-child { color: var(--lavender-dark); font-weight: 600; }
-
-    .content h1 { font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
-    .content .lead { color: var(--text-sub); font-size: 16px; margin-bottom: 40px; }
-
-    .content h2 {
-      font-size: 22px;
-      font-weight: 700;
-      margin: 40px 0 16px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-    }
-    .content p { color: var(--text-sub); margin-bottom: 16px; }
-
-    .notice {
-      display: flex;
-      gap: 12px;
-      padding: 16px 20px;
-      border-radius: 10px;
-      background: var(--sky-light);
-      border-left: 4px solid var(--sky);
-      font-size: 14px;
-      color: var(--text-sub);
-      margin-bottom: 24px;
-    }
-    .notice strong { color: var(--text); }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      display: block;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(155, 135, 245, 0.15); }
-    .card .badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .card h3 { font-size: 17px; margin-bottom: 4px; }
-    .card span.file { font-size: 13px; color: var(--text-light); }
-
-    .card:nth-child(4n+1) .badge { background: var(--lavender-light); color: var(--lavender-dark); }
-    .card:nth-child(4n+2) .badge { background: var(--pink-light); color: #d9578d; }
-    .card:nth-child(4n+3) .badge { background: var(--emerald-light); color: #1f9c78; }
-    .card:nth-child(4n+4) .badge { background: var(--sky-light); color: #2f8fc8; }
-    .card:nth-child(4n+1):hover { border-color: var(--lavender); }
-    .card:nth-child(4n+2):hover { border-color: var(--pink); }
-    .card:nth-child(4n+3):hover { border-color: var(--emerald); }
-    .card:nth-child(4n+4):hover { border-color: var(--sky); }
-
-    /* ===== 푸터 ===== */
-    .footer {
-      max-width: 880px;
-      margin-top: 80px;
-      padding: 24px 0 32px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--text-light);
-    }
-    .footer ul { display: flex; gap: 16px; }
-    .footer a:hover { color: var(--text); }
-
-    /* ===== 모바일 ===== */
-    .dim { display: none; }
-
-    @media (max-width: 900px) {
-      .gnb { display: none; }
-      .menu-toggle { display: block; }
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.25s;
-        z-index: 90;
-      }
-      body.menu-open .sidebar { transform: translateX(0); }
-      body.menu-open .dim {
-        display: block;
-        position: fixed;
-        inset: var(--header-h) 0 0 0;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 80;
-      }
-      .main { margin-left: 0; padding: calc(var(--header-h) + 24px) 16px 0; }
-      .content h1 { font-size: 26px; }
-    }
-  </style>
-  <!-- [공통] 스타일 끝 -->
-
-  <!-- [개별] 이 페이지 전용 스타일 : 개발 시 여기에 추가하세요 -->
-  <style>
-    .page-box {
-      min-height: 320px;
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-light);
-    }
-    .btn-main {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      background: var(--pink-light);
-      border: 1px solid var(--pink);
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .btn-main:hover { background: var(--pink); color: #fff; }
-  </style>
-  <!-- [개별] 페이지 전용 스타일 끝 -->
+<!-- [개별] 우측 상단 "메인으로" 버튼 스타일 -->
+<style>
+.btn-home{padding:7px 14px;border-radius:8px;border:1px solid var(--cm-lavender);background:var(--cm-lavender-light);color:var(--cm-lavender-dark) !important;font-size:14px;font-weight:600;white-space:nowrap}
+.btn-home:hover{background:var(--cm-lavender);color:#fff !important}
+</style>
 </head>
 <body>
+<!-- ===================================================== -->
+<!-- [공통] 상단 헤더 시작 : 수정하지 마세요                  -->
+<!-- 로고 클릭 시 메인(index.html)으로 이동                    -->
+<!-- ===================================================== -->
+<header class="header">
+  <button class="menu-toggle" type="button" aria-label="메뉴 열기" onclick="document.body.classList.toggle('menu-open')">☰</button>
+  <a class="logo" href="index.html"><img src="images/covers/logo.png" alt="로고"></a>
+  <nav class="gnb">
+    <a href="index.html" class="active">테스트</a>
+    <a href="#">문서</a>
+    <a href="#">지원</a>
+  </nav>
+  <div class="header-right">
+    <!-- [개별] 우측 상단 메인으로 버튼 -->
+    <a href="index.html" class="btn-home">← 메인으로</a>
+    <!-- [개별] 메인으로 버튼 끝 -->
+    <a href="#" class="btn-login">로그인</a>
+  </div>
+</header>
+<!-- [공통] 상단 헤더 끝 -->
 
-  <!-- ===================================================== -->
-  <!-- [공통] 상단 헤더 시작 : 수정하지 마세요                  -->
-  <!-- 로고 클릭 시 메인(index.html)으로 이동                    -->
-  <!-- ===================================================== -->
-  <header class="header">
-    <button class="menu-toggle" type="button" aria-label="메뉴 열기" onclick="document.body.classList.toggle('menu-open')">☰</button>
-    <a class="logo" href="index.html"><img src="images/covers/logo.png" alt="로고"></a>
-    <nav class="gnb">
-      <a href="index.html" class="active">테스트</a>
-      <a href="#">문서</a>
-      <a href="#">지원</a>
-    </nav>
-    <div class="header-right">
-      <a href="#" class="btn-login">로그인</a>
+<!-- ===================================================== -->
+<!-- [공통] 좌측 메뉴 시작 : 수정하지 마세요                  -->
+<!-- ※ 현재 페이지 메뉴에만 class="active" 를 붙입니다 (테스트2) -->
+<!-- ===================================================== -->
+<aside class="sidebar">
+  <div class="nav-group">
+    <button class="nav-title" type="button"><span class="arrow"></span>시작하기</button>
+    <ul class="nav-list">
+      <li><a href="index.html"><span class="dot"></span>테스트 페이지 소개</a></li>
+    </ul>
+  </div>
+
+  <div class="nav-group">
+    <button class="nav-title" type="button"><span class="arrow"></span>테스트 목록</button>
+    <ul class="nav-list">
+      <li><a href="test1.html"><span class="dot"></span>테스트1</a></li>
+      <li><a href="test2.html" class="active"><span class="dot"></span>테스트2</a></li>
+      <li><a href="test3.html"><span class="dot"></span>테스트3</a></li>
+      <li><a href="test4.html"><span class="dot"></span>테스트4</a></li>
+      <li><a href="test5.html"><span class="dot"></span>테스트5</a></li>
+      <li><a href="test6.html"><span class="dot"></span>테스트6</a></li>
+    </ul>
+  </div>
+</aside>
+<div class="dim" onclick="document.body.classList.remove('menu-open')"></div>
+<!-- [공통] 좌측 메뉴 끝 -->
+
+<!-- ===================================================== -->
+<!-- [개별] 페이지 콘텐츠 시작 : 가야 밤하늘 무드등 만들기     -->
+<!-- ===================================================== -->
+
+<!-- 공용 그라데이션 (화면이 숨겨져도 쓰일 수 있게 따로 둔다) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="gGlow"><stop offset="0" stop-color="#FFF3C4" stop-opacity=".95"/><stop offset=".42" stop-color="#FFE88F" stop-opacity=".35"/><stop offset="1" stop-color="#FFE88F" stop-opacity="0"/></radialGradient>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="top">
+    <div class="brand-row">
+      <span class="logo-badge"><img src="data:image/png;base64,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" alt="키키아트랩 KIKI ARTLAB" width="60" height="34"></span>
+      <div class="brand">
+        <h1>가야 밤하늘 무드등 만들기</h1>
+        <span>김해 가락국 건국 놀이</span>
+      </div>
     </div>
+    <button class="sound" id="soundBtn" type="button" aria-pressed="true">소리 켜짐</button>
   </header>
-  <!-- [공통] 상단 헤더 끝 -->
 
-  <!-- ===================================================== -->
-  <!-- [공통] 좌측 메뉴 시작 : 수정하지 마세요                  -->
-  <!-- ※ 현재 페이지 메뉴에만 class="active" 를 붙입니다 (테스트2) -->
-  <!-- ===================================================== -->
-  <aside class="sidebar">
-    <div class="nav-group">
-      <button class="nav-title" type="button"><span class="arrow"></span>시작하기</button>
-      <ul class="nav-list">
-        <li><a href="index.html"><span class="dot"></span>테스트 페이지 소개</a></li>
-      </ul>
+  <nav aria-label="놀이 단계">
+    <ol class="steps">
+      <li><button type="button" data-go="intro"><b>1</b>이야기</button></li>
+      <li><button type="button" data-go="rhythm"><b>2</b>구지가</button></li>
+      <li><button type="button" data-go="box"><b>3</b>금합</button></li>
+      <li><button type="button" data-go="eggs"><b>4</b>황금알</button></li>
+      <li><button type="button" data-go="kit"><b>5</b>키트</button></li>
+    </ol>
+  </nav>
+
+  <!-- 구지봉 무대 -->
+  <div class="stage" id="stage">
+    <svg id="scene" class="scene" viewBox="0 0 480 250" preserveAspectRatio="xMidYMax slice" data-scene="title" role="img" aria-label="밤하늘 아래 구지봉 마을과 잠든 거북">
+      <defs>
+        <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A78C9"/><stop offset="1" stop-color="#B7ABE6"/></linearGradient>
+      </defs>
+
+      <!-- 하늘 -->
+      <rect width="480" height="250" fill="url(#gSky)"/>
+      <g id="stars"></g>
+      <g>
+        <path class="spark" style="animation-delay:0s" d="M48 44 l3 6 6 3 -6 3 -3 6 -3 -6 -6 -3 6 -3z"/>
+        <path class="spark" style="animation-delay:.8s" d="M178 52 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4z"/>
+        <path class="spark" style="animation-delay:1.6s" d="M300 70 l2 4.4 4.4 2 -4.4 2 -2 4.4 -2 -4.4 -4.4 -2 4.4 -2z"/>
+        <path class="spark" style="animation-delay:2.2s" d="M452 112 l2 4.4 4.4 2 -4.4 2 -2 4.4 -2 -4.4 -4.4 -2 4.4 -2z"/>
+        <path class="spark" style="animation-delay:1.2s" d="M118 104 l1.8 3.8 3.8 1.8 -3.8 1.8 -1.8 3.8 -1.8 -3.8 -3.8 -1.8 3.8 -1.8z"/>
+      </g>
+
+      <!-- 달 -->
+      <g id="moon" transform="translate(396 74)"></g>
+
+      <!-- 구름 -->
+      <g transform="translate(96 70)"><g class="cloud" id="cloud1"></g></g>
+      <g transform="translate(286 62) scale(.62)"><g class="cloud slow" id="cloud2"></g></g>
+
+      <!-- 하늘빛 (황금알 내려올 때) -->
+      <g id="beam"><circle cx="240" cy="70" r="140" fill="url(#gGlow)"/></g>
+
+      <!-- 먼 산 -->
+      <path d="M-10 150 Q60 108 130 146 Q180 118 230 148 Q300 100 370 142 Q420 116 490 150 V260 H-10 Z" fill="#8E8FD8" stroke="#4A3626" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- 뒷동산 (마을) -->
+      <path d="M-10 186 Q90 150 190 182 Q260 160 330 180 Q400 150 490 184 V260 H-10 Z" fill="#8FC26B" stroke="#4A3626" stroke-width="2.8" stroke-linejoin="round"/>
+      <g id="village"></g>
+
+      <!-- 하늘에서 내려오는 줄·보자기·금합 -->
+      <g transform="translate(64 0)"><g id="rope-g">
+        <line x1="240" y1="-260" x2="240" y2="112" stroke="#4A3626" stroke-width="7" stroke-linecap="round"/>
+        <line x1="240" y1="-260" x2="240" y2="112" stroke="#C4B3F2" stroke-width="4" stroke-linecap="round"/>
+        <g id="box"></g>
+        <g id="bundle"></g>
+      </g></g>
+
+      <!-- 구지봉 -->
+      <path d="M-10 260 V236 Q110 234 170 206 Q240 170 310 206 Q370 234 490 238 V260 Z" fill="#A7D285" stroke="#4A3626" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M190 206 Q240 176 290 206" fill="none" stroke="#CDE8B0" stroke-width="3" stroke-linecap="round"/>
+      <g fill="none" stroke="#6FAE5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M44 236 l3 -8 l2 8 l3 -6 l2 6"/><path d="M110 233 l3 -8 l2 8 l3 -6 l2 6"/><path d="M372 233 l3 -8 l2 8 l3 -6 l2 6"/><path d="M430 238 l3 -8 l2 8 l3 -6 l2 6"/>
+      </g>
+      <g stroke="#4A3626" stroke-width="1.5">
+        <g transform="translate(76 242)"><circle r="4.4" fill="#F7A9B9"/><circle r="1.7" fill="#FFE88F" stroke="none"/></g>
+        <g transform="translate(144 244)"><circle r="4.4" fill="#FFFFFF"/><circle r="1.7" fill="#FFE88F" stroke="none"/></g>
+        <g transform="translate(340 243)"><circle r="4.4" fill="#FFE88F"/><circle r="1.7" fill="#F7A9B9" stroke="none"/></g>
+        <g transform="translate(404 246)"><circle r="4.4" fill="#F7A9B9"/><circle r="1.7" fill="#FFE88F" stroke="none"/></g>
+      </g>
+
+      <!-- 사람들 (JS 로 생성) -->
+      <g id="people"></g>
+
+  <!-- 거북 (JS 로 생성) -->
+      <g id="turtle-slot" transform="translate(232 196) scale(1.1)"></g>
+      <!-- 성인이 된 수로왕 (마지막 장면에서만) -->
+      <g id="king-slot" transform="translate(352 221)"></g>
+    </svg>
+  </div>
+
+  <!-- 0. 표지 -->
+  <section class="screen card cover" data-screen="title" aria-labelledby="coverTitle">
+    <p class="eyebrow">약 2천 년 전 · 김해 구지봉</p>
+    <h2 id="coverTitle">가락국은 이렇게 시작됐어요</h2>
+    <p class="lead">구지봉에서 노래를 불러 거북을 깨우고, 하늘에서 내려온 황금알을 깨워 보세요. 놀이가 끝나면 가락국 이야기를 담은 전등을 만들어요.</p>
+    <div class="row">
+      <button class="btn btn-gold" type="button" data-go="intro">이야기 듣고 시작</button>
+      <button class="btn btn-line" type="button" data-go="rhythm">인트로 건너뛰기 »</button>
     </div>
+  </section>
 
-    <div class="nav-group">
-      <button class="nav-title" type="button"><span class="arrow"></span>테스트 목록</button>
-      <ul class="nav-list">
-        <li><a href="test1.html"><span class="dot"></span>테스트1</a></li>
-        <li><a href="test2.html" class="active"><span class="dot"></span>테스트2</a></li>
-        <li><a href="test3.html"><span class="dot"></span>테스트3</a></li>
-        <li><a href="test4.html"><span class="dot"></span>테스트4</a></li>
-        <li><a href="test5.html"><span class="dot"></span>테스트5</a></li>
-        <li><a href="test6.html"><span class="dot"></span>테스트6</a></li>
-      </ul>
+  <!-- 1. 인트로 -->
+  <section class="screen card" data-screen="intro" hidden aria-live="polite">
+    <div class="intro-head">
+      <span class="eyebrow" id="introCount">1 / 5</span>
+      <button class="readtg" type="button" id="introRead" aria-pressed="true">🔊 읽어 주기</button>
+      <button class="skip" type="button" data-go="rhythm">인트로 건너뛰기 »</button>
     </div>
-  </aside>
-  <div class="dim" onclick="document.body.classList.remove('menu-open')"></div>
-  <!-- [공통] 좌측 메뉴 끝 -->
-
-  <main class="main">
-    <div class="content">
-
-      <!-- ===================================================== -->
-      <!-- [개별] 페이지 콘텐츠 시작 : 개발 시 이 영역만 수정하세요    -->
-      <!-- ===================================================== -->
-      <ul class="breadcrumb">
-        <li><a href="index.html">테스트</a></li>
-        <li>테스트 목록</li>
-        <li>테스트2</li>
-      </ul>
-
-      <h1>테스트2</h1>
-      <p class="lead">test2.html 임시 페이지입니다.</p>
-
-      <div class="page-box">테스트2 화면 개발 영역</div>
-
-      <a href="index.html" class="btn-main">← 메인으로</a>
-      <!-- [개별] 페이지 콘텐츠 끝 -->
-
+    <h2 id="introTitle"></h2>
+    <p class="lead" id="introText"></p>
+    <div class="song" id="introSong" hidden>
+      <span>거북아 거북아</span><span>머리를 내어라</span><span>내어놓지 않으면</span><span>구워서 먹으리</span>
+      <button class="song-btn" type="button" id="songBtn">▶ 노래 들어보기</button>
     </div>
+    <div class="row between">
+      <button class="btn btn-line btn-sm" type="button" id="introPrev">‹ 이전</button>
+      <button class="btn btn-gold" type="button" id="introNext">다음 ›</button>
+    </div>
+  </section>
 
-    <!-- ===================================================== -->
-    <!-- [공통] 푸터 시작 : 수정하지 마세요                       -->
-    <!-- ===================================================== -->
-    <footer class="footer">
-      <span>© Test Page</span>
-      <ul>
-        <li><a href="#">이용약관</a></li>
-        <li><a href="#">개인정보처리방침</a></li>
-      </ul>
-    </footer>
-    <!-- [공통] 푸터 끝 -->
-  </main>
+  <!-- 2. 구지가 리듬 -->
+  <section class="screen card" data-screen="rhythm" hidden>
+    <h2>구지가로 거북을 깨워요</h2>
+    <p class="lead">‘하나 둘 셋 넷’ 다음에 구지가가 흘러나와요. 따라 부르면서 글자 칸이 빛날 때마다 가운데 악기를 쳐요. 내가 치는 소리가 노래의 장단이 돼요.</p>
+    <div class="gauge">
+      <span class="gauge-label">거북이 깨어나는 중</span>
+      <div class="gauge-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="gauge"><div class="gauge-fill" id="gaugeFill"></div></div>
+      <span class="gauge-num" id="gaugeNum">0%</span>
+    </div>
+    <div class="lyrics" id="lyrics"></div>
+    <div class="drum-area">
+      <div class="drum-side">
+        <button class="btn btn-gold btn-sm" type="button" id="rStart">노래 시작</button>
+        <span class="round" id="round">준비 · 보통</span>
+      </div>
+      <div class="drum-wrap">
+        <div class="ring" id="ring"></div>
+        <button class="drum" type="button" id="drum" aria-label="장구 치기"></button>
+      </div>
+      <div class="fb" id="fb" aria-live="polite"></div>
+    </div>
+    <div class="inst-pick" id="instPick" role="group" aria-label="악기 고르기">
+      <span>악기 고르기</span>
+      <button type="button" data-inst="janggu" aria-pressed="true">장구</button>
+      <button type="button" data-inst="kkwaeng" aria-pressed="false">꽹과리</button>
+      <button type="button" data-inst="clap" aria-pressed="false">박수</button>
+    </div>
+    <p class="hint center" style="margin:8px 0 0">컴퓨터에서는 스페이스바로도 악기를 칠 수 있어요.</p>
+    <div class="result" id="rResult" hidden>
+      <p class="lead" id="rMsg"></p>
+      <p class="stats" id="rStats"></p>
+      <div class="row">
+        <button class="btn btn-line" type="button" id="rAgain">한 번 더 부르기</button>
+        <button class="btn btn-gold" type="button" data-go="box">하늘이 열려요 ›</button>
+      </div>
+    </div>
+    <div class="say-box" style="margin-top:14px">
+      <div class="say-title">노래 전에 말 카드로 박수 빠르기 바꾸기</div>
+      <div class="chips" id="tempoChips">
+        <button class="chip" type="button" data-tempo="56" aria-pressed="false">느리게 불러줘</button>
+        <button class="chip" type="button" data-tempo="76" aria-pressed="true">보통으로 불러줘</button>
+        <button class="chip" type="button" data-tempo="126" aria-pressed="false">빠르게 불러줘</button>
+      </div>
+    </div>
+  </section>
 
-  <!-- ===================================================== -->
-  <!-- [공통] 스크립트 시작 : 좌측 메뉴 접기/펼치기, 수정하지 마세요 -->
-  <!-- ===================================================== -->
-  <script>
-    document.querySelectorAll('.nav-title').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        btn.parentElement.classList.toggle('closed');
-      });
+  <!-- 3. 금합 -->
+  <section class="screen card" data-screen="box" hidden>
+    <h2>하늘에서 내려온 금합</h2>
+    <p class="lead" id="boxMsg" aria-live="polite"></p>
+    <div class="row">
+      <button class="btn btn-gold" type="button" id="boxTap">보자기 톡! (0/3)</button>
+      <button class="btn btn-gold" type="button" data-go="eggs" id="boxNext" hidden>황금알 깨우러 가기 ›</button>
+    </div>
+  </section>
+
+  <!-- 4. 황금알 -->
+  <section class="screen card" data-screen="eggs" hidden>
+    <div class="row between">
+      <h2 style="margin:0">황금알 깨우기</h2>
+      <span class="count" id="eggCount">0 / 6</span>
+    </div>
+    <p class="lead" id="eggMsg" aria-live="polite" style="margin-top:6px"></p>
+    <div class="eggs" id="eggs"></div>
+    <div class="row between">
+      <button class="btn btn-line btn-sm" type="button" id="eggReset">알 다시 놓기</button>
+      <button class="btn btn-gold" type="button" data-go="kit" id="eggNext" hidden>전등 만들러 가기 ›</button>
+    </div>
+  </section>
+
+  <!-- 5. 전등 키트 -->
+  <section class="screen card" data-screen="kit" hidden>
+    <p class="eyebrow">놀이 정리</p>
+    <h2>이제 우리 손으로 전등을 만들어요</h2>
+    <p class="finale-line">구지가로 거북을 깨우고 황금알에서 수로왕을 만났으니, 이제 가락국 이야기를 담은 전등을 만들어요!</p>
+    <div class="row" style="margin-top:14px">
+      <a class="btn btn-gold kit" id="kitLink" target="_blank" rel="noopener">키키아트랩 전등 키트 구입 ↗</a>
+      <button class="btn btn-line btn-sm" type="button" data-go="title">처음부터 다시</button>
+    </div>
+    <p class="kit-note" id="kitNote" hidden style="margin-top:8px">키트 링크는 곧 연결돼요.</p>
+  </section>
+
+  <footer class="foot">
+    <p class="note">이야기 출처: 『삼국유사』 「가락국기」 · 구지가 가사와 건국 이야기는 옛 기록에서 가져왔어요.</p>
+    <p class="copy note">이 놀이의 그림·가락·소리·화면 구성은 키키아트랩의 창작물입니다. 키키아트랩의 허락 없이 복제·배포·판매하거나 다른 곳에 올릴 수 없습니다.</p>
+    <p class="copy">© 2026 키키아트랩 KIKI ARTLAB. All rights reserved.</p>
+  </footer>
+</div>
+<!-- [개별] 페이지 콘텐츠 끝 -->
+
+<!-- ===================================================== -->
+<!-- [공통] 푸터 시작 : 수정하지 마세요                       -->
+<!-- ===================================================== -->
+<footer class="footer">
+  <span>© Test Page</span>
+  <ul>
+    <li><a href="#">이용약관</a></li>
+    <li><a href="#">개인정보처리방침</a></li>
+  </ul>
+</footer>
+<!-- [공통] 푸터 끝 -->
+
+<!-- ===================================================== -->
+<!-- [공통] 스크립트 시작 : 좌측 메뉴 접기/펼치기, 수정하지 마세요 -->
+<!-- ===================================================== -->
+<script>
+  document.querySelectorAll('.nav-title').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.parentElement.classList.toggle('closed');
     });
-  </script>
-  <!-- [공통] 스크립트 끝 -->
+  });
+</script>
+<!-- [공통] 스크립트 끝 -->
 
-  <!-- [개별] 이 페이지 전용 스크립트 : 개발 시 여기에 추가하세요 -->
+<!-- [개별] 페이지 전용 스크립트 -->
 
+<script>
+  /* 일러스트 자산: src 에서는 assets/*.webp, 빌드 시 build.py 가 data URI 로 인라인 */
+  const ART_DATA = {"bundle": "data:image/webp;base64,UklGRjACAABXRUJQVlA4TCQCAAAvs8ApEG+gJpKt5uf/SW6ocYH/ljpqURRJUnP5jmgGZdjCCPih+PFQEwAEY68idNA/jt85/wEAxuk5hdYLGxNk/AU40ov2fuudv9Ccq49hkFbbVt5asYAFLGAhFrBQC1iohVqIhWMhFurmhOb2ffJvrYj+T8D2rTG9/WYXTlw3HdDh0EhXX6QlbdrTogEVAhZdXFd4aKQtBSrsGtMLLaBC00iL7podaU0Dig5oGrDKgIAKatGACkcaUPRQoEJTINKFBkRaoWjcaEq6ff3yCXinXKuAKekJKhCwyuL6BK/vMD0hphdXpM/0UKZPyE6I6Re0NNJlFfCCAR3UCkUPzeZPCCgKNN21w4AKActqpBWKNn1BwAlZTQPeKdC0phlQIWA1BYxUrekLAt6aFR3QQQ14p0BLK3QY6WoKGGmHCiMNeF8DTUeqTqjAQ1uaAQGLKOCp2a6kASdkAUXHtBrpCQFPHTD31EhX0EOzyYB3Stp0btcKcf3QcePiOiHSpuPe/brDWgMCijYdX6kC/XopVbjjmztU6LBr1nQdFd21w4AO31eh6H7dFFhHhzbt9/5UhwpFm2YtPXQRbRBQtMKuH905oF9XKApMAEUDtnQRAWqFprt2cHpusqZNO+zatELRSNcRkOUtnehgmqk1bdNAuQ7YplcQEJDlNd21afZxU9IyHbDduIKAgCMtP1xTp480YLt9BQHx6U2TfLr98Ar6OH54+6XXCA==", "clap": "data:image/webp;base64,UklGRsQBAABXRUJQVlA4TLcBAAAvs0ArEGegJgDQhP6l6MLnnDKtoTiSlIgb8s+EgECz8GWt4rZtnCCv7L9XZuhXNuh3mP8AAgX96TlY/Au3bjDsi+hV9xCukPNhMwOsyLbtRFjAAhawgIVYiIVYwAIWYmEsXFc5nHuY9+FrrYj+M3IbSVHqlqWepYEnnD4r4winz02jAZrIt33DpzUATWdaecL0r9h9gAHFX2L/eKNlpHknMGbZIHaUbwAG3HV/irEMYIEBTWc8hV1XBTxirASINQDtJnmZk3dbTQ4FptdrNx4x6RNX3Y8Yy1A/4K6t5PNPvKZJDgU+IO8oO85ayK5Jp3nX7rOkUWNfmfSP7WY8BTW2IkdV88Ji6wCguQy46QUesOtaSzLt2iBp3QVuOqCtDDjr5Qh1Ed/tWE9uzk9xQEM5CivkAXE+PjVxUpaYSC46SOWCdbErs1TMVHSQvGcsctXpACnBI+YCiMQes4m8ZG5HfEDOrrGeSPF6feQlU+QBC2Silj7yqlmgMtzaQC2KeKImEiu8atFskEzTPlPET6OJAANeNZ8jctNKkolS8Qf4aSJZ0OsgRVG54OeI3LQVYABQMZ9WajMBAA==", "cloud": "data:image/webp;base64,UklGRgwBAABXRUJQVlA4TP8AAAAvd8AUEG9gJJKUu/6OhAwRUKinhuK2bRzNn0177r5dbSSpzdN/ToWkhN5I8x8A+RY+AXgeCCDEt26lnapLjYoSZnBU21bdxEIsYKEWagELWIiFWMACFmqhFnDzoJ/RG54T0f8JOH45t/n7RFGHtvXUfDK8oK4LXKDmkNu3lnAD6DA1e9QXNC3bFQyBDkNnmD3l6xfU8KGndpiaOhW+FFfoUCF11B5W2DjXUQv7eoa5ohZoIeH59RZWUE/NG9Z7wAbQ1rdmTIemFdSnlnWFEl5QQR16a4ehGaOyHvrUAhWGdrj1gg5je25nyRG6fsNYA1PHGpjrYztXNv0UcJsfJwcA", "egg": "data:image/webp;base64,UklGRo4BAABXRUJQVlA4TIIBAAAvlcApEF+gJpIkZf1rOjFXl/JjRDbMtG3j8mcwQEO03TXaAAkH8H/lJ54wOpNJmf8A6HUmEN+DOD16ZafJkv+gWQZIsW2HbUKhFExBFETBFEwhFEohFEJB9BRb8krenRfRfyFBgs0pr+HaTK97W3aNz0w3jzXXQB2rJBuN28aaa+BINnYwMpLcMxoLrvGhJht/CWpSTuvVpCQfpsbymrpvdn5Qxqpdb8ZHY8E1sLOBHeS3a6c1LgZrroGSbPx1TZ1LJTkfjZW3gw2cnEF4KGqyA0ydHtJVkydhrJFxKcn6a3w4OeW38zF18eabNBbf3B3rfDwOtat0jZ+HoiR1rJGxgYelHzUZHM/CzoSBTs6zcH5KV01KVz82Rg6eiHJVTXo/4zQcyVNwdNX5ylU1+e9afC8aqMnOoJKMOJL+NPBi/b3ZAXDhqpq8wYNwPo5kBwBORv3tSMbPykMjyZt9vpw2clYeGt/k/66+yfhZeWgAU4DZs/LQwHem287KA9pMr3tbYQ==", "goldbox": "data:image/webp;base64,UklGRp4BAABXRUJQVlA4TJIBAAAvm8AmEF+gNJIk5fJP8Pwphkf5n4aiSFIcCv+ysIAI+GYuqgkANOGmfyTvQQCYyzP/AQDe/z8scwVKouhuXqwNS5q2BSOkwQAptm2rUSzEQluIhVh4FrDwLGABC23h2ruQ3+jN1ono/wTczut3b+9dAsWW7O1ot2SyJ9guo0gyKQ6KFVE8k0HxSJ6ty5OcF2lxUBwUa6GYbEm9uiddEq8OkhwUk+KgWAtbMsirKCaDvLHo0uKg2lXwq91sl8ON4tk+vviZ4KBYFCge7d+r91ddfiTFQbUrAkXaC/f3XkCHdYHiU95YHOeLAsUj+SYUK+XTOX8m1d7euASKR/LX3t9+AV2dr4U6/zu/f/hCtUe7Fuqn9+Q/wYoYbJe1sx3vTVLsCZIsii3xxj1BEm/ssCeTRTEoxvmkmG3acb4l15IM1ggm1e7JuPzSbBdFEjy/crBMBsX4yiQv7cmimBST7b1dEkyu7e2iSIJcnm1al5MUSbqD4mhXRBJf3B38J6j21i6E45P7e9FVe7u8ClC/e3vvEgA=", "hut": "data:image/webp;base64,UklGRh4CAABXRUJQVlA4TBICAAAvs0ArEHegqJEkZf27xLsfM9tQEMlW8rV/OgESkMBNTQCgCdq/HLw0YPb55j8AQPz2w1Pf4Ja7ms5fzrn2m+b4bL0wGmkhFYWWDJJq264byRRMwRRMwRREQRREQRRMwRRMIRSKwkPx/El6pB6dE9H/CZi+H9+c/vWBE9c7lLSmpDucEOlwCzi0QdcCVbu2VC2p2uDQSEdZQL9uUKBB1RtVCzTYoaeRDq5IW6pW7VpABdQGVbtW7Vo1UyMdXFW7FmhQ4F5LswIq0KBAgwIjK6BB1XLd0gLqPaBAS8u12jVgQAXsYMptv8xTFQgYSgEnNChpTUm/xXWDkqqHBgylBl2BAirQoKRqvW5gWtKumQo0UIFxFHBo1wJq1QZvAA26AuqNBlWBnhbY4dBIR1DVBl2rdq1pue5Kqjaoek+tadeqXRtUHUdHukNPq5bbXrfUp1z3dIcjHUQTBPjunqo8VQEV8MUTAqZ0BAHx7pl+4Hz6gRM+cEK8O90eQUDAqpse1/yktzcFphcH0QLrPw2MrFk3/dw+dH66vGs6vg7l9gmzrhovHrrAfE06uHb4wJ8C6qGP/jQD5tsLqOMrbp9w4/P0kbrA4Nr0vH3o/wQvv7c8nXVwLddfieuxtqQqTx/lj2YFhhUQsLz7A7MCAdPrg2jTNb236VfWdNPBBURquuqmqx760qarbko6fXkE5fHz0w8PFg==", "janggu": "data:image/webp;base64,UklGRqIBAABXRUJQVlA4TJUBAAAvs8AaEH+gqJEkZbWtfxH75WM+IWoCAE0gJLFpQAHbLndFjSQpK2n9y4FjZnjNfwCA//cJZH7n/e/si+fBalhNMiZUopmvurspT/CBhAyyatuO48gUQsEUTMEURKEomIIoiIIpiIIohIIoZHqWKz2rv86J6P8ELD9kh+VXPX067MoPOemA5Zc8U/pzl2/uz51QHVJ4QB7u3+w18NA17DCVOqRwD7NWOLVA1jeNErzoCm96agG1hglW2MIEHabSHibYFHjTA7KeYQ0fYYMzrGGDA7ZwvZ5HHRJEcVTu9ut8t8BDN12Hd+3hbAI2LVAhquFAu/umCXYd23R+AQecClRooVqH33TXTSda1ujUA9QGFRrUu5E6BsysAgNZC7Tr/wDeNDqgwqn9+kmbTqt9OIVv2qBACwsMFMjDQIJb6iRaoEOUwgMaZC3hqQ1eNWp31QNW2HSgwxJOogS7PhQoUKGEFRr08CXM+qoDwJvuOqBOJaCHD836qi3sT9x016wF6nWDA7Zw1w7L8AyK+93leuDHXJ47awAA", "kid_blue": "data:image/webp;base64,UklGRrwBAABXRUJQVlA4TK8BAAAvucA1EFegJgAIhm46iSmFy7tHEAVt2zABUf6IustnmqJIUiPuwxxOEEuhgHck5DP/AYD51xgBeT50Uh3Z5SXoClczSIgkyZGkoXAUhsJSaApLoSgMhaVwFApnbY+6F/UyIqL/E7Ccn2fyBfaR1+4+79h33rfjvPuvFmqj+TX+mcAzN9gFHKe22zY9NJS9Q4EK6L4x/dBx4EPH3r573HSD7gtNDT0oywm1y5wOfegoq6EPDa1C50ZZhVZ1T7l3IsrH+w2yBCp1aJQHHdlQwMTQiaFRDj0OaLQPzXLo446hWX5oZy1QqaEbpA69WGgqEJrvl7KhgGotN1CB0AuEAqnAWg7ttaGhee2hvM9ymW4owHKdDt0g9QnVBuoTqg1C1+kslwMbCrCcqENz+gmhqaHr3iyXwxsKsAydANTU0CekbrDuDc1yObmhAMuJ0JzeYD3Qcrlkc4WmvjT1s1R/VQhNfWlOb/BLQv3S1JemRjm0UqPM9x1n+QkVMHH8S4Es+w5QXzrByb8G1NcALBvN8nOv739VqCeu6XTT1XO+n/PARpuvLsvlG6qe4/0ct/4NDgA=", "kid_green": "data:image/webp;base64,UklGRhYCAABXRUJQVlA4TAoCAAAvxcA1EGegJgDQhBj0rwS/zAK4L4eCNpKUA//WTsEZYBDweUWRpEb4d4YJCgX38YJk/gMAlI/nW5nHB/Dgu/clZZIC3bA5K0VCDLAiSbJVYQELWDgWjgUsYOFYOBawgAUsrCv6zA4L97HzVR3Rf0iOJCmSPG4xFLlSFCw94DRE7R2dhqgYaKNUJ7SxqhDaJ1QbtM+pKmifVsGw2yXEzU5m2KBCiENuYNEVggCLDXTzdGcsBmJnDbXYqygZZrGB2mC314OsdVhyOtTnIO92YZAJnCnIFbRTiiapAVpOtuPNGtDW6CDAFVZ7g3jTX+2WUw2g58AguXZEuxC36TDvS9QDi61X1CTxAquTBjEyaH6dZdIJNlwNqdu37ZdxEAH6WiUOpk6QWb8gweY+76hzti+gZ79givzVVT8vds4iNQqAl3OQb3YQJrjD5m+ywe11sc92YMw7sXEOdYEN2ihtcAGHCu6z080AA7jZQWsAnVc7ogG0I0lnunnDSKhrBD3SguSdSkAz73bXiE+SGWe39Ww59Qx4aZJ8obq/WVEMAF2Cs+JD9BYnACoEeioYWkIPO97NgeRvfAFAYXAHXWwPpPUEjXd/CT0zTDcjHQCIufcUx7M974xxugDDCIxqoKcnjAGoDHI6kFOFkK+G7QETAfPOMCM5whhnrvkR/59nlvkeIx9muvkeIx+mFgA=", "kid_lavender": "data:image/webp;base64,UklGRrIBAABXRUJQVlA4TKUBAAAvocA1EE+gJJIV6kV49vWXdMF+G1AARw41jaRA95T4r9AGAvBAzkgDNDiK0N/gGIFI8F3OfwAQyfsnH19gyYdmam+szSAhkiQ5kpqCKIiCKDQFURgKTUEUim+p9dxb90ZE9H8C2vNxtX0FKyLu/ftXPFlH8cryiRcXTry+ZOL2FWrq0Kzrct710AFq4cT5gOX5CaBqfOUKxRJXV8gGBFwCBpiuMBHnRTE/IEBd054uepwv2lPSRbP7i+LQia7Ako5z0xW6ThxaIA2yAZGusLw40gFZS0tjS7sCK7wj0i0tECBS066A+khX4NDtvF7UrjyvbuekbboogEiz/FBgQIAKDAhQV9jOI203FgUQ6YQ6IM53CDh0myZttxcFEOlE12xAwIBteoUKGhDpgIABXo20PVwUQKQqV0spUpXpAd5bPi+vl0g/OmDi0HG1p8BHIy2ZHQJ2COh66Ge66w4frZpI1R26RqoCc2rXj+5gGmm95F0HBBx6aQenSwbI3pwBxZJfAi5xtd1YFJNZ3lPOPWe6PV8UeTbZIK621xcFMNHOJ9oX+jMPAA==", "kid_peach": "data:image/webp;base64,UklGRu4BAABXRUJQVlA4TOEBAAAvucA1EF+goI0k5dC/pNPyKIDZh5GAaaboX4NYePTlURtJagMx/VdlG6ACIxcySuY/AHD2Ftx81BjjhlP4+7QkpeUkMzPIiiTJjqSmMBREYSiIQlMYCqIgCk1hKRS9UkmjuZ+ee0VE9H8C2vvjne0XOJXirt8Bce/ZF5847+Jz/3wQn/4FsGthQEH9PhiwakEtqAO+Bjp449nXweNdrwB2LQATLS6sBXQ4tWtAQc3qcyqu7ccvHbBqhwEqoHYY0NPrrp9BHQI61F7pmgJx7PErrT0V6DCtGkT60F0HZKuSZheTFkb60EhbOq2AXRfoELDeG+iwwK5xPK2AbDlWAzrcYNcAdTnOWnl+AR3irupSnmJApAWgw4DajwIDAtQBHZZypO3CCQVEWigGdIj0ocCuT13ORtoun1BApLvWgEgfCuy6nO0QaXvzhAIiLTw10l2BAcuFkbZbzq+AHwVGGvDFENd+JdTVXVft8NRs1V2jPOMi3WBAwICMy9UBL4103gEBG2QDXuUtNeU40okW6XYc8KPAAPXUgJo61yLdwOMBkQ4I2NJTG1iOdK7VB0T6o9m7Z1kcn7p/BkwuIKvfJq6dX3kNGGkWx9lI42x784Sqx13bh86vdvytABTa2UL76CkDAA==", "kid_pink": "data:image/webp;base64,UklGRpQBAABXRUJQVlA4TIcBAAAvm8A1EFegJgDQhAjWvxV8cHHbJIyiRpKU/a9/UezhQAKzmkiSlPMv6fQwRPAfXs1/AADf+M8iODQc+2rXh34ikyotyRgkRJIkR9JQaAqiIApNQRSGwlBYCkuhcJZKrbm37o2I6P8EPG6OhXzRLeDyP2MBK/iif0/x5n7xjdvEt/9Nx+VHukhtmQNGOrV9ZjoWzrRlNhg3A93h1Q1GOhWoAVNHCmTFRrC8gTpSIHTqUCCbGgqMNBQoXO6CqRkwdZxHCox0ptnUjnhAIZ+6pYXLpFPj6iPthT2dGrrBuBkInbqnHQGY7unU0AM2WAEcEDp1P2+QPG6eup9HSrkLANNCHjo0Gxq6X42UhV0AmE4tqJEODd2vRsryLgBMC1F+QS3Sx81dAJjuGgu7xnSmLwgFph6wl6f2yyeoB7zA5U+NtDtMn3pA7bn8gEg7RS0caQa0ielx/tQPzY7zQj3SHsnVDy0s7pf3bJDiG3i1KfKC+jyP8+d5lLmzC4rez3t3AVDgvMCX+FMNAA==", "kid_yellow": "data:image/webp;base64,UklGRsIBAABXRUJQVlA4TLYBAAAvj8A1EGegKLYN6voV0L+QlQZGBUtNzKZtY8ie/3/JJaVz515QqiaSFOb9m8IFFmIZO5j/AJinfy21AoAHp6eNB512xVWoMIOESJLkBloKpiAKpmAKpiAKoiAKS8EUjsLAGo1Xvm91b1VE/yegnRzl9lVPshj45544+XKIj7wQ4oOviw7XRQzscNMFRgAXgidfDgucBcy8eHcD0wVGbGAKxMmTrIPpBgFvbRCgLqDOvwWyPV3gphtEarrAnt60wwITrkG2K3DTJXU4xwG7Zi2dcCpw+0hgT+ef+gU6jNsgYD+ec0CkWYeXxnB1PyZt5XkGROpxh5duENBTdS9H2gbOtg6Z+tKABTqoeznSNnaeAZFmHeL4pXuZtJ05z4BIO0TZdy+EGOjYDJh8kd51g8LgDdRIp12kD72nBcsbWH5opJNvgw4vLazpE7InZKtOu0jVu65aUDtk6j0tqECkUy3S9fgJG3TIgOfxqhmwlqM8z55l0w4BG2QeZ8WHzjm1BjxSjldl7LQD1Ky+ppk6IgZOrwZZ/S0V8DgGtnSe5TWgEKnHvNsGzrN6nNw+eJ4BhZYW2sf/+gc=", "king_1": "data:image/webp;base64,UklGRpABAABXRUJQVlA4TIMBAAAv0cAvEHegIJLUBgeYQA4m8IqGkt50ZLChNJLVip9mcDgKo1QUrVADSWzURLLV/OQgARpwAv4bJDDUqWL+AwDk/w26t8N/os6kXmE90YtIM8xxFFtV5kZ8GCTUtm3XSSzUAhaeBSxgAQtYiIVawEItYAELUbFzk17+l9+eEf2fgG3WnQ6jw+hXcyXAg5224oM9tsWDnXUFDwYe7HFpGX/P4+oac+cdWDzaise94nYVn1qsH8dr3veRnWUDx+vjTzA4ZsX6IV7CJVxyvmDgiOJMaFxFPsfeKy4hbXHENI62SINoFNeMtjgixtqiV9GIrV1U7lxI2uKYG1tcPNqKE4hbFAewYLSdZot4dyNWl7bihyhusy4ebce2if/kgQEkMYkDGGgrdsqVAG9asVFsFBvFRjFN+6vP+VjbJ9LMOyuE+HLufGnBS3xuUx5o+8S6kp/blNPk2O5dGJ7bl6uYDNvtq4LzJG4t3s6609dcDNqKPRc7jAl2+vqLwZzOL+3n/Wr+KgMA", "king_2": "data:image/webp;base64,UklGRmgBAABXRUJQVlA4TFsBAAAvs0AxEF9gqG2U03K5/4lDHUYwQJBBzoYS2Taoh2yDqlWLsvirzNS28T8S2CUyKiWjIIzmPwDI/0HaHn/m1HUpR2CW2JKc8gZHtW3VDRZioRZqoRawgAUsYKEWsPDcpY/7fqObTiL678iNJEWKuOVQ9uDiB5pPEQl0SJRKcO0xhoj4O/y7KUx67ze991AH3nlb3phNuMchrdQEyu1TV2qtUc+OSCLlSTT4d1OY5AQso18XmXhGZ7YChWkFj0JEksGFiear3A5BJVrxB6Ez3HnmmwmDlAQ5CfXsvckl+W1X8ts6+sj//D9n2dDrMb0cg1RtL5TMOcFyDwRKEoneDEMdnIXXWjjhETl9KTM7gNq08itZpyjn6fPAgjLLdV35TEt+GWMAEmr4b4Nccgr+OhGtQTE4qH35JKdUUhvo5ngUbOIJPlniG6mnA4MUBtHfXTNFTXDqGQj4nxfJNAA=", "king_3": "data:image/webp;base64,UklGRqABAABXRUJQVlA4TJMBAAAvs0A0EF9gqG2UU3A67n820XcGMED4E2yoCQCCca4ceqgiugz7oyYAkIYVgQx8BOebaYyhAZz/AID/fyHkLmLqPG5Ewo0a+1OyZMoAIZJtOwoWsBALsYCFtYCFtYCFWIiFuIO79968x+/wnRPRf0ZuIylK3YaUWcYP3I3KbhcaIYVVIypj+wK2c40NbOdWimN7g2eidiTRKCeoOEnJAA2t6R/6cjb4AsC36Wjoju1LIxuUMrFAcnr5MmADh6y9RCVAcYC85FQBIDrr+XzL4yr9kjEFamL7WiWKxdmVdGaXW+XCarJAQuK52yMphaUE6PN0m7WXxEpWDljggCuUB8AOUWm3O+SHRO04e5aMBZ0DYN+kLFGTBUZiW2uAhCm3XXmJiPTPkuU9+7CBbAMKcnagiU/zZGWBLwyAnP7B8KyDakw5S/o2DyEjHRTk7EAvkvOy22qygIK8uYHubcVpvgVQkDc0UFKgOAPeAkw8RcrHsLcAU0qk5KjSefDyOCpRWDuGfQFbFgwrUZCJP910ppYvBz0BAA==", "king_4": "data:image/webp;base64,UklGRpABAABXRUJQVlA4TIMBAAAv48AvEF9gpgESwnAShfzobwIDOGuoimyDupdCyumngggyvH6pqa0D+/wEUUASHZXRwma3G81/APD/gzDd7lTKVY6O5U0ys16oB44iSZIbUxAFU1gKpmAKotAURGEomMKyk0c9x+rVoUdE/x25bSNJ8k3dPePM2tsLXo0BUK7RFYEBYIwBwHe41HDhrXSImZFtw+18KykyopjZiKJFEmkD14iKUuGZC4CSOa45pdKYlQiMJaYqtErSmBnZv5INS0yPCA0/EyIt+IliPktmOo4vHFppwacD0Iyvwa3k+LnMRHilzC+AcugXpW9iqQ8xyuE+oqGJN1JkzqkrFouucKMc7iDaHsgb5XAf0faETz+qtylW/0SqHZRDs9n3fXMBEM7+dunsoDf+5dflFE9Itm2TIgA8fudcflTNNxGys02EMuE7PKt+BFSFS2h4q1WGF+BllAMAcwk7hOLTFT4Rn4V3EA+Hi+/DO/SLsCefhXdQDv5XnWwadsjsomRGzl/Xy88iHAAA", "king_5": "data:image/webp;base64,UklGRoABAABXRUJQVlA4THMBAAAv0cA1EE+gppEU6DTg3w0eqK7DxA82FDVAAtGABBSkNCE8fk5FjSQpy6Bt3azLM4Cvc3LzHwD4/w3F69oVwsZL4UE1MQ8g1bYihsFCLGAhFmphLNRCLMTC90sZBtLNW0X035EbSYoUeYuhrJll+IBN5H1fmwg8SIrbwcC/MO4eBWBUJoqCJeqDSCqWIQpJ931LivypEZK34opYYLsdPEg6Yxd3v9MgQZtxd0kHFIIHbeZYhKxaktcSMNC/ozrrJNhgZj3mVDKDmbHEd0yP4If888Z8hMpQOUlhYMiHktRMXhghfkNWIUklQmgTR3el4l1sa2DgC6LHQMVaixNm36E3fyAAA4OibUe50S4w8KnjbU38DX+ynSSuyM2WKGgh/8zntEOd53k4QSFJ4bYO9R3hQXbvmEv9JQQYxG6Sxqm8XYKBhh1d19VM8c0RIZgZfiSCH0bEiIGBETFiYGBQ/HQl/hcABsZFm4GBT4iQyqT5hz+wYAA=", "king_6": "data:image/webp;base64,UklGRoYBAABXRUJQVlA4THoBAAAvp8AvEGegppEU6MqTcAIwhk2EfDU6CDbUBADBWJf+gSSQQoH9UhTbBuWXwMghCBXsdZbB3tL8BwD8/4S0Pe5EqhE14zPpwgtDtS2XYIAVSZLl5iiIgiiIgiiIgigcBVMQBVMYCmblud7Zua/2szai/47cNnIk+aZN3lxdT9gKCZiuMR/LCLitBeQOhxopupWz5ALD27nLKA9YMnUC3GSt1UDA+1qATdQFsNci/rxsZZ+Jg8yaThEpH5A/4S4T8BglwCOKpkdoXmAZetWg21b6DwkQd+QXomFAJ5XC4rYbuMYzhUJEpQp6RvUIIaY+t8XPszbDGdUmZkWDKc6oJgI08AK/OOVgIow+kxpHPmu03ZF+ESozqkdUxNt8gKmds3Hs5WQads42MfXzNeygAab22E4Rh3BNKXbIP1y6j557LeOz3nkRe2zHqcyofnFZ6xSGM+r3KUJYTEX0G918A484XVTK+0KPuHclG4/oFG3GI7rFIVSegjh1Ggg=", "king_adult": "data:image/webp;base64,UklGRvYBAABXRUJQVlA4TOoBAAAvp8BHEE+gJpIU5mv8q0JBDh5oGXQoim2Des8ngf4RhBHAUgJbY9Q0QMNwIQMl/FivlOWhmf8AgD/vjFxyy/abaVpL4nySQVZs23UjiYIoiEJTCAVREIWm0BQu3+Pr207/3HnuE9H/CRhPDTl+2AaJ684K+ZiQHRTpAQEKyAXkgIYCBkRtKwEVekp1bNLj+5slP9PH5m4rTRs4ctovGzj2lMfeMO2eygMbAo490y32ZXfcsZHzbkOdwk9wbcg+esveibdunPgBO2jBxyOBVloQ1wsq4nqD7QTQOBtsr2vXcm0J9BEQsi6kst04ITdYxvWGigDbSLWgXyK94DFJZVtVdsexgY/rxAL1soFbCxIb2mfJDQtcvuWSvaNtL3jZwMd1FPq6dwbkbiOdRqp8Ysge0SFzyAUBWwYsCHkLOe72ju0FIRfYrkCOwh4BQi540oKQo7xHgJAve4Gqt0SOb+4RIOSxvys5HtkgITfEI20j2yfStqesOPa0j026cUJOWz3ZNrJ9ksfeULHB9rwbsok0sEBtCHBtcy0oQo7CTjl2BXAksqd0Ajg2hQnSvfMlSbuQQtvIxgH8YMA26d55y2m3j2uBL1sde9Z2TUiX5zb8RpasSFZEun3euF9u3xrpivHUHgESozA3nt0L", "kkwaeng": "data:image/webp;base64,UklGRvgBAABXRUJQVlA4TOwBAAAvp0AoEHfAIADAMutf0rb951DUthFT/sSK4TDcey8paiRJWfZvY82sjmN8X27+AwDEj7Cd9+bt9h+aLbQm1cDbY9b3DxpnmDyQl4FWbdtBbKkslAUsYKEsxEIsxEIsxAIWsICFZ+GoOARu91f+1oro/wR8/jLe/fzfV0ek9cWupAsqUrWl48UGF0S6iCI9oWqDkfr00BO6Nrgg0hU0oMGAQ6tuT39a0q4DGpywfALUBmrVXTf4pnN5gZG2NGDtDOha9Xu/Tf9e7OnaCWgwoMH3fpve9Y0CI+0asHZ23eCr3Fdt0FOgwITaYOFEqjbYnh4vDpgrMNJI10vVN6pm57TaICtp15aumgHqrpk64NDzxQEFfinQYMDCOfSne/rTqufrhxbYpw9dPpN/tesGKqAOWDgDCkwAXd84tME2XXXttHRCrXronDpg1wl1pKvmhAFdC0yoXQcc90CDLa0a0xesFyBgpOqcWqDd77qlVQO6Xmmkn6crRQXKfTa565Z+NaCnGRDpegECRqpWLffZrtt9dj1dPg1G2mBi1+3pUgICDs26Nqha4FHVSCfiftUAkQ5oMODQBvUeGPfx9EoDVg0Q6QVdG4ynaoN48Z8eekHAqskjVR9dEOnnaaRdLwhYOHm8+/nLgEX034/7NQI=", "moon": "data:image/webp;base64,UklGRtgBAABXRUJQVlA4TMsBAAAvp8AmEG+gJpIU5gn+BeCQoYwd2DAbScb2H2iTTAW8ogAgHBTR/6OEKm6/95z/AJCR74MHvoMU2VR9S72JZr5FT2ClDLJq2w7byBRCQRREoRREYSiYgiiYgimEwlAQm2tFab/0d05E/yfg+PJYzp/eHcYGBWoEVEAdcTcZqxYwEhsYS2ww4iZSG5Rf/KNDt4/60hrnfE7qBPDSoRtHrdNfyUZig6FbRm2wyIVz80O3TIEVfp/p/aJ2rQvL80cs7zp0sxSoynIVUIkvXQTsFPXW8ly1661Vu96aMtDgDQW63tpg7g0j7pECLaZbh3Z9xwZlWh3a9Q1Dy6ddt8wJPb5hxAJVbwW6ntDg1hF7PKHFLVO1Qdc7di3PVcfzCVVLbHDHrgUaVN0vQItnbFA1AQ1uPaFMNzhjgxJPuGCnvLR8uT7Pfazulzd8K694PQMNLvgP2+QA9bW2gDox6adAg64XDD3iNrk1FVABn1cAieeuF/yHzQKoP1r+YtUTrjj0mN4jgFo1GQG/3/WKQ4+FewRQT2iQPgYS8YTreeixfI8A6gktfqT+0x8Ful7PQ48v7xHA2J/P6PM1PeLxK/dINl7Ljcev3yPZ5fzpXQAA", "tree_pine": "data:image/webp;base64,UklGRiABAABXRUJQVlA4TBQBAAAvZcAgEGegoJGk5ouB/kIK4N8IuhS1kQLtcv9ABlLw74dEQRspzLOXBjzg3xzzHwB4d2vF0yUzrNwX6B6sDIUhHgjACwOk2rbrNqYgCqUgCqYgCqUgCqJgCqJgCoH1/J34Dc+J6P8ELLcX5fXfTu2gZom6wS9Us2TqDmqKqFP3UN2gaH7sV5ND3e9Vc0JtMPSS2qFoTlRtMPSE2qBqTgBqgw4nOjRQl9u/nTp0hiditWg2qENnuIPhCWCDotmwaod5L7BqNgBqgw47nAA6NCi63Pjt1KlbqBJ6+gdF80AdVyNAnUr4g6IZoFZt0MOhgKc5blC1hN9uAcOq65NVS0j4+WKf58bPd179A3V5cQb8a7rEOQE=", "tree_round": "data:image/webp;base64,UklGRloBAABXRUJQVlA4TE0BAAAvd8AgEG+gJJIkZy7gyM7E4fdv7G0ohGSFunk5fDGCyJ8lgQykbdPNwXYl92/tnPkPwNt9E+Nj70VX6bgJGA8BCB9BMEiqbbtuJFMQhaLQFEzBFEzBFETBFEJBFERBbK6cz0irR+dE9H8Cts+WD/LDS8R51aEtGst8AakjNlCJRkDtsejSUce7Kasdajy16KJRD2hxaJ836KAyr/GAootmaAI6qMlYHw+tumLUXaumDq/Y5uqzfECJa2XEqq/Y5h2GNlB7fKAumgY9PgN6HJF5A3XdvLRH9cHQqn1uHHHFXFDnPb5i/eaiOeCGK9Z5g2c3dBjxggOWywbqqTdU7ZDeHnrFG04tusXlcsCp9/yKVXl8wxl3XTSAuusBZ6zx1BrPCOyx6PZ4rQDq/pNF+eBaAdRvFeXjawXwy3x5rTxU/+kfFN1+fsWo/5M9XEMA", "turtle_sing": "data:image/webp;base64,UklGRi4CAABXRUJQVlA4TCECAAAv70A9EHegKJKk5qKMANZQhSNwk3ljQ2kAEIydnOse5/hElDUUBQDhUEEwqcXwXBHGzfkPALDOvhTaBwFC+P5/gN/Y0kZ1M1YpM6luSjCDrNq27bYphVIIBVEQhVAQBVEQBVEohVIIBVMwCo2HXffnfq0Z0X8hQYLNKb/+tx70Hza6ACNZNZr9h40rGMmA8ckr3Rmfc8cVb6mPzOuNGcDCeruPHRhRgLVeUs182sCIAizgBDBRzXzmwIgCrLVcZGOviZMDLIxMwHKvvR5g4bvWwoMhauIl31XNYGNm49+O8earqmoG2G80OC2sNXM8z6qq41jYeNxocJpY6w7MTJzba3CawREmvgoLa1XYePCsgeq7jqOa6TRUxzE4VcDCzHpRqKoKmMAnnIHERS4HjmaAiflGg5AX2zjCOQBVVb35DipO+znt3F7nA8BaJxYw/Hixn6oqbNwZ62nvvq80cgA/VaGLOldhr4mj9TRUG+PQ37oJVXViAeeAd54B5uapKqedW2vmfLzzjCsu8oZ7NDGf9g8vMLRcjrcBRqG3d7Sw1hj2t/aaOI4J4M1nKAI2Fk7OAPPh91m/b3SEj70DwMfeP4w6n3n3elZ1OapPvoPEPxkbC1/1vKg3n6GlAva671nVBmbwoPoNcHIGoQrYmNjY6w8PnlVVR2tVR8CzgL2GogqYwV6PG23MLEycQLWB4ehGlVeqKhcZmarqpVFVl2P4AQA=", "turtle_sleep": "data:image/webp;base64,UklGRtQBAABXRUJQVlA4TMgBAAAv6cA1EGegKJKk5n4nIJCzhuwbVwjAippIkpTj9AS8ho/Zv4A3w1+lOJKk5BR3C4I3+ZPa/AcA6P0906DPDGc/DO14Nl7RDzQLCL1U3PEZIESSJLkxhaNgCqIgCqIgCkfhKIiCKIiCUPlme9frv/1VR/Tfkds2kiTdDFRPek9v84CHN+IiBWzEW7MmFuK7ZSo9fw7ys9Zvk1tz4magfzDwVEzcsfyNbMa0KJHOGZqkW7DriPQsPe7mnCxzNRt67DLgE2LGu1yTpoBWEfgNvWMepUsiki25DnuR1sBjJNGzo8d2d88V6ryMjxVVicBmiKSLDuqszSGJx+h3RAPqCV1gcMccL6MG7mJCMHKWYYpJHMZE9TllhSS1gJF5rFVtiRXRDdIK4uzT7Y6AO9RbhVakztGtdd1lSwS1hvqDtSR3kdZDMqGGOiOC7rVqre0EYugNrIWanVnquciAKyTRO+81cRjSyuMuhwTQdw7rjHRvCT73hqG1ACIVs6aSnk3QOtLb60Q3Zr4CUO9yDHuCtTUJrXUoECnQvTj1GKLUem+EXW5wh9q3i5uBYuE08y4dSRzGFPUZZOaLoBbiRYKZ9wwBa/FG/9vTZQA="};
+  const ART = n => ART_DATA ? ART_DATA[n] : 'assets/' + n + '.webp';
+  const artImg = (n, x, y, w, h, extra) => '<image href="' + ART(n) + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" style="image-rendering:pixelated"' + (extra || '') + '/>';
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const state = { step: 'title', intro: 0, sound: true, tempo: 76, inst: 'janggu' };
+  const scene = $('#scene');
+
+  /* ---------------- 소리 ---------------- */
+  let AC = null;
+  function ac() {
+    if (!state.sound) return null;
+    try {
+      if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+      if (AC.state === 'suspended') AC.resume();
+    } catch (e) { return null; }
+    return AC;
+  }
+  /* 모든 소리는 작은 방 울림(잔향)과 소리 고르기(압축)를 거쳐 나간다 */
+  let FX = null;
+  function out(a) {
+    if (FX && FX.ctx === a) return FX.input;
+    const input = a.createGain();
+    const comp = a.createDynamicsCompressor();
+    comp.threshold.value = -16; comp.knee.value = 12; comp.ratio.value = 3; comp.attack.value = 0.003; comp.release.value = 0.25;
+    const conv = a.createConvolver(); conv.buffer = roomIR(a);
+    const wet = a.createGain(); wet.gain.value = 0.22;
+    input.connect(comp); input.connect(conv); conv.connect(wet); wet.connect(comp); comp.connect(a.destination);
+    FX = { ctx: a, input }; return input;
+  }
+  function roomIR(a) {
+    const len = Math.floor(a.sampleRate * 1.3), b = a.createBuffer(2, len, a.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = b.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    return b;
+  }
+  let NOISE = null;
+  function noiseBuf(a) {
+    if (NOISE && NOISE.sampleRate === a.sampleRate) return NOISE;
+    const b = a.createBuffer(1, a.sampleRate, a.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    return (NOISE = b);
+  }
+  function env(a, t, peak, dur, dest) {
+    const g = a.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    g.connect(dest || out(a));
+    return g;
+  }
+  function bus() {
+    const a = ac(); if (!a) return null;
+    const g = a.createGain(); g.gain.value = 1; g.connect(out(a)); return g;
+  }
+  function killBus(g) {
+    if (!g || !AC) return;
+    try { g.gain.cancelScheduledValues(0); g.gain.setValueAtTime(0, AC.currentTime); g.disconnect(); } catch (e) {}
+  }
+  /* 가야금처럼 뜯는 소리: 줄을 튕길 때 살짝 높았다 내려오고, 긴 음은 농현처럼 떨린다 */
+  function pluck(f, at, dur, vol, dest, ctx) {
+    const a = ctx || ac(); if (!a) return;
+    const t = Math.max(at, a.currentTime);
+    const o = a.createOscillator(); o.type = 'sawtooth';
+    o.frequency.setValueAtTime(f * 1.015, t); o.frequency.exponentialRampToValueAtTime(f, t + 0.05);
+    const o2 = a.createOscillator(); o2.type = 'triangle'; o2.frequency.setValueAtTime(f, t);
+    const g2 = a.createGain(); g2.gain.value = 0.9;
+    const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 2;
+    lp.frequency.setValueAtTime(f * 7, t); lp.frequency.exponentialRampToValueAtTime(f * 1.6, t + dur + 0.2);
+    const g = a.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(vol * 0.35, t + Math.min(0.18, dur));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.35);
+    o.connect(lp); o2.connect(g2); g2.connect(lp); lp.connect(g); g.connect(dest || out(a));
+    if (dur > 0.4) {
+      const l = a.createOscillator(); l.frequency.value = 5.2;
+      const lg = a.createGain(); lg.gain.setValueAtTime(0, t + 0.12); lg.gain.linearRampToValueAtTime(f * 0.018, t + dur);
+      l.connect(lg); lg.connect(o.frequency); lg.connect(o2.frequency); l.start(t); l.stop(t + dur + 0.4);
+    }
+    o.start(t); o2.start(t); o.stop(t + dur + 0.4); o2.stop(t + dur + 0.4);
+  }
+  /* 구지가 가락: 경상도 전래동요에 많이 쓰는 메나리토리(미·솔·라·도·레)로 새로 지은 가락.
+     박수 한 번에 한 낱말을 말 리듬 그대로 싣는다(거·북 짧게, 아 길게). 줄 끝은 라, 노래 끝은 미로 맺는다. */
+  const HZ = { E4: 329.63, G4: 392.0, A4: 440.0, C5: 523.25, D5: 587.33, E5: 659.25 };
+  const SONG = [
+    { s: ['거', '북', '아'], n: ['A4', 'A4', 'C5'] },
+    { s: ['거', '북', '아'], n: ['A4', 'G4', 'E4'] },
+    { s: ['머', '리', '를'], n: ['C5', 'C5', 'D5'] },
+    { s: ['내', '어', '라'], n: ['C5', 'A4', 'A4'] },
+    { s: ['내', '어', '놓', '지'], n: ['E5', 'D5', 'C5', 'D5'] },
+    { s: ['않', '으', '면'], n: ['C5', 'A4', 'G4'] },
+    { s: ['구', '워', '서'], n: ['A4', 'A4', 'C5'] },
+    { s: ['먹', '으', '리'], n: ['A4', 'G4', 'E4'] }
+  ];
+  const offsets = w => w.s.length === 4 ? [0, 1 / 8, 1 / 4, 1 / 2] : [0, 1 / 4, 1 / 2];
+  /* 한 단어(한 박)의 가락을 at(초)부터 iv(초) 길이로 예약 */
+  function singWord(n, at, iv, dest, last, vol = 0.24, ctx) {
+    const w = SONG[n], off = offsets(w);
+    w.n.forEach((note, k) => {
+      const len = ((k + 1 < off.length ? off[k + 1] : 1) - off[k]) * iv;
+      const hold = k === off.length - 1 ? (n % 2 === 1 ? (last ? 2.6 : 1.6) : 1.1) : 1.2;
+      pluck(HZ[note], at + off[k] * iv, len * hold, vol, dest, ctx);
+    });
+  }
+  /* 전통 타악기: 가죽이 울리는 여러 배음과 채가 닿는 순간의 소리를 겹쳐 만든다 */
+  function mode(a, t, f, glide, amp, dec, dest, type) {
+    const o = a.createOscillator(); o.type = type || 'sine';
+    o.frequency.setValueAtTime(f * glide, t); o.frequency.exponentialRampToValueAtTime(f, t + 0.07);
+    const g = a.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(amp, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    o.connect(g); g.connect(dest); o.start(t); o.stop(t + dec + 0.05);
+  }
+  /* 세게 칠 때 소리가 살짝 눌려 꽉 차게 들리도록 하는 장치 */
+  let SOFT = null;
+  function soft(a) {
+    if (!SOFT) { SOFT = new Float32Array(1024); for (let i = 0; i < 1024; i++) { const x = i / 1023 * 2 - 1; SOFT[i] = Math.tanh(1.8 * x) / Math.tanh(1.8); } }
+    const w = a.createWaveShaper(); w.curve = SOFT; w.oversample = '2x'; return w;
+  }
+  function burst(a, t, dec, type, freq, q, amp, dest) {
+    const s = a.createBufferSource(); s.buffer = noiseBuf(a);
+    const f = a.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+    const g = a.createGain(); g.gain.setValueAtTime(amp, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    s.connect(f); f.connect(g); g.connect(dest); s.start(t, Math.random() * 0.5); s.stop(t + dec + 0.02);
+  }
+  /* 연구 자료를 바탕으로 각 악기 소리의 특징만 본떠 새로 합성한다(녹음 소리를 쓰지 않음).
+     장구 채편: 약 115·235·355·497·682·840Hz 배음, 250Hz 근처가 가장 큼, 여운이 짧음 / 궁편: 북처럼 아주 낮은 소리
+     꽹과리: 800Hz 위, 1,100Hz 근처가 가장 큼 */
+  const INST = {
+    janggu: { name: '장구', play(a, t, v, d, stroke = 'deong') {
+      // 덩 = 궁편(왼쪽, 궁굴채)과 채편(오른쪽, 대나무 열채)을 함께 / 덕 = 채편만 / 쿵 = 궁편만
+      d = d || out(a);
+      const boost = a.createGain(), sh = soft(a); boost.gain.value = 1.4; boost.connect(sh); sh.connect(d); d = boost;   // 크게 키우되 1을 넘지 않게 눌러 준다
+      const kung = stroke !== 'deok', deok = stroke !== 'kung';
+      if (kung) {
+        mode(a, t, 76, 1.25, 0.85 * v, 0.7, d);                   // 궁편 바탕음(북처럼 아주 낮음)
+        mode(a, t, 121, 1.18, 0.36 * v, 0.36, d);
+        mode(a, t, 163, 1.12, 0.18 * v, 0.24, d);
+        burst(a, t, 0.03, 'lowpass', 320, 0.7, 1.0 * v, d);        // 궁굴채가 가죽에 닿는 묵직한 '퉁'
+        mode(a, t, 420, 1, 0.09 * v, 0.07, d, 'triangle');          // 오동나무 울림통
+      }
+      if (deok) {
+        const td = kung ? t + 0.008 : t;
+        [[1, .32, .4], [2, .75, .36], [3.02, .45, .27], [4.23, .28, .2], [5.8, .16, .14], [7.1, .1, .1]].forEach(([r, m, dec]) =>
+          mode(a, td, 117 * r, 1.03, m * v, dec, d));               // 채편 배음(235Hz가 가장 큼)
+        burst(a, td, 0.01, 'highpass', 2000, 0.8, 1.2 * v, d);      // 대나무 열채의 '딱'
+        burst(a, td, 0.03, 'bandpass', 1350, 2, 0.65 * v, d);       // 팽팽한 채편의 '똑'
+        burst(a, td, 0.02, 'bandpass', 4800, 1.5, 0.35 * v, d);
+      }
+    } },
+    clap: { name: '박수', play(a, t, v, d) {   // 두 손바닥이 겹쳐 닿는 짧은 '짝' 여러 겹 + 짧은 울림
+      d = d || out(a);
+      [[0, .95], [0.009, .7], [0.019, .85]].forEach(([dt, m]) => burst(a, t + dt, 0.014, 'bandpass', 1150 + Math.random() * 150, 1.3, m * v, d));
+      burst(a, t, 0.007, 'highpass', 3200, 0.7, 0.35 * v, d);    // 손바닥이 마주칠 때의 '탁'
+      burst(a, t, 0.03, 'bandpass', 420, 1, 0.3 * v, d);         // 오목한 손바닥 울림
+      burst(a, t + 0.024, 0.13, 'bandpass', 1300, 0.9, 0.38 * v, d);  // 짧은 꼬리
+    } },
+    kkwaeng: { name: '꽹과리', play(a, t, v, d) {   // 1,100Hz 근처가 가장 크고 쇳소리가 길게 남음
+      d = d || out(a); v *= 1.5;
+      [[742, .1, .75], [1100, .16, .7], [1108, .12, .7], [1610, .08, .5], [2130, .09, .45], [2573, .07, .4], [3420, .04, .28]].forEach(([f, m, dec]) =>
+        mode(a, t, f, 1.004, m * v, dec, d));
+      burst(a, t, 0.025, 'highpass', 2500, 0.7, 0.7 * v, d);
+      burst(a, t, 0.22, 'bandpass', 5200, 2.5, 0.1 * v, d);
+    } }
+  };
+  const INST_SVG = { clap: '<img src="' + ART('clap') + '" alt="">', janggu: '<img src="' + ART('janggu') + '" alt="">', kkwaeng: '<img src="' + ART('kkwaeng') + '" alt="">' };
+  /* 미리 듣기용 장단: 줄 첫 박 '덩', 둘째 박 '덕', 그 뒤 반박에 '쿵' */
+  function beatAt(a, t, iv, n, v, dest) {
+    if (state.inst !== 'janggu') { INST[state.inst].play(a, t, v, dest); return; }
+    INST.janggu.play(a, t, v, dest, n % 2 === 0 ? 'deong' : 'deok');
+    if (n % 2 === 1 && n !== 7) INST.janggu.play(a, t + iv / 2, v * 0.7, dest, 'kung');
+  }
+  function drum(at, vol = 0.55, dest) {
+    const a = ac(); if (!a) return;
+    const t = Math.max(at ?? a.currentTime, a.currentTime);
+    const o = a.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(150, t);
+    o.frequency.exponentialRampToValueAtTime(46, t + 0.25);
+    o.connect(env(a, t, vol, 0.38, dest)); o.start(t); o.stop(t + 0.42);
+  }
+  function tok(at, f = 900, vol = 0.25, dest) {
+    const a = ac(); if (!a) return;
+    const t = Math.max(at ?? a.currentTime, a.currentTime);
+    const o = a.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(f, t);
+    o.connect(env(a, t, vol, 0.09, dest)); o.start(t); o.stop(t + 0.12);
+  }
+  function chime(notes = [523, 659, 784, 1047], gap = 0.11) {
+    const a = ac(); if (!a) return;
+    notes.forEach((f, i) => {
+      const t = a.currentTime + i * gap;
+      const o = a.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f, t);
+      o.connect(env(a, t, 0.22, 0.9)); o.start(t); o.stop(t + 1);
+    });
+  }
+  function puff(freq = 1400) {
+    const a = ac(); if (!a) return;
+    const len = Math.floor(a.sampleRate * 0.12);
+    const buf = a.createBuffer(1, len, a.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    const src = a.createBufferSource(); src.buffer = buf;
+    const f = a.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq;
+    src.connect(f); f.connect(env(a, a.currentTime, 0.5, 0.14)); src.start();
+  }
+  /* 귀여운 UI 소리: 뽁(버튼), 보잉(보자기), 똑(알 두드림), 짜잔(알 깨어남) — 모두 out() 컴프레서·잔향을 거친다 */
+  function pop(f = 620, vol = 0.18, at) {
+    const a = ac(); if (!a) return;
+    const t = Math.max(at ?? a.currentTime, a.currentTime);
+    const o = a.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 1.6, t + 0.06);
+    o.connect(env(a, t, vol, 0.1)); o.start(t); o.stop(t + 0.14);
+  }
+  function boing() {
+    const a = ac(); if (!a) return;
+    const t = a.currentTime;
+    const o = a.createOscillator(); o.type = 'triangle';
+    o.frequency.setValueAtTime(520, t); o.frequency.exponentialRampToValueAtTime(240, t + 0.09); o.frequency.exponentialRampToValueAtTime(330, t + 0.2);
+    o.connect(env(a, t, 0.2, 0.28)); o.start(t); o.stop(t + 0.32);
+  }
+  function knock(k = 1) {
+    const a = ac(); if (!a) return;
+    const t = a.currentTime, d = out(a);
+    burst(a, t, 0.035, 'bandpass', 1500 + k * 250, 1.2, 0.5, d);
+    const o = a.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(380 + k * 60, t); o.frequency.exponentialRampToValueAtTime(220, t + 0.08);
+    o.connect(env(a, t, 0.22, 0.12)); o.start(t); o.stop(t + 0.16);
+  }
+  function tada(first) {
+    const a = ac(); if (!a) return;
+    const notes = first ? [523, 659, 784, 1047, 1319] : [659, 784, 1047];
+    notes.forEach((f, i) => {
+      const t = a.currentTime + i * 0.085;
+      const o = a.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(f, t);
+      o.connect(env(a, t, 0.2, 0.7)); o.start(t); o.stop(t + 0.8);
+    });
+    pop(1800, 0.08, a.currentTime + notes.length * 0.085);
+  }
+  $('#soundBtn').addEventListener('click', () => {
+    state.sound = !state.sound;
+    const b = $('#soundBtn');
+    b.setAttribute('aria-pressed', String(state.sound));
+    b.textContent = state.sound ? '소리 켜짐' : '소리 꺼짐';
+    if (state.sound) pop(700); else { killBus(R.bus); R.bus = null; stopPreview(); }
+  });
+  document.addEventListener('pointerdown', () => { ac(); }, { passive: true });
+
+  /* ---------------- 무대 ---------------- */
+/* 레퍼런스(도무송 스티커) 그림체 규칙:
+   - 굵고 균일한 진갈색 외곽선, 모든 모양은 둥근 덩어리
+   - 얼굴: 작은 점 눈 2개(넓고 낮게), 진한 분홍 볼 + 빗금 2줄, 아주 작은 입(ω 또는 짧은 선)
+   - 머리가 전체의 55~60%, 몸은 작은 덩어리, 팔다리는 손 없는 짧은 막대
+  /* 마을(초가집·나무), 아이들, 거북(자는/노래하는 2장 크로스페이드), 달, 보자기, 금합 */
+  const KH = 84, KW = KH * 28 / 48; /* 수로왕 그림(king_adult.webp 28x48칸) 비율 */
+  $('#village').innerHTML = artImg('tree_round', 8, 133, 40, 43) + artImg('hut', 50, 135, 44, 35) + artImg('hut', 96, 138, 38, 30) + artImg('tree_pine', 136, 138, 30, 36) +
+    artImg('hut', 350, 138, 40, 32) + artImg('hut', 392, 131, 44, 35) + artImg('tree_round', 438, 129, 40, 43) + artImg('tree_pine', 470, 142, 28, 34);
+  const KIDS = [['kid_pink', 96, 238, 30], ['kid_blue', 128, 231, 33], ['kid_yellow', 160, 224, 31], ['kid_green', 352, 226, 35], ['kid_lavender', 382, 232, 30], ['kid_peach', 414, 238, 31]];
+  $('#people').innerHTML = KIDS.map(k => { const h = 34, w = h * k[3] / 40; return artImg(k[0], k[1] - w / 2, k[2] - h, w, h, ' class="fig"'); }).join('');
+  $('#turtle-slot').innerHTML = '<g id="turtle-in">' + artImg('turtle_sleep', -44.15, -90, 97.5, 90, ' id="t-sleep"') + artImg('turtle_sing', -44.9, -102.5, 100, 102.5, ' id="t-sing" style="opacity:0"') + '</g>';
+  $('#king-slot').innerHTML = artImg('king_adult', -KW / 2, -KH, KW, KH, ' id="king"');
+  $('#moon').innerHTML = '<circle r="40" fill="#FFF1B8" opacity=".18"/>' + artImg('moon', -36, -35, 72, 70);
+  $('#cloud1').innerHTML = artImg('cloud', -40, -28, 80, 55);
+  $('#cloud2').innerHTML = artImg('cloud', -48, -33, 96, 66);
+  $('#bundle').innerHTML = artImg('bundle', 215, 96, 50, 52);
+  $('#box').innerHTML = '<circle class="box-glow" cx="240" cy="118" r="42" fill="url(#gGlow)"/>' + artImg('goldbox', 214, 98, 52, 52);
+  (function stars() {
+    let s = 11;
+    const rnd = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+    let h = '';
+    for (let i = 0; i < 60; i++) {
+      const x = rnd() * 480, y = rnd() * 150, r = rnd() * 1.1 + 0.5, d = rnd() * 3.2;
+      if (Math.hypot(x - 396, y - 74) < 44) continue;
+      h += `<circle class="tw" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" style="animation-delay:${d.toFixed(2)}s"/>`;
+    }
+    $('#stars').innerHTML = h;
+  })();
+  function setScene(name) {
+    scene.dataset.scene = name;
+    scene.classList.toggle('opened', name === 'i5');
+    scene.classList.remove('dropped');
+  }
+  const setAwake = on => scene.classList.toggle('awake', on);
+  // 노래 중 게이지 비율로 반투명 겹침이 생기던 것을 → 절반을 넘는 순간 한 번에 바꾸고 '통' 튀는 동작
+  let headOn = null;
+  const setHead = p => { const sing = $('#t-sing'), sleep = $('#t-sleep'), inn = $('#turtle-in'); if (!sing) return; const on = p >= 0.5;
+    sing.style.opacity = on ? 1 : 0; sleep.style.opacity = on ? 0 : 1;
+    if (headOn !== null && headOn !== on && inn && inn.animate) inn.animate([{ transform: 'scale(1,1)' }, { transform: 'scale(1.08,.92)' }, { transform: 'scale(.96,1.05)' }, { transform: 'scale(1,1)' }], { duration: 420, easing: 'ease-out' });
+    headOn = on; };
+  function hop() {
+    const p = $('#people'); p.classList.add('hop');
+    const t = $('#turtle-in'); t.classList.add('thump');
+    setTimeout(() => { p.classList.remove('hop'); t.classList.remove('thump'); }, 130);
+  }
+
+  /* ---------------- 단계 이동 ---------------- */
+  const NAV = { title: 0, intro: 0, rhythm: 1, box: 2, eggs: 3, kit: 4 };
+  function go(step, opt = {}) {
+    if (state.step === 'rhythm') stopRhythm();
+    stopPreview();
+    state.step = step;
+    $$('.screen').forEach(s => { s.hidden = s.dataset.screen !== step; });
+    $('#stage').hidden = (step === 'eggs');
+    $('#stage').classList.toggle('compact', step === 'rhythm');
+    $('#stage').classList.toggle('kit', step === 'kit');
+    if (step !== 'intro') hush();
+    $$('.steps button').forEach((b, i) => {
+      if (i === NAV[step] && step !== 'title') b.setAttribute('aria-current', 'step');
+      else b.removeAttribute('aria-current');
+    });
+    if (step === 'title') { setScene('title'); setAwake(false); setHead(0); }
+    if (step === 'intro') { state.intro = opt.i || 0; renderIntro(); }
+    if (step === 'rhythm') { setScene('rhythm'); resetRhythm(); }
+    if (step === 'box') enterBox();
+    if (step === 'eggs') resetEggs();
+    if (step === 'kit') { setScene('i5'); setAwake(true); setHead(1); }
+    try { window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); } catch (e) {}
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-go]');
+    if (b) { ac(); pop(560, 0.14); go(b.dataset.go); }
+  });
+
+  /* ---------------- 읽어 주기 (의뢰인 2차: 인트로 이야기 음성) ---------------- */
+  let VOICE = null, narrOn = true, spkGen = 0;
+  function pickVoice() { try { const vs = speechSynthesis.getVoices().filter(v => /^ko/i.test(v.lang)); if (!vs.length) return;
+    const score = v => (/natural|online|neural|premium|enhanced/i.test(v.name) ? 4 : 0) + (/google|yuna|siri|sora|sunhi|injoon|heami/i.test(v.name) ? 2 : 0) + (v.localService ? 0 : 1);
+    vs.sort((a, b) => score(b) - score(a)); VOICE = vs[0]; } catch (e) {} }
+  try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+  function hush() { spkGen++; try { speechSynthesis.cancel(); } catch (e) {} }
+  /* 화면 글자는 그대로 두고, 소리로 읽을 때만 다듬는다: ‘구간’이 → 구간이 (따옴표 때문에 '구간 이'로 끊겨 읽히지 않게) */
+  function sayable(text) { return String(text).replace(/[‘’]/g, ''); }
+  function speak(text) { try {
+    if (!('speechSynthesis' in window)) return;
+    const gen = ++spkGen;
+    text = sayable(text);
+    const parts = String(text).replace(/([.!?。]["”’']?)\s+/g, '$1\n').split('\n').map(t => t.trim()).filter(Boolean);
+    const go = () => { if (gen !== spkGen) return;
+      parts.forEach(t => { const u = new SpeechSynthesisUtterance(t); u.lang = 'ko-KR'; u.rate = 0.8; u.pitch = 1.05; if (VOICE) u.voice = VOICE; speechSynthesis.speak(u); }); };
+    if (speechSynthesis.speaking || speechSynthesis.pending) { speechSynthesis.cancel(); setTimeout(go, 150); } else go();
+  } catch (e) {} }
+  $('#introRead').addEventListener('click', () => {
+    narrOn = !narrOn; $('#introRead').setAttribute('aria-pressed', String(narrOn));
+    if (narrOn) { const s = INTRO[state.intro]; speak(s.title + '. ' + s.text); } else hush();
+  });
+
+  /* ---------------- 1. 인트로 ---------------- */
+  const INTRO = [
+    { scene: 'i1', title: '임금이 없던 김해 땅', text: '약 2천 년 전, 지금의 김해 땅에는 아직 나라도 임금도 없었어요. 아홉 우두머리 ‘구간’이 사람들을 이끌며 살았지요.' },
+    { scene: 'i2', title: '구지봉의 목소리', text: '서기 42년 어느 봄날, 거북 머리를 닮은 봉우리 구지봉에서 모습 없는 목소리가 들려왔어요. “하늘이 내게 이곳에 나라를 세우고 임금이 되라 하였다. 봉우리 꼭대기의 흙을 파며 노래하고 춤을 추어라!”' },
+    { scene: 'i3', title: '다 함께 부른 구지가', text: '구간과 사람들 이삼백 명이 구지봉에 모여 흙을 파고, 발을 구르며 춤추고 노래했어요. 노래를 듣고 따라 불러 봐요!', song: true },
+    { scene: 'i4', title: '하늘에서 내려온 줄', text: '그러자 하늘에서 자줏빛 줄이 땅까지 내려왔어요. 줄 끝 붉은 보자기 속 금빛 상자에는 해처럼 둥근 황금알 여섯 개가 들어 있었어요.' },
+    { scene: 'i5', title: '가락국의 첫 임금', text: '사람들은 알을 아도간의 집에 모셔 두었어요. 다음 날 아침, 황금알 여섯 개가 사내아이로 변해 있었어요. 세상에 처음 나타났다는 뜻으로 이름을 수로라 했고, 수로는 가락국(금관가야)의 첫 임금이 되었어요. 나머지 다섯은 다섯 가야의 임금이 되었대요.' }
+  ];
+  const P = { bus: null, timers: [] };
+  /* 노래하는 목소리: 동요를 부르는 어린이처럼 맑은 소리로 가락 음높이를 그대로 따라 부른다.
+     부드러운 음원에 어린이 모음 울림(성인보다 높은 포먼트)을 입히고, 떨림은 긴 음에서만 살짝 준다 */
+  const VOW = { a: [1100, 1750, 3600], eo: [850, 1400, 3300], o: [600, 1050, 3300], u: [480, 1150, 3200], eu: [480, 1850, 3300], i: [420, 3200, 4000], e: [700, 2450, 3500], nasal: [330, 1400, 3000] };
+  const PHON = [
+    [['g', 'eo'], ['b', 'u'], ['', 'a']], [['g', 'eo'], ['b', 'u'], ['', 'a']],
+    [['m', 'eo'], ['r', 'i'], ['r', 'eu']], [['n', 'e'], ['', 'eo'], ['r', 'a']],
+    [['n', 'e'], ['', 'eo'], ['n', 'o'], ['j', 'i']], [['', 'a'], ['', 'eu'], ['m', 'eo']],
+    [['g', 'u'], ['w', 'eo'], ['s', 'eo']], [['m', 'eo'], ['', 'eu'], ['r', 'i']]
+  ];
+  function voice(a, t0, iv, dest, peak = 0.4) {
+    const end = t0 + 8 * iv + 1.2;
+    const amp = a.createGain(); amp.gain.setValueAtTime(0, 0); amp.connect(dest);
+    const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 220; hp.connect(amp);
+    const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200; lp.Q.value = 0.5; lp.connect(hp);
+    const src = a.createGain(); src.gain.value = 1;
+    const f0 = HZ[SONG[0].n[0]];
+    const tri = a.createOscillator(); tri.type = 'triangle';
+    const saw = a.createOscillator(); saw.type = 'sawtooth';
+    const sg = a.createGain(); sg.gain.value = 0.22;      // 거친 배음은 조금만 섞어 맑게
+    tri.connect(src); saw.connect(sg); sg.connect(src);
+    const oscs = [tri, saw]; oscs.forEach(o => { o.frequency.value = f0; });
+    const lfo = a.createOscillator(); lfo.frequency.value = 5.6;
+    const lfoG = a.createGain(); lfoG.gain.value = 0; lfo.connect(lfoG); oscs.forEach(o => lfoG.connect(o.detune));
+    const form = VOW.eo.map((f, i) => {
+      const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = f; bp.Q.value = [3.5, 6, 8][i];
+      const g = a.createGain(); g.gain.value = [1.5, 0.9, 0.3][i];
+      src.connect(bp); bp.connect(g); g.connect(lp); return bp;
+    });
+    const dry = a.createGain(); dry.gain.value = 0.18; src.connect(dry); dry.connect(lp);   // 또렷한 음높이
+    const vowel = (v, t, tc = 0.025) => form.forEach((bp, i) => bp.frequency.setTargetAtTime(VOW[v][i], t, tc));
+    for (let n = 0; n < 8; n++) {
+      const w = SONG[n], off = offsets(w);
+      w.n.forEach((note, k) => {
+        const ts = t0 + (n + off[k]) * iv;
+        const te = t0 + (n + (k + 1 < off.length ? off[k + 1] : 1)) * iv;
+        const [c, v] = PHON[n][k];
+        const f = HZ[note], longNote = k === off.length - 1;
+        oscs.forEach(o => { o.frequency.setTargetAtTime(f * 0.985, ts - 0.015, 0.006); o.frequency.setTargetAtTime(f, ts + 0.01, 0.025); });
+        lfoG.gain.setTargetAtTime(0, ts - 0.01, 0.02);
+        if (longNote) lfoG.gain.setTargetAtTime(9, ts + 0.18, 0.08);
+        if (c === 'm' || c === 'n') { vowel('nasal', ts - 0.03, 0.01); vowel(v, ts + 0.03); amp.gain.setTargetAtTime(peak * 0.55, ts - 0.03, 0.01); amp.gain.setTargetAtTime(peak, ts + 0.025, 0.02); }
+        else if (c === 's') { amp.gain.setTargetAtTime(peak * 0.15, ts - 0.06, 0.01); burst(a, ts - 0.055, 0.05, 'highpass', 6000, 0.7, 0.07, dest); vowel(v, ts - 0.01); amp.gain.setTargetAtTime(peak, ts + 0.005, 0.02); }
+        else if (c === 'g' || c === 'b' || c === 'j') { amp.gain.setTargetAtTime(peak * 0.2, ts - 0.03, 0.006); vowel(v, ts - 0.01); amp.gain.setTargetAtTime(peak, ts + 0.01, 0.018); }
+        else if (c === 'w') { form[1].frequency.setTargetAtTime(800, ts - 0.03, 0.01); vowel(v, ts + 0.04, 0.03); amp.gain.setTargetAtTime(peak, ts, 0.02); }
+        else if (c === 'r') { amp.gain.setTargetAtTime(peak * 0.5, ts - 0.02, 0.008); vowel(v, ts - 0.005); amp.gain.setTargetAtTime(peak, ts + 0.012, 0.015); }
+        else { amp.gain.setTargetAtTime(peak * 0.7, ts - 0.02, 0.01); vowel(v, ts - 0.01); amp.gain.setTargetAtTime(peak, ts + 0.01, 0.02); }
+        if (longNote && n % 2 === 1) amp.gain.setTargetAtTime(0.0001, n === 7 ? te + 0.45 : te - 0.1, n === 7 ? 0.12 : 0.025);   // 줄 끝에서 숨 쉬기
+      });
+    }
+    [...oscs, lfo].forEach(o => { o.start(Math.max(a.currentTime, t0 - 0.05)); o.stop(end); });
+  }
+  function stopPreview() {
+    killBus(P.bus); P.bus = null;
+    P.timers.forEach(clearTimeout); P.timers = [];
+    $$('#introSong span').forEach(x => x.classList.remove('on'));
+    const b = $('#songBtn'); if (b) b.textContent = '▶ 노래 들어보기';
+  }
+  function playPreview() {
+    if (P.bus) { stopPreview(); return; }
+    const a = ac();
+    if (!a) { $('#songBtn').textContent = '소리를 켜면 들을 수 있어요'; return; }
+    P.bus = bus();
+    const iv = 60 / 76, t0 = a.currentTime + 0.2, lines = $$('#introSong span');
+    voice(a, t0, iv, P.bus);
+    for (let n = 0; n < 8; n++) { singWord(n, t0 + n * iv, iv, P.bus, n === 7, 0.12); beatAt(a, t0 + n * iv, iv, n, 0.65, P.bus); }
+    lines.forEach((ln, i) => P.timers.push(setTimeout(() => {
+      lines.forEach(x => x.classList.remove('on')); ln.classList.add('on');
+    }, (0.2 + i * 2 * iv) * 1000)));
+    P.timers.push(setTimeout(stopPreview, (0.2 + 8 * iv + 1.2) * 1000));
+    $('#songBtn').textContent = '■ 멈추기';
+  }
+  $('#songBtn').addEventListener('click', () => { pop(700, 0.12); playPreview(); });
+  function renderIntro() {
+    stopPreview();
+    const s = INTRO[state.intro];
+    setScene(s.scene);
+    setAwake(state.intro >= 3);
+    setHead(state.intro >= 3 ? 1 : 0);
+    $('#introCount').textContent = `${state.intro + 1} / ${INTRO.length}`;
+    $('#introTitle').textContent = s.title;
+    $('#introText').textContent = s.text;
+    $('#introSong').hidden = !s.song;
+    $('#introPrev').disabled = state.intro === 0;
+    $('#introNext').textContent = state.intro === INTRO.length - 1 ? '이제 우리가 불러 볼까요? ›' : '다음 ›';
+    if (narrOn) speak(s.title + '. ' + s.text);
+  }
+  $('#introPrev').addEventListener('click', () => { if (state.intro > 0) { state.intro--; renderIntro(); pop(480, 0.12); } });
+  $('#introNext').addEventListener('click', () => {
+    if (state.intro < INTRO.length - 1) { state.intro++; renderIntro(); pop(660, 0.14); }
+    else go('rhythm');
+  });
+
+  /* ---------------- 2. 구지가 리듬 ---------------- */
+  const LYRICS = ['거북아', '거북아', '머리를', '내어라', '내어놓지', '않으면', '구워서', '먹으리'];
+  const COUNT = ['하나', '둘', '셋', '넷'];
+  const TEMPO_TXT = { 56: '느리게 불러줘', 76: '보통으로 불러줘', 126: '빠르게 불러줘' };
+  const TEMPO_NAME = { 56: '느리게', 76: '보통', 126: '빠르게' };
+  $('#lyrics').innerHTML = SONG.map((w, i) => `<div class="ly" data-n="${i}">${w.s.map(c => `<span class="sy">${c}</span>`).join('')}</div>`).join('');
+  const lyEls = $$('#lyrics .ly');
+  const R = { running: false, beats: [], iv: 0, raf: 0, gauge: 0, stats: { p: 0, g: 0, m: 0 }, bus: null };
+
+  function showTempo() {
+    if (!R.running) $('#round').textContent = `준비 · ${TEMPO_NAME[state.tempo]}`;
+    $$('#tempoChips .chip').forEach(c => c.setAttribute('aria-pressed', String(+c.dataset.tempo === state.tempo)));
+  }
+  $('#tempoChips').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c || R.running) return;
+    state.tempo = +c.dataset.tempo; showTempo(); pop(880, 0.14);
+  });
+  showTempo();
+
+  function setGauge(v) {
+    R.gauge = Math.max(0, Math.min(100, v));
+    $('#gaugeFill').style.width = R.gauge + '%';
+    $('#gaugeNum').textContent = Math.round(R.gauge) + '%';
+    $('#gauge').setAttribute('aria-valuenow', String(Math.round(R.gauge)));
+    setHead(R.gauge / 100);
+  }
+  function fb(text, cls) {
+    const el = $('#fb');
+    el.className = 'fb ' + (cls || '');
+    el.textContent = text;
+    void el.offsetWidth; el.classList.add('pop');
+  }
+  function clearLy() { lyEls.forEach(l => { l.classList.remove('now', 'p', 'g', 'm'); l.querySelectorAll('.sy').forEach(x => x.classList.remove('on')); }); }
+  function stopRhythm() { R.running = false; cancelAnimationFrame(R.raf); killBus(R.bus); R.bus = null; }
+  function resetRhythm() {
+    stopRhythm();
+    R.stats = { p: 0, g: 0, m: 0 };
+    setGauge(0); setAwake(false); clearLy();
+    $('#round').textContent = `준비 · ${TEMPO_NAME[state.tempo]}`;
+    fb(''); $('#rResult').hidden = true;
+    $('#rStart').disabled = false; $('#rStart').textContent = '노래 시작';
+    $$('#tempoChips .chip').forEach(c => { c.disabled = false; });
+  }
+  function startRhythm() {
+    resetRhythm();
+    const a = ac();
+    const iv = 60000 / state.tempo; R.iv = iv;
+    /* 소리가 실제로 스피커에서 나오기까지의 지연(블루투스면 200ms 넘기도 함)만큼 화면 신호·판정을 늦춰, 들리는 박자와 맞춘다 */
+    R.lat = a ? Math.min(400, Math.max(0, ((a.outputLatency || 0) + (a.baseLatency || 0)) * 1000)) : 0;
+    const now = performance.now();
+    const t0 = now + 700;
+    R.beats = [];
+    for (let i = 0; i < 4; i++) R.beats.push({ t: t0 + i * iv, kind: 'count', n: i });
+    for (let r = 0; r < 2; r++) for (let i = 0; i < 8; i++) {
+      const t = t0 + (4 + r * 8 + i) * iv;
+      R.beats.push({ t, kind: 'hit', n: i, round: r, sy: offsets(SONG[i]).map(o => ({ t: t + o * iv })) });
+    }
+    if (a) {
+      R.bus = bus();
+      const off = a.currentTime - now / 1000;
+      R.beats.forEach(b => {
+        const at = b.t / 1000 + off;
+        if (b.kind === 'count') tok(at, b.n === 0 ? 1320 : 990, 0.2, R.bus);
+        else { drum(at, 0.12, R.bus); singWord(b.n, at, iv / 1000, R.bus, b.round === 1 && b.n === 7); }
+      });
+    }
+    R.running = true;
+    $('#rStart').disabled = true;
+    $$('#tempoChips .chip').forEach(c => { c.disabled = true; });
+    $('#round').textContent = '준비해요';
+    const da = $('.drum-area').getBoundingClientRect();
+    if (da.bottom > window.innerHeight || da.top < 0) $('.drum-area').scrollIntoView({ block: 'end', behavior: RM ? 'auto' : 'smooth' });
+    R.raf = requestAnimationFrame(loop);
+  }
+  function ring(dur) {
+    const r = $('#ring');
+    if (RM || !r.animate) return;
+    r.animate([{ transform: 'scale(1.9)', opacity: 0.1, offset: 0 }, { transform: 'scale(1)', opacity: 0.95, offset: dur / (dur + 120) }, { transform: 'scale(.98)', opacity: 0, offset: 1 }],
+      { duration: dur + 120, easing: 'linear', fill: 'forwards' });
+  }
+  function onBeat(b) {
+    if (b.kind === 'count') { fb(COUNT[b.n], 'c'); return; }
+    if (b.n === 0) { clearLy(); $('#round').textContent = (b.round === 0 ? '1절' : '2절 (마지막)') + ` · ${TEMPO_NAME[state.tempo]}`; }
+    lyEls.forEach(l => l.classList.remove('now'));
+    lyEls[b.n].classList.add('now');
+    hop();
+  }
+  function judge(b, k) {
+    b.judged = k;
+    lyEls[b.n].classList.add(k);
+    R.stats[k]++;
+    setGauge(R.gauge + ({ p: 7, g: 5, m: 1 })[k]);
+    if (k === 'p') fb('딱 맞아요!', 'p');
+    else if (k === 'g') fb('좋아요!', 'g');
+    else fb('놓쳤어요', 'm');
+  }
+  function loop() {
+    if (!R.running) return;
+    const now = performance.now();
+    for (const b of R.beats) {
+      const bt = b.t + R.lat;
+      if (!b.shown && now >= bt - 25) { b.shown = true; onBeat(b); }
+      if (b.kind === 'hit') {
+        b.sy.forEach((y, k) => { if (!y.on && now >= y.t + R.lat - 15) { y.on = true; lyEls[b.n].querySelectorAll('.sy')[k].classList.add('on'); } });
+        if (!b.ringed && now >= bt - R.iv) { b.ringed = true; ring(R.iv); }
+        if (!b.judged && now > bt + 240) judge(b, 'm');
+      }
+    }
+    const last = R.beats[R.beats.length - 1];
+    if (now > last.t + R.lat + Math.max(420, R.iv)) { finishRhythm(); return; }
+    R.raf = requestAnimationFrame(loop);
+  }
+  function hitDrum() {
+    const d = $('#drum'); d.classList.add('hit'); setTimeout(() => d.classList.remove('hit'), 90);
+    if (!R.running) { playInst('deong'); return; }
+    const now = performance.now();
+    let best = null, bd = Infinity;
+    for (const b of R.beats) {
+      if (b.kind !== 'hit' || b.judged) continue;
+      const diff = now - (b.t + R.lat);
+      if (Math.abs(diff) < Math.abs(bd)) { bd = diff; best = b; }
+    }
+    playInst(best && best.n % 2 === 1 ? 'deok' : 'deong');
+    if (!best) return;
+    /* 아이들은 신호를 보고·듣고 나서 치므로 늦는 쪽을 더 넉넉히 봐준다 */
+    const ad = Math.abs(bd);
+    if (ad <= 110) judge(best, 'p');
+    else if (ad <= 240) judge(best, 'g');
+    else if (ad <= 420) fb(bd < 0 ? '조금 빨라요' : '조금 느려요', 'm');
+  }
+  function finishRhythm() {
+    R.running = false;
+    const { p, g, m } = R.stats;
+    setGauge(100); setAwake(true); chime();
+    lyEls.forEach(l => l.classList.remove('now'));
+    $('#round').textContent = '노래 끝!';
+    fb('거북이 깼어요!', 'p');
+    const ok = p + g;
+    $('#rMsg').textContent = ok >= 12 ? '박자를 아주 잘 맞췄어요. 거북이가 머리를 쑥 내밀었어요!'
+      : ok >= 6 ? '우리 노래가 구지봉에 닿았어요. 거북이가 머리를 쑥 내밀었어요!'
+      : '거북이가 우리 목소리를 듣고 깨어났어요! 한 번 더 부르면 더 잘 맞출 수 있어요.';
+    $('#rStats').textContent = `딱 맞음 ${p} · 좋아요 ${g} · 놓침 ${m}`;
+    $('#rResult').hidden = false;
+    try { $('#rResult').scrollIntoView({ block: 'nearest', behavior: RM ? 'auto' : 'smooth' }); } catch (e) {}
+    $('#rStart').disabled = false; $('#rStart').textContent = '다시 부르기';
+    $$('#tempoChips .chip').forEach(c => { c.disabled = false; });
+  }
+  function playInst(stroke) { const a = ac(); if (a) INST[state.inst].play(a, a.currentTime, 1, undefined, stroke); }
+  function renderInst() {
+    $('#drum').innerHTML = INST_SVG[state.inst];
+    $('#drum').setAttribute('aria-label', `${INST[state.inst].name} 치기`);
+    $$('#instPick button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.inst === state.inst)));
+  }
+  $('#instPick').addEventListener('click', e => {
+    const b = e.target.closest('button[data-inst]'); if (!b) return;
+    state.inst = b.dataset.inst; renderInst(); playInst();
+  });
+  renderInst();
+  $('#rStart').addEventListener('click', startRhythm);
+  $('#rAgain').addEventListener('click', startRhythm);
+  $('#drum').addEventListener('pointerdown', e => { e.preventDefault(); hitDrum(); });
+  $('#drum').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); hitDrum(); } });
+  document.addEventListener('keydown', e => {
+    if (state.step !== 'rhythm' || e.repeat) return;
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (!R.running && e.target && e.target.closest && e.target.closest('button') && e.target.id !== 'drum') return;
+    if (e.code === 'Space' || e.key === 'f' || e.key === 'j') { e.preventDefault(); hitDrum(); }
+  });
+
+  /* ---------------- 3. 금합 ---------------- */
+  let boxTaps = 0;
+  function enterBox() {
+    setScene('box'); setAwake(true); setHead(1);
+    boxTaps = 0; updBox();
+    $('#boxNext').hidden = true; $('#boxTap').hidden = false;
+    $('#boxMsg').textContent = '하늘이 열렸어요! 자줏빛 줄 끝에 붉은 보자기가 매달려 내려와요. 보자기를 세 번 톡톡 눌러 풀어 보세요.';
+    requestAnimationFrame(() => requestAnimationFrame(() => scene.classList.add('dropped')));
+    chime([392, 523, 659], 0.16);
+  }
+  function updBox() { $('#boxTap').textContent = `보자기 톡! (${boxTaps}/3)`; $('#boxTap').disabled = false; }
+  function tapBundle() {
+    if (state.step !== 'box' || scene.classList.contains('opened')) return;
+    boxTaps++; boing(); puff(900 + boxTaps * 300);
+    const bd = $('#bundle');
+    if (bd.animate && !RM) bd.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-9deg)' }, { transform: 'rotate(9deg)' }, { transform: 'rotate(0)' }], { duration: 360 });
+    updBox();
+    if (boxTaps >= 3) {
+      scene.classList.add('opened');
+      chime([523, 659, 784, 1047, 1319], 0.1);
+      $('#boxMsg').textContent = '보자기가 풀리고 금빛 상자, 금합이 열렸어요. 해처럼 둥근 황금알 여섯 개가 반짝여요!';
+      $('#boxTap').hidden = true; $('#boxNext').hidden = false; $('#boxNext').focus({ preventScroll: true });
+    }
+  }
+  $('#boxTap').addEventListener('click', tapBundle);
+  $('#bundle').addEventListener('click', tapBundle);
+
+  /* ---------------- 4. 황금알 ---------------- */
+  /* 왕 그림 6점은 의뢰인 제공 이미지(2026-10-21)를 격자 그대로 잘라 사용. 카드 색도 그 이미지의 값 */
+  const KINGS = [
+    { top: '수로', sub: '금관가야 · 지금의 김해', img: 'king_1', bg: '#FFE9A8' },
+    { top: '아라가야 임금', sub: '지금의 함안', img: 'king_2', bg: '#FBD3CC' },
+    { top: '대가야 임금', sub: '지금의 고령', img: 'king_3', bg: '#DDEFD9' },
+    { top: '소가야 임금', sub: '지금의 고성', img: 'king_4', bg: '#D8E7F5' },
+    { top: '성산가야 임금', sub: '지금의 성주', img: 'king_5', bg: '#FFF2C2' },
+    { top: '고령가야 임금', sub: '지금의 상주 함창', img: 'king_6', bg: '#FDE1CC' }
+  ];
+  const EGG_SVG = `<span class="eggpic"><img class="egg-whole" src="${ART('egg')}" alt=""><svg class="cracks" viewBox="0 0 100 120" aria-hidden="true" focusable="false">
+    <path class="crack c1" d="M50 14 L45 28 L53 36 L47 49"/>
+    <path class="crack c2" d="M18 60 L31 62 L27 72 L40 78"/>
+    <path class="crack c3" d="M82 56 L69 64 L75 74 L62 83"/></svg><img class="egg-open" alt=""></span><span class="egg-label"></span>`;
+  const E = { hits: [], order: [] };
+  function resetEggs() {
+    E.hits = [0, 0, 0, 0, 0, 0]; E.order = [];
+    $('#eggs').innerHTML = E.hits.map((_, i) => `<button class="egg" type="button" data-i="${i}" aria-label="황금알 ${i + 1}번, 눌러서 깨우기">${EGG_SVG}</button>`).join('');
+    $('#eggMsg').textContent = '알을 네 번씩 톡톡 두드려요. 가장 먼저 깨어나는 아이가 수로예요!';
+    $('#eggCount').textContent = '0 / 6';
+    $('#eggNext').hidden = true;
+  }
+  $('#eggs').addEventListener('click', e => {
+    const b = e.target.closest('.egg'); if (!b) return;
+    const i = +b.dataset.i;
+    if (b.classList.contains('hatched')) return;
+    E.hits[i]++;
+    const k = E.hits[i];
+    b.classList.remove('k1', 'k2', 'k3');
+    const svg = b.querySelector('.eggpic');
+    if (k < 4) {
+      b.classList.add('k' + k);
+      knock(k); if (k === 3) puff(2600);
+      if (svg.animate && !RM) svg.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-6deg)' }, { transform: 'rotate(6deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+      return;
+    }
+    const n = E.order.length; E.order.push(i);
+    const king = KINGS[n];
+    b.classList.add('hatched'); if (n === 0) b.classList.add('first');
+    if (svg.animate && !RM) svg.animate([{ transform: 'scale(.7)' }, { transform: 'scale(1.12)', offset: .6 }, { transform: 'scale(1)' }], { duration: 420, easing: 'ease-out' });
+    const ko = b.querySelector('.egg-open'); ko.src = ART(king.img); ko.alt = king.top;
+    b.style.background = king.bg; b.style.borderColor = king.bg;
+    b.querySelector('.egg-label').innerHTML = `<b>${king.top}</b>${king.sub}`;
+    b.setAttribute('aria-label', `${king.top}, ${king.sub}`);
+    tada(n === 0);
+    $('#eggCount').textContent = `${E.order.length} / 6`;
+    if (n === 0) $('#eggMsg').textContent = '가장 먼저 깨어난 아이는 수로! 가락국(금관가야)의 첫 임금이 되었어요.';
+    else if (E.order.length < 6) $('#eggMsg').textContent = `${king.top}이 태어났어요. 남은 알도 깨워 볼까요?`;
+    else {
+      $('#eggMsg').textContent = '황금알에서 태어난 여섯 왕! 같은 날 태어난 여섯 형제, 저마다 다른 나라의 왕이 되었어요.';
+      $('#eggNext').hidden = false;
+      try { $('#eggNext').scrollIntoView({ block: 'nearest', behavior: RM ? 'auto' : 'smooth' }); } catch (e) {}
+    }
+  });
+  $('#eggReset').addEventListener('click', () => { pop(500, 0.12); resetEggs(); });
+
+  /* ---------------- 키트 링크 ---------------- */
+  const KIT_URL = KIKI.KIT_URL; // 키키아트랩 전등 만들기 키트 주소를 여기에 넣으면 버튼이 열려요
+  (function kit() {
+    const a = $('#kitLink');
+    if (/^https?:\/\//.test(KIT_URL)) { a.href = KIT_URL; }
+    else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); $('#kitNote').hidden = false; }
+  })();
+
+  /* ---------------- 시작 ---------------- */
+  function boot(data) {
+    go(data && data.step && NAV[data.step] !== undefined ? data.step : 'title');
+  }
+  boot({});
+})();
+</script>
+<script>const LOGO_SEL = '.logo-badge';</script>
+<script>
+/* 공통: 로고를 인스타그램 링크로, 푸터에 인스타 링크 추가 */
+(function(){
+  const ig = /^https?:\/\//.test(KIKI.INSTAGRAM_URL) ? KIKI.INSTAGRAM_URL : '';
+  const wrap = el => { if(!ig || el.closest('a')) return; const a=document.createElement('a'); a.href=ig; a.target='_blank'; a.rel='noopener'; a.className='ig-wrap'; a.setAttribute('aria-label', KIKI.BRAND+' 인스타그램'); el.replaceWith(a); a.appendChild(el); };
+  document.querySelectorAll(LOGO_SEL).forEach(wrap);
+  const foot = document.querySelector('footer.foot');
+  if (foot) {
+    const p = document.createElement('p'); p.className = 'ig-line';
+    const logo = document.querySelector(LOGO_SEL + ' img, ' + LOGO_SEL);
+    const src = logo && logo.tagName === 'IMG' ? logo.src : (logo && logo.querySelector('img') ? logo.querySelector('img').src : '');
+    const handle = ig ? '@' + ig.replace(/\/+$/,'').split('/').pop() : '';
+    p.innerHTML = (src && !foot.querySelector('img') ? '<img src="' + src + '" alt="" class="ig-logo">' : '') +
+      (ig ? '<a href="' + ig + '" target="_blank" rel="noopener">인스타그램 ' + handle + ' ↗</a>' : '<span>인스타그램 링크는 곧 연결돼요</span>');
+    foot.insertBefore(p, foot.firstElementChild);
+  }
+})();
+</script>
+<style>
+.ig-wrap{display:inline-flex;text-decoration:none;color:inherit;border-radius:12px}
+.ig-wrap:focus-visible{outline:3px solid #F08A24;outline-offset:2px}
+.ig-line{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 6px;font-size:14px}
+.ig-line .ig-logo{height:28px;width:auto;border-radius:6px;background:#fff;padding:2px 4px}
+.ig-line a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+</style>
 </body>
 </html>
